@@ -44,6 +44,7 @@ import breezyweather.domain.weather.wrappers.WeatherWrapper
 import org.breezyweather.common.extensions.getFormattedDate
 import org.breezyweather.common.extensions.median
 import org.breezyweather.common.extensions.toCalendarWithTimeZone
+import org.breezyweather.common.extensions.toDate
 import org.breezyweather.common.extensions.toDateNoHour
 import org.breezyweather.theme.weatherView.WeatherViewController
 import org.shredzone.commons.suncalc.MoonIllumination
@@ -500,16 +501,24 @@ private fun computeApparentTemperature(temperature: Double?, relativeHumidity: D
 /**
  * Compute wind chill from temperature and wind speed
  * Uses Environment Canada methodology
- * Only valid for temperatures at or below 10 °C and wind speeds above 4.8 km/h
+ * Source: https://climate.weather.gc.ca/glossary_e.html#w
+ * Only valid for (T ≤ 0°C) or (T ≤ 10°C and WS ≥ 5km/h)
  * TODO: Unit test
  *
  * @param temperature in °C
- * @param windSpeed in km/h
+ * @param windSpeed in m/s
  */
 private fun computeWindChillTemperature(temperature: Double?, windSpeed: Double?): Double? {
-    if (temperature == null || windSpeed == null || temperature > 10 || windSpeed <= 4.8) return null
+    if (temperature == null || windSpeed == null || temperature > 10) return null
+    val windSpeedKph = windSpeed * 3.6
 
-    return (13.12 + (0.6215 * temperature) - (11.37 * windSpeed.pow(0.16)) + (0.3965 * temperature * windSpeed.pow(0.16)))
+    return if (windSpeedKph >= 5.0) {
+        (13.12 + (0.6215 * temperature) - (11.37 * windSpeedKph.pow(0.16)) + (0.3965 * temperature * windSpeedKph.pow(0.16)))
+    } else if (temperature <= 0.0) {
+        temperature + ((-1.59 + 0.1345 * temperature) / 5.0) * windSpeedKph
+    } else {
+        null
+    }
 }
 
 /**
@@ -538,7 +547,7 @@ private fun computeWetBulbTemperature(temperature: Double?, relativeHumidity: Do
  * Completes daily data from hourly data:
  * - HalfDay (day and night)
  * - Degree day
- * - Sunrise/set
+ * - Sunrise/set (recomputes it if data is inconsistent)
  * - Air quality
  * - Pollen
  * - UV
@@ -575,7 +584,16 @@ fun completeDailyListFromHourlyList(
          * So we recalculate even in that case, and if it’s always up, we set up fake dates for
          * the whole 24-hour period to avoid having nighttime all the time
          */
-        val newSun = if (daily.sun?.isValid == true) daily.sun!! else {
+        val nextDayAtMidnight = (daily.date.time + 1.days.inWholeMilliseconds).toDate()
+        val newSun = if (daily.sun?.isValid == true) {
+            // We check that the sunrise is indeed between 00:00 and 23:59 that day
+            // (many sources unfortunately return next day!)
+            if (daily.sun!!.riseDate!! in daily.date..<nextDayAtMidnight) {
+                daily.sun!!
+            } else {
+                getCalculatedAstroSun(daily.date, location.longitude, location.latitude)
+            }
+        } else {
             getCalculatedAstroSun(daily.date, location.longitude, location.latitude)
         }
 
@@ -589,7 +607,15 @@ fun completeDailyListFromHourlyList(
                 )
             } else daily.degreeDay,
             sun = newSun,
-            moon = if (daily.moon?.isValid == true) daily.moon else {
+            moon = if (daily.moon?.isValid == true) {
+                // We check that the moonrise is indeed between 00:00 and 23:59 that day
+                // (many sources unfortunately return next day!)
+                if (daily.moon!!.riseDate!! in daily.date..<nextDayAtMidnight) {
+                    daily.moon
+                } else {
+                    getCalculatedAstroMoon(daily.date, location.longitude, location.latitude)
+                }
+            } else {
                 getCalculatedAstroMoon(daily.date, location.longitude, location.latitude)
             },
             moonPhase = if (daily.moonPhase?.angle != null) daily.moonPhase else {

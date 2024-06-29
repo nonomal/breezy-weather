@@ -63,6 +63,7 @@ enum class LocationPreset(
     CHINA("china"),
     HONG_KONG("openmeteo", alert = "wmosevereweather", normals = "accu"),
     ISRAEL("ims", airQuality = "openmeteo", pollen = "openmeteo", minutely = "openmeteo");
+    // Don’t add cwa for TAIWAN as it is a rate-limited source
 
     companion object {
         fun getLocationPreset(countryCode: String?): LocationPreset {

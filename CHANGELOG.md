@@ -1,17 +1,29 @@
-# Version 5.2.5 (not yet released)
+# Version 5.2.5 (2024-06-27)
 
 **Improvements and fixes**
 - Add apparent temperature computing when missing (@chunshek). Will generally improve feels like temperature, as it avoids fallback to the -less useful- wet bulb temperature.
+- Improve wind chill computing (@chunshek).
 - Fix wrong category for UV when between two categories in some cases
 - Add one more decimal precision to the following pressure units: inHg, atm, kgf/cm²
 - Fix a day shift on some sources when adding a location from a different timezone that is already “tomorrow”
+- Fix hourly feels like not working in some cases
+- Fix “Edit location” dialog theme (@min7-i)
+- Fix day/night theme not respecting sunset/sunrise in alerts and pollen pages (@min7-i)
+- Recompute sun and moon data when sources return data from the wrong day (fixes some places being always “nighttime”)
 
 **Sources**
+- [CWA] Added as available experimental main source in Taiwan (@chunshek)
+- [CWA] Added as available experimental secondary source in Taiwan for air quality, alerts and normals (@chunshek)
+- [NWS] Fix parsing issues when probability of thunder contains decimals
+- [Météo-France] Fix not showing as a suggested normals secondary source when not using Météo-France as main source
 - [ECCC] Fix refreshing issues in locations observing midnight sun
+- [China] Fix hourly forecast being shifted by one hour (@JiunnTarn)
+- [Open-Meteo] Disable ability to select more than one model at a time which would result in a failure to refresh
 
 **Translations**
 - Translations updated
 - Hebrew translation added and completed (@nvurgaft, Doge)
+- Initial translation for Galician added (@adrianhermida)
 
 
 # Version 5.2.4 (2024-06-01)

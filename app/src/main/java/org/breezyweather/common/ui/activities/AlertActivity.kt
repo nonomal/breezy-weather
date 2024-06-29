@@ -116,7 +116,6 @@ class AlertActivity : GeoActivity() {
     @Composable
     private fun ContentView() {
         val formattedId = intent.getStringExtra(KEY_FORMATTED_ID)
-        val alertList = remember { mutableStateOf(emptyList<Alert>()) }
         val location = remember { mutableStateOf<Location?>(null) }
         val listState = rememberLazyListState()
         val context = LocalContext.current
@@ -133,25 +132,36 @@ class AlertActivity : GeoActivity() {
                 finish()
                 return@LaunchedEffect
             }
-            location.value = locationC
 
-            val alerts = weatherRepository.getAlertListByLocationId(locationC.formattedId)
-            alertList.value = alerts
+            // Daily weather data is needed to check if the sun is still up or if it has set when
+            // day/night mode per location is enabled.
+            val weather = weatherRepository.getWeatherByLocationId(
+                locationC.formattedId,
+                withDaily = true,
+                withHourly = false,
+                withMinutely = false,
+                withAlerts = true
+            )
 
-            if (alerts.isNotEmpty()) {
-                val alertId = intent.getStringExtra(KEY_ALERT_ID)
-                if (!alertId.isNullOrEmpty()) {
-                    val alertIndex = alerts.indexOfFirst { it.alertId == alertId }
-                    if (alertIndex != -1) {
-                        listState.scrollToItem(alertIndex)
+            location.value = locationC.copy(weather = weather)
+
+            weather?.alertList?.let { alerts ->
+                if (alerts.isNotEmpty()) {
+                    val alertId = intent.getStringExtra(KEY_ALERT_ID)
+                    if (!alertId.isNullOrEmpty()) {
+                        val alertIndex = alerts.indexOfFirst { it.alertId == alertId }
+                        if (alertIndex != -1) {
+                            listState.scrollToItem(alertIndex)
+                        } else {
+                            listState.scrollToItem(0)
+                        }
                     } else {
                         listState.scrollToItem(0)
                     }
-                } else {
-                    listState.scrollToItem(0)
                 }
             }
         }
+
         val scrollBehavior = generateCollapsedScrollBehavior()
 
         val isLightTheme = MainThemeColorProvider.isLightTheme(context, location.value)
@@ -184,7 +194,7 @@ class AlertActivity : GeoActivity() {
                     contentPadding = it,
                     state = listState
                 ) {
-                    items(alertList.value) { alert ->
+                    items(location.value?.weather?.alertList ?: emptyList()) { alert ->
                         Material3CardListItem {
                             Column(
                                 modifier = Modifier
