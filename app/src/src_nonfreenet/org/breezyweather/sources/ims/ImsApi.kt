@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,12 +26,12 @@ interface ImsApi {
 
     @GET("{lang}/locations_info")
     fun getLocations(
-        @Path("lang") lang: String // Allowed values: "en", "he" or "ar"
+        @Path("lang") lang: String, // Allowed values: "en", "he" or "ar"
     ): Observable<ImsLocationResult>
 
     @GET("{lang}/city_portal/{locationId}")
     fun getWeather(
         @Path("lang") lang: String, // Allowed values: "en", "he" or "ar"
-        @Path("locationId") locationId: String
+        @Path("locationId") locationId: String,
     ): Observable<ImsWeatherResult>
 }

@@ -1,11 +1,12 @@
+import com.android.build.api.dsl.LibraryExtension
+
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id("breezy.library")
     kotlin("plugin.serialization")
     id("app.cash.sqldelight")
 }
 
-android {
+configure<LibraryExtension> {
     namespace = "breezyweather.data"
 
     defaultConfig {
@@ -25,6 +26,7 @@ android {
 
 dependencies {
     implementation(projects.domain)
+    implementation(projects.weatherUnit)
 
     api(libs.bundles.sqldelight)
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -34,5 +34,5 @@ data class EcccObservation(
 
     val windSpeed: EcccUnit?,
     val windGust: EcccUnit?,
-    val windBearing: String?
+    val windBearing: String?,
 )

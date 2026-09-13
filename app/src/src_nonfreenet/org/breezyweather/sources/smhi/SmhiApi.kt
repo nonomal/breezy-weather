@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,9 +22,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface SmhiApi {
-    @GET("category/pmp3g/version/2/geotype/point/lon/{lon}/lat/{lat}/data.json")
+    @GET("category/snow1g/version/1/geotype/point/lon/{lon}/lat/{lat}/data.json")
     fun getForecast(
         @Path("lon") lon: Double,
-        @Path("lat") lat: Double
+        @Path("lat") lat: Double,
     ): Observable<SmhiForecastResult>
 }

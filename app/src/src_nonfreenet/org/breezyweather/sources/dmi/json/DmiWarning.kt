@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -27,5 +27,5 @@ data class DmiWarning(
     val warningTitle: String?,
     val warningText: String?,
     val additionalText: String?,
-    val formattedCategory: Int? // Severity
+    val formattedCategory: Int?, // Severity
 )

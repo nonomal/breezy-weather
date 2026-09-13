@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,6 +26,7 @@ data class IpSbLocationResult(
     val timezone: String?,
     val city: String?,
     val region: String?,
+    @SerialName("region_code") val regionCode: String?,
     val country: String?,
     @SerialName("country_code") val countryCode: String?,
 )

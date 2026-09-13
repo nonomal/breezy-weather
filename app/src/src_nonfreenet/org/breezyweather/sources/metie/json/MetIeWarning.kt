@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -29,5 +29,5 @@ data class MetIeWarning(
     @Serializable(DateSerializer::class) val expiry: Date?,
     val headline: String?,
     val description: String?,
-    val regions: List<String>
+    val regions: List<String>,
 )

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -21,5 +21,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NwsPointLocationProperties(
     val city: String?,
-    val state: String?
+    val state: String?,
+    val stationIdentifier: String?,
 )

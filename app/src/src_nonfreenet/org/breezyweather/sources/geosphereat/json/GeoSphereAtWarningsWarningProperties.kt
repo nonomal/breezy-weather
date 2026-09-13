@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,5 +26,5 @@ data class GeoSphereAtWarningsWarningProperties(
     @SerialName("auswirkungen") val consequences: String?,
     @SerialName("empfehlungen") val instructions: String?,
     val meteotext: String?,
-    val rawInfo: GeoSphereAtWarningsWarningPropertiesRawInfo?
+    val rawinfo: GeoSphereAtWarningsWarningPropertiesRawInfo?,
 )

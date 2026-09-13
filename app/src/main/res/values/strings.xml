@@ -3,17 +3,28 @@
     <!-- App -->
     <string name="app_name">Weather</string>
     <string name="breezy_weather" translatable="false">Breezy Weather</string>
-    <!-- Card names -->
+    <string name="forecast">Forecast</string>
     <string name="daily_forecast">Daily forecast</string>
     <string name="hourly_forecast">Hourly forecast</string>
+    <string name="current_weather">Current weather</string>
     <!-- Nowcasting is a FORECAST of the next 2-3 hours, also called "immediate forecast" -->
     <string name="precipitation_nowcasting">Precipitation nowcasting</string>
     <string name="air_quality">Air quality</string>
+    <!-- About 12 characters max -->
+    <string name="air_quality_short">Air quality</string>
     <!-- We use it singular in English as in “Grass pollen” -->
     <string name="pollen">Pollen</string>
-    <string name="pollen_and_mold">Pollen &amp; mold</string>
     <string name="ephemeris">Sun &amp; moon</string>
-    <string name="details">Details</string>
+    <string name="ephemeris_sun">Sun</string>
+    <string name="ephemeris_moon">Moon</string>
+    <string name="ephemeris_about">About rise and set times</string>
+    <string name="ephemeris_about_rise">The rise time is when the sun or moon fully appears above the horizon.</string>
+    <string name="ephemeris_about_set">The set time is when the sun or moon completely disappears below the horizon.</string>
+    <string name="ephemeris_about_dawn">The dawn is when the first visible light of the day appears before sunrise.</string>
+    <string name="ephemeris_about_dusk">The dusk is the darkest stage of twilight before the last visible light disappears.</string>
+    <string name="ephemeris_polar_day">Polar day</string>
+    <string name="ephemeris_polar_night">Polar night</string>
+    <string name="clock">Clock</string>
     <!-- Alerts -->
     <string name="alert">Alert</string>
     <string name="alerts">Alerts</string>
@@ -21,60 +32,99 @@
     <string name="alerts_to_follow">Upcoming alerts, tap here to see them.</string>
     <string name="alert_source">Source: %s</string>
     <!-- Daily/hourly forecast columns, must be as short as possible. -->
-    <string name="short_yesterday">Yda</string>
-    <string name="short_today">Today</string>
-    <string name="short_tomorrow">Tmw</string>
-    <string name="of_clock">:00</string>
+    <string name="daily_yesterday">Yesterday</string>
+    <string name="daily_today">Today</string>
+    <string name="daily_tomorrow">Tomorrow</string>
+    <string name="daily_yesterday_short">Yda</string>
+    <string name="daily_today_short">Today</string>
+    <string name="daily_tomorrow_short">Tmw</string>
+    <string name="daily_summary">Daily summary</string>
+    <!-- Charts -->
+    <string name="chart_no_daily_data">No data available for this day.</string>
+    <string name="chart_no_hourly_data">No hourly data available.</string>
+    <string name="chart_not_enough_hourly_data">Not enough hourly data available to display a chart for this day.</string>
+    <string name="chart_average">Average</string>
+    <string name="chart_maximum_value">Maximum value</string>
+    <!-- Conditions -->
+    <string name="conditions">Conditions</string>
     <!-- Temperature -->
     <string name="temperature">Temperature</string>
+    <string name="temperature_real">Actual</string>
+    <string name="temperature_real_details">The actual temperature.</string>
     <string name="temperature_feels_like">Feels like</string>
+    <!-- Feels like 30° -->
+    <string name="temperature_feels_like_with_unit">Feels like %s</string>
     <!-- 10 characters max version of temperature_feels_like to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
-    <string name="temperature_feels_like_short">Feels like</string>
-    <string name="temperature_real_feel">RealFeel®</string>
-    <string name="temperature_real_feel_shade">RealFeel Shade™</string>
+    <string name="temperature_feels_like_details">What the temperature feels like, as a result of humidity, wind and/or sunlight.</string>
     <string name="temperature_apparent">Apparent</string>
     <string name="temperature_wind_chill">Wind chill</string>
-    <string name="temperature_wet_bulb">Wet bulb</string>
-    <!-- You might want to read https://en.wikipedia.org/wiki/Heating_degree_day -->
     <string name="temperature_degree_day">Degree day</string>
     <string name="temperature_degree_day_heating">Heating degree day</string>
+    <string name="temperature_degree_day_heating_explanation">Difference between the outside temperature and a reference comfortable temperature used to estimate heating energy requirements</string>
     <string name="temperature_degree_day_cooling">Cooling degree day</string>
+    <string name="temperature_degree_day_cooling_explanation">Difference between the outside temperature and a reference comfortable temperature used to estimate cooling energy requirements</string>
     <!-- It’s actually a median, but the word “Average” is probably easier to understand -->
     <string name="temperature_average_short">Avg</string>
     <string name="temperature_normal_short">Normal</string>
     <string name="temperature_normals">Temperature normals</string>
+    <string name="temperature_normals_deviation">Deviation</string>
+    <!-- %s = July -->
+    <string name="temperature_normals_deviation_explanation_maximum">Deviation from %s average maximum temperature for this location</string>
+    <!-- %s = July -->
+    <string name="temperature_normals_deviation_explanation_minimum">Deviation from %s average minimum temperature for this location</string>
     <!-- Precipitation -->
     <string name="precipitation">Precipitation</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_total_day">Daytime precipitation</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_total_night">Nighttime precipitation</string>
     <string name="precipitation_probability">Precipitation probability</string>
     <string name="precipitation_duration">Precipitation duration</string>
-    <string name="precipitation_total">Total</string>
     <string name="precipitation_thunderstorm">Thunderstorm</string>
     <string name="precipitation_rain">Rain</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_rain_total_day">Daytime rain</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_rain_total_night">Nighttime rain</string>
     <string name="precipitation_snow">Snow</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_snow_total_day">Daytime snow</string>
+    <!-- Translate while taking into account it is a text spread on 2 lines (3 may overlap) of about 12 characters each -->
+    <string name="precipitation_snow_total_night">Nighttime snow</string>
     <string name="precipitation_ice">Ice</string>
     <string name="precipitation_intensity_light">Light</string>
     <string name="precipitation_intensity_medium">Medium</string>
     <string name="precipitation_intensity_heavy">Heavy</string>
     <string name="precipitation_none">No precipitation</string>
-    <!-- Precipitation between 09:02 and 09:34 -->
-    <string name="precipitation_between_time">Precipitation between %1$s and %2$s</string>
+    <!-- Precipitation from 09:02 to 09:34 -->
+    <string name="precipitation_between_time">Precipitation from %1$s to %2$s</string>
     <!-- Wind -->
     <string name="wind">Wind</string>
     <!-- 10 characters max version of wind to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
-    <string name="wind_short">Wind</string>
-    <string name="wind_speed">Wind speed</string>
-    <string name="wind_gusts">Wind gusts</string>
-    <string name="wind_direction">Wind direction</string>
-    <string name="wind_direction_short_variable">Variable</string>
-    <string name="wind_direction_short_N">N</string>
-    <string name="wind_direction_short_NE">NE</string>
-    <string name="wind_direction_short_E">E</string>
-    <string name="wind_direction_short_SE">SE</string>
-    <string name="wind_direction_short_S">S</string>
-    <string name="wind_direction_short_SW">SW</string>
-    <string name="wind_direction_short_W">W</string>
-    <string name="wind_direction_short_NW">NW</string>
-    <string name="wind_strength">Wind strength</string>
+    <string name="wind_speed_about">About wind speed and gusts</string>
+    <string name="wind_speed_about_description">Wind speed is measured by averaging wind speeds over a period of time. Gusts are sudden bursts of wind typically lasting under 20 seconds.</string>
+    <string name="wind_gusts_short">Gusts</string>
+    <!-- From NE -->
+    <string name="wind_origin">From %s</string>
+    <string name="wind_direction_variable">Variable</string>
+    <string name="wind_direction_N">North</string>
+    <string name="wind_direction_NE">North East</string>
+    <string name="wind_direction_E">East</string>
+    <string name="wind_direction_SE">South East</string>
+    <string name="wind_direction_S">South</string>
+    <string name="wind_direction_SW">South West</string>
+    <string name="wind_direction_W">West</string>
+    <string name="wind_direction_NW">North West</string>
+    <string name="wind_direction_N_short">N</string>
+    <string name="wind_direction_NE_short">NE</string>
+    <string name="wind_direction_E_short">E</string>
+    <string name="wind_direction_SE_short">SE</string>
+    <string name="wind_direction_S_short">S</string>
+    <string name="wind_direction_SW_short">SW</string>
+    <string name="wind_direction_W_short">W</string>
+    <string name="wind_direction_NW_short">NW</string>
+    <string name="wind_strength_scale_description" translatable="false">@string/label_description</string>
+    <string name="wind_strength_scale">Beaufort scale</string>
     <string name="wind_strength_0">Calm</string>
     <string name="wind_strength_1">Light air</string>
     <string name="wind_strength_2">Light breeze</string>
@@ -87,75 +137,125 @@
     <string name="wind_strength_9">Strong gale</string>
     <string name="wind_strength_10">Storm</string>
     <string name="wind_strength_11">Violent storm</string>
-    <string name="wind_strength_12">Hurricane</string>
+    <string name="wind_strength_12">Hurricane-force</string>
     <!-- UV -->
     <string name="uv_index">UV index</string>
-    <!-- 10 characters max version of uv_index to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
+    <!-- 10 characters max version of uv_index to be used in the main screen block. May be less in cyrillic/asian alphabets due to large letters -->
     <string name="uv_index_short">UV index</string>
     <string name="uv_index_0_2">Low</string>
     <string name="uv_index_3_5">Moderate</string>
     <string name="uv_index_6_7">High</string>
     <string name="uv_index_8_10">Very high</string>
     <string name="uv_index_11">Extreme</string>
+    <string name="uv_index_maximum_value" translatable="false">@string/chart_maximum_value</string>
+    <string name="uv_index_about">About UV index</string>
+    <string name="uv_index_about_description">The UV index measures the strength of the sun’s ultraviolet radiation. The higher it is, the greater and faster it can cause sunburn, skin cancer and eye damage.</string>
+    <string name="uv_index_scale">UV index scale</string>
+    <string name="uv_index_description" translatable="false">@string/label_description</string>
+    <string name="uv_index_time_to_burn">Time to burn</string>
+    <string name="uv_index_time_to_burn_explanations">The exact time to burn depends on the altitude, the presence of reflective ground like water or snow, your skin type, and the use of sunscreen.</string>
     <string name="uv_alert_level">Alert</string>
     <!-- Air quality -->
-    <string name="air_quality_index">Air Quality Index</string>
+    <string name="air_quality_index">Air quality index</string>
+    <string name="air_quality_index_short">AQI</string>
+    <string name="air_quality_index_about">About air quality index</string>
+    <string name="air_quality_index_about_description_1">Air quality index (AQI) is a scale designed to help you understand how polluted the air is in a particular area, and the potential risks to your health.</string>
+    <string name="air_quality_index_about_description_2">The scale used in this app is based on World Health Organization recommendations, rather than local regulations, to have meaningful categories, and make it easier to compare pollution levels between countries.</string>
+    <string name="air_quality_index_scale">Air quality index scale</string>
+    <string name="air_quality_index_description" translatable="false">@string/label_description</string>
+    <string name="air_quality_index_harmless_exposure">Harmless exposure</string>
     <string name="air_quality_level_1">Excellent</string>
     <string name="air_quality_level_1_description">The air quality is ideal for most individuals; enjoy your normal outdoor activities.</string>
+    <string name="air_quality_level_1_harmless_exposure">&gt; 1 year</string>
     <string name="air_quality_level_2">Fair</string>
     <string name="air_quality_level_2_description">The air quality is generally acceptable for most individuals. However, sensitive groups may experience minor to moderate symptoms from long-term exposure.</string>
+    <string name="air_quality_level_2_harmless_exposure">&lt; 1 year</string>
     <string name="air_quality_level_3">Poor</string>
     <string name="air_quality_level_3_description">The air has reached a high level of pollution and is unhealthy for sensitive groups. Reduce time spent outside if you are feeling symptoms such as difficulty breathing or throat irritation.</string>
+    <string name="air_quality_level_3_harmless_exposure">&lt; 1 day</string>
     <string name="air_quality_level_4">Unhealthy</string>
     <string name="air_quality_level_4_description">Health effects can be immediately felt by sensitive groups. Healthy individuals may experience difficulty breathing and throat irritation with prolonged exposure. Limit outdoor activity.</string>
+    <string name="air_quality_level_4_harmless_exposure">&lt; 1 hour</string>
     <string name="air_quality_level_5">Very unhealthy</string>
     <string name="air_quality_level_5_description">Health effects will be immediately felt by sensitive groups and should avoid outdoor activity. Healthy individuals are likely to experience difficulty breathing and throat irritation; consider staying indoors and rescheduling outdoor activities.</string>
+    <string name="air_quality_level_5_harmless_exposure">&lt; a few minutes</string>
     <string name="air_quality_level_6">Dangerous</string>
     <string name="air_quality_level_6_description">Any exposure to the air, even for a few minutes, can lead to serious health effects on everybody. Avoid outdoor activities.</string>
+    <string name="air_quality_level_6_harmless_exposure">&lt; 1 minute</string>
+    <string name="air_quality_average" translatable="false">@string/chart_average</string>
+    <string name="air_quality_pollutant_primary">Primary pollutant</string>
+    <string name="air_quality_pollutant_details">Pollutant details</string>
+    <string name="air_quality_health_information">Health information</string>
     <string name="air_quality_pm25">PM2.5</string>
     <string name="air_quality_pm25_voice">PM two point five</string>
+    <!-- %s = 2.5 µm -->
+    <string name="air_quality_pm25_full">Fine particulate matter (&lt; %s)</string>
+    <!-- %s = PM2.5 -->
+    <string name="air_quality_pm25_about">About fine particulate matter (%s)</string>
+    <!-- %s = PM2.5 -->
+    <string name="air_quality_pm25_index">Air quality index scale for %s</string>
     <string name="air_quality_pm10">PM10</string>
     <string name="air_quality_pm10_voice">PM ten</string>
-    <string name="air_quality_so2">SO₂</string>
+    <!-- %s = 10 µm -->
+    <string name="air_quality_pm10_full">Inhalable particulate matter (&lt; %s)</string>
+    <!-- %s = PM10 -->
+    <string name="air_quality_pm10_about">About inhalable particulate matter (%s)</string>
+    <!-- %s = PM10 -->
+    <string name="air_quality_pm10_index">Air quality index scale for %s</string>
+    <string name="air_quality_pm_sources">Main sources are combustion processes (e.g. power plants, indoor heating, car exhausts, wildfires), mechanical processes (e.g. construction, mineral dust, agriculture) and biological particles (e.g. pollen, mold, bacteria, viruses).</string>
+    <string name="air_quality_so2" translatable="false">SO2</string>
     <string name="air_quality_so2_voice">Sulfur dioxide</string>
-    <string name="air_quality_no2">NO₂</string>
+    <!-- %s = SO₂ -->
+    <string name="air_quality_so2_full">Sulfur dioxide (%s)</string>
+    <!-- %s = SO₂ -->
+    <string name="air_quality_so2_about">About sulfur dioxide (%s)</string>
+    <!-- %s = SO₂ -->
+    <string name="air_quality_so2_index">Air quality index scale for %s</string>
+    <string name="air_quality_so2_sources">Main sources are burning processes of sulfur-containing fuel in industry, transportation and power plants.</string>
+    <string name="air_quality_no2" translatable="false">NO2</string>
     <string name="air_quality_no2_voice">Nitrogen dioxide</string>
-    <string name="air_quality_o3">O₃</string>
+    <!-- %s = NO₂ -->
+    <string name="air_quality_no2_full">Nitrogen dioxide (%s)</string>
+    <!-- %s = NO₂ -->
+    <string name="air_quality_no2_about">About nitrogen dioxide (%s)</string>
+    <!-- %s = NO₂ -->
+    <string name="air_quality_no2_index">Air quality index scale for %s</string>
+    <string name="air_quality_no2_sources">Main sources are fuel burning processes, such as those used in industry and transportation.</string>
+    <string name="air_quality_o3" translatable="false">O3</string>
     <string name="air_quality_o3_voice">Ozone</string>
-    <string name="air_quality_co">CO</string>
+    <!-- %s = O₃ -->
+    <string name="air_quality_o3_full">Ground-level ozone (%s)</string>
+    <!-- %s = O₃ -->
+    <string name="air_quality_o3_about">About ground-level ozone (%s)</string>
+    <!-- %s = O₃ -->
+    <string name="air_quality_o3_index">Air quality index scale for %s</string>
+    <string name="air_quality_o3_sources">Ozone is created in a chemical reaction between atmospheric oxygen, nitrogen oxides, carbon monoxide and organic compounds, in the presence of sunlight.</string>
+    <string name="air_quality_co" translatable="false">CO</string>
     <string name="air_quality_co_voice">Carbon monoxide</string>
-    <string name="air_quality_pm_info_title">Particulates (PM2.5 &amp; PM10)</string>
-    <string name="air_quality_pm_explanations_introduction">Particulates or atmospheric particulate matter are microscopic particles of solid or liquid matter suspended in the air.</string>
-    <string name="air_quality_pm_explanations_origin">Some particulates occur naturally, originating from volcanoes, dust storms, forest and grassland fires, living vegetation and sea spray. Human activities also generate significant amounts of particulates, such as traffic and transportation, industrial activities, power plants, construction sites, waste burning or fields.</string>
-    <string name="air_quality_pm_explanations_consequences">Particulates are the most harmful form of air pollution due to their ability to penetrate deep into the lungs and brain from blood streams, causing health problems such as heart disease, lung disease, and premature death.</string>
-    <!-- Please keep the 3 in O₃ written this way -->
-    <string name="air_quality_o3_info_title">Ground-level ozone (O₃)</string>
-    <string name="air_quality_o3_info_introduction">Ground-level ozone (O₃) is a major component of smog. Although the same molecule, ground-level ozone can be harmful to human health, unlike stratospheric ozone that protects the earth from excess UV radiation.</string>
-    <string name="air_quality_o3_info_origin">It is formed from photochemical reactions with pollutants such as volatile organic compounds, carbon monoxide and nitrogen oxides (NOₓ) emitted from vehicles, and industry. Due to the photochemical nature, the highest levels of ozone are seen during periods of sunny weather.</string>
-    <string name="air_quality_o3_info_consequences">Exposure to excessive ozone can cause problems breathing, trigger asthma, reduce lung function and lead to lung disease.</string>
-    <!-- Please keep the 2 in NO₂ written this way -->
-    <string name="air_quality_no2_info_title">Nitrogen dioxide (NO₂)</string>
-    <string name="air_quality_no2_info_introduction">Nitrogen dioxide (NO₂) is a suffocating, toxic reddish-brown gas with a characteristic pungent, acrid odor.</string>
-    <string name="air_quality_no2_info_origin">Ambient sources of NO₂ results from high temperature combustion of fuels in processes such as those used for heating, transportation, industry and power generation. Household sources of nitrogen oxides (NOₓ) include equipment that burn fuels such as furnaces, fireplaces and gas stoves and ovens.</string>
-    <string name="air_quality_no2_info_consequences">Exposure to nitrogen dioxide can irritate airways and aggravate respiratory diseases. Additionally, NO₂ is an important ozone precursor, a pollutant closely linked to asthma and other respiratory conditions.</string>
-    <!-- Please keep the 2 in SO₂ written this way -->
-    <string name="air_quality_so2_info_title">Sulfur dioxide (SO₂)</string>
-    <string name="air_quality_so2_info_introduction">Sulfur dioxide (SO₂) is a colourless toxic gas responsible for the odor of burnt matches.</string>
-    <string name="air_quality_so2_info_origin">It is released naturally by volcanic activity and predominantly derived from the combustion of fossil fuels for domestic heating, industries and power generation.</string>
-    <string name="air_quality_so2_info_consequences">Exposure to SO₂ is associated with asthma hospital admissions and emergency room visits.</string>
-    <string name="air_quality_co_info_title">Carbon monoxide (CO)</string>
-    <string name="air_quality_co_info_introduction">Carbon monoxide (CO) is a poisonous, flammable gas that is colorless, odorless, tasteless, and non irritant.</string>
-    <string name="air_quality_co_info_origin">It is produced by the incomplete combustion of carbonaceous fuels such as wood, petrol, coal, natural gas and kerosene in simple stoves, open fires, wick lamps, furnaces, fireplaces. The predominant source of carbon monoxide (CO) in ambient air is from motor vehicles.</string>
-    <string name="air_quality_co_info_consequences">Carbon monoxide diffuses across the lung tissues and into the bloodstream, making it difficult for the body’s cells to bind to oxygen. This lack of oxygen damages tissues and cells. Exposure to carbon monoxide can cause difficulties breathing, exhaustion, dizziness, and other flu-like symptoms. Exposure to high levels of carbon monoxide can be deadly.</string>
+    <!-- %s = CO -->
+    <string name="air_quality_co_full">Carbon monoxide (%s)</string>
+    <!-- %s = CO -->
+    <string name="air_quality_co_about">About carbon monoxide (%s)</string>
+    <!-- %s = CO -->
+    <string name="air_quality_co_index">Air quality index scale for %s</string>
+    <string name="air_quality_co_sources">Typically originates from incomplete combustion of carbon fuels, such as that which occurs in car engines and power plants.</string>
     <!-- Pollen -->
+    <string name="pollen_primary">Primary pollen</string>
+    <string name="pollen_details">Pollen details</string>
     <string name="pollen_tree">Tree</string>
     <string name="pollen_mold">Mold</string>
+    <!-- Latin name: Acer. Use latin (not English!) if no matching translation -->
+    <string name="pollen_acer">Maple</string>
     <!-- Latin name: Alnus. Use latin (not English!) if no matching translation -->
     <string name="pollen_alnus">Alder</string>
+    <!-- Latin name: Alternaria. Use latin (not English!) if no matching translation -->
+    <string name="pollen_alternaria">Alternaria</string>
     <!-- Latin name: Ambrosia. Use latin (not English!) if no matching translation -->
     <string name="pollen_ambrosia">Ragweed</string>
     <!-- Latin name: Artemisia. Use latin (not English!) if no matching translation -->
     <string name="pollen_artemisia">Mugwort</string>
+    <!-- Latin name: Atriplex. Use latin (not English!) if no matching translation -->
+    <string name="pollen_atriplex">Saltbush</string>
     <!-- Latin name: Betula. Use latin (not English!) if no matching translation -->
     <string name="pollen_betula">Birch</string>
     <!-- Latin name: Carpinus. Use latin (not English!) if no matching translation -->
@@ -168,8 +268,14 @@
     <string name="pollen_cupressaceae_taxaceae">Cypress</string>
     <!-- Latin name: Fraxinus. Use latin (not English!) if no matching translation -->
     <string name="pollen_fraxinus">Ash</string>
+    <!-- Latin name: Juniperus. Use latin (not English!) if no matching translation -->
+    <string name="pollen_juniperus">Juniper</string>
     <!-- Latin name: Olea. Use latin (not English!) if no matching translation -->
     <string name="pollen_olea">Olive tree</string>
+    <!-- Latin name: Picea. Use latin (not English!) if no matching translation -->
+    <string name="pollen_picea">Spruce</string>
+    <!-- Latin name: Pinus. Use latin (not English!) if no matching translation -->
+    <string name="pollen_pinus">Pine</string>
     <!-- Latin name: Plantaginaceae. Use latin (not English!) if no matching translation -->
     <string name="pollen_plantaginaceae">Plantain</string>
     <!-- Latin name: Platanus. Use latin (not English!) if no matching translation -->
@@ -186,6 +292,8 @@
     <string name="pollen_salix">Willow</string>
     <!-- Latin name: Tilia. Use latin (not English!) if no matching translation -->
     <string name="pollen_tilia">Linden</string>
+    <!-- Latin name: Ulmus. Use latin (not English!) if no matching translation -->
+    <string name="pollen_ulmus">Elm</string>
     <!-- Latin name: Urticaceae. Use latin (not English!) if no matching translation -->
     <string name="pollen_urticaceae">Nettle/Pellitory</string>
     <!-- Pollen level means “Potential risk of allergy” -->
@@ -195,7 +303,6 @@
     <string name="pollen_level_3">Moderate</string>
     <string name="pollen_level_4">High</string>
     <string name="pollen_level_5">Very high</string>
-    <string name="pollen_tap_to_see_more">Tap to see more…</string>
     <!-- Ephemeris -->
     <string name="ephemeris_moon_phase_new_moon">New moon</string>
     <string name="ephemeris_moon_phase_waxing_crescent">Waxing crescent</string>
@@ -209,42 +316,81 @@
     <string name="ephemeris_sunrise_at">Sunrise at %s</string>
     <!-- Sunset at 17:54 -->
     <string name="ephemeris_sunset_at">Sunset at %s</string>
+    <!-- Dawn at 05:54 -->
+    <string name="ephemeris_dawn_at">Dawn at %s</string>
+    <!-- Dusk at 17:54 -->
+    <string name="ephemeris_dusk_at">Dusk at %s</string>
     <!-- Moonrise at 05:54 -->
     <string name="ephemeris_moonrise_at">Moonrise at %s</string>
     <!-- Moonset at 17:54 -->
     <string name="ephemeris_moonset_at">Moonset at %s</string>
-    <!-- Other weather details vocabulary -->
     <string name="daytime">Daytime</string>
+    <string name="daytime_short">Day</string>
     <string name="nighttime">Nighttime</string>
+    <string name="nighttime_short">Night</string>
+    <string name="nighttime_details">Begins in the evening and lasts until dawn next day</string>
     <string name="sunshine">Sunshine</string>
     <string name="sunshine_duration">Sunshine duration</string>
     <string name="humidity">Humidity</string>
     <!-- 10 characters max version of humidity to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
     <string name="humidity_short">Humidity</string>
     <string name="humidity_dew_point">Humidity / Dew point</string>
-    <string name="pressure">Pressure</string>
-    <string name="pressure_short">Pressure</string>
-    <string name="visibility">Visibility</string>
-    <string name="visibility_short">Visibility</string>
+    <string name="humidity_about">About relative humidity</string>
+    <string name="humidity_about_description">Relative humidity, more commonly known just as humidity, is the percentage of water vapour present in the air compared to the maximum amount that the air can hold at a given temperature.</string>
+    <!-- 40 to 90 %, %1$s = 40, %2$s = 90 % -->
+    <string name="humidity_from_to_number">%1$s to %2$s</string>
     <string name="dew_point">Dew point</string>
     <!-- 10 characters max version of dew_point to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
     <string name="dew_point_short">Dew point</string>
+    <string name="dew_point_about">About dew point</string>
+    <!-- %s = 100 % -->
+    <string name="dew_point_about_description">Dew point is what the temperature would need to be cooled to in order to achieve a relative humidity of %s.</string>
+    <!-- 10 to 20°, %1$s = 10, %2$s = 20° -->
+    <string name="dew_point_from_to_number">%1$s to %2$s</string>
+    <string name="pressure">Pressure</string>
+    <string name="pressure_short">Pressure</string>
+    <string name="pressure_average" translatable="false">@string/chart_average</string>
+    <string name="pressure_rising">Rising</string>
+    <string name="pressure_steady">Steady</string>
+    <string name="pressure_standard">Standard</string>
+    <string name="pressure_falling">Falling</string>
+    <string name="pressure_about">About pressure</string>
+    <!-- If there is no acronym MSLP in your language, just skip the parenthesis in the translation -->
+    <string name="pressure_about_description1">Atmospheric pressure is the downward pressure exerted by the earth’s atmosphere. This app uses mean sea level pressure (MSLP) to allow easier comparison of pressure from places with different altitudes.</string>
+    <string name="pressure_about_description2">Significant, rapid changes in pressure are used to predict changes in the weather. For example, a drop in pressure can mean that rain or snow is on the way, and rising pressure can mean that weather will improve. Abnormal atmospheric pressure may cause headaches, joint pain, fatigue and other effects.</string>
+    <string name="visibility">Visibility</string>
+    <string name="visibility_short">Visibility</string>
+    <string name="visibility_about">About visibility</string>
+    <string name="visibility_about_description">Visibility tells you how far away you can clearly see objects like buildings and hills. Visibility can be affected by precipitation, fog, dust, smoke or haze.</string>
+    <string name="visibility_scale">Visibility scale</string>
+    <!-- 10 to 20 km, %1$s = 10, %2$s = 20 km -->
+    <string name="visibility_from_to_number">%1$s to %2$s</string>
+    <!-- Clear to Perfectly clear, %1$s = Clear, %2$s = Perfectly clear -->
+    <string name="visibility_from_to_description">%1$s to %2$s</string>
+    <string name="visibility_very_poor">Very poor</string>
+    <string name="visibility_poor">Poor</string>
+    <string name="visibility_moderate">Moderate</string>
+    <string name="visibility_good">Good</string>
+    <string name="visibility_clear">Clear</string>
+    <string name="visibility_perfectly_clear">Perfectly clear</string>
     <string name="cloud_cover">Cloud cover</string>
     <!-- 10 characters max version of cloud_cover to be used in current details header. Don’t copy English! If you can fit “Cloud cover” fully, do it! -->
     <string name="cloud_cover_short">Cover</string>
+    <string name="cloud_cover_about">About cloud cover</string>
+    <string name="cloud_cover_about_description">Cloud cover refers to the percentage of the sky obscured by clouds on average. The cloud cover is correlated to the sunshine duration.</string>
+    <!-- 40 to 90 %, %1$s = 40, %2$s = 90 % -->
+    <string name="cloud_cover_from_to_number">%1$s to %2$s</string>
+    <!-- Partly cloudy to Clear, %1$s = Partly cloudy, %2$s = Cloudy -->
+    <string name="cloud_cover_from_to_description">%1$s to %2$s</string>
+    <string name="cloud_cover_scale">Cloud cover scale</string>
     <string name="ceiling">Ceiling</string>
     <!-- 10 characters max version of ceiling to be used in current details header. May be less in cyrillic/asian alphabets due to large letters -->
     <string name="ceiling_short">Ceiling</string>
     <!-- Weather sources -->
-    <string name="weather_data_by">Data by %s</string>
-    <string name="weather_air_quality_data_by">Air quality data by %s</string>
-    <string name="weather_pollen_data_by">Pollen data by %s</string>
-    <string name="weather_air_quality_and_pollen_data_by">Air quality and pollen data by %s</string>
-    <string name="weather_minutely_data_by">Precipitation nowcasting data by %s</string>
-    <string name="weather_alert_data_by">Alert data by %s</string>
-    <string name="weather_normals_data_by">Temperature normals data by %s</string>
-    <string name="weather_message_data_refresh_failed">Weather data refresh failed</string>
-    <string name="weather_message_secondary_data_refresh_failed">Weather data refresh for a secondary weather source failed</string>
+    <string name="data_sources">Data sources</string>
+    <!-- %s = Breezy Weather -->
+    <string name="data_modified">This material has been modified from the original by %s mainly to compute or extrapolate missing data.</string>
+    <string name="weather_message_data_refresh_failed">Data refresh failed</string>
     <string name="weather_message_unsupported_feature">Source doesn’t support one of requested features</string>
     <string name="weather_message_invalid_location">Invalid location, please delete it and re-add</string>
     <string name="weather_message_too_frequent_refreshes">Please wait a few seconds before retrying…</string>
@@ -254,6 +400,14 @@
     <string name="weather_api_unauthorized_content">On some weather data sources, you need to provide your own API key. If you already provided one, please double-check the API key you provided.</string>
     <string name="weather_api_key_required_missing_title">Required API key missing</string>
     <string name="weather_api_key_required_missing_content">To use this source, you need to provide an API key.</string>
+    <string name="weather_source_recommended">Recommended</string>
+    <string name="weather_source_continent_worldwide">Worldwide</string>
+    <string name="weather_source_continent_africa">Africa</string>
+    <string name="weather_source_continent_asia">Asia</string>
+    <string name="weather_source_continent_europe">Europe</string>
+    <string name="weather_source_continent_north_america">North America</string>
+    <string name="weather_source_continent_oceania">Oceania</string>
+    <string name="weather_source_continent_south_america">South America</string>
     <string name="settings_weather_source_portal">Portal</string>
     <string name="weather_source_accu_preference_portal_developer" translatable="false">Developer</string>
     <string name="weather_source_accu_preference_portal_enterprise" translatable="false">Enterprise</string>
@@ -269,15 +423,19 @@
     <string name="weather_source_accu_preference_hours_72">72 hours</string>
     <string name="weather_source_accu_preference_hours_120">120 hours</string>
     <string name="weather_source_accu_preference_hours_240">240 hours</string>
+    <!-- %s = Breezy Weather -->
+    <string name="broadcast_source_breezy_weather_update_notifier">%s Location Update Notifier</string>
     <!-- Location -->
     <string name="locations">Locations</string>
     <string name="location_current">Current location</string>
-    <string name="location_search_weather_source">Weather source</string>
+    <string name="location_custom_name">Custom name</string>
+    <!-- Address is singular -->
+    <string name="location_reverse_geocoding">Address lookup</string>
     <!-- Ex: Location results by Open-Meteo -->
     <string name="location_results_by">Location results by %s</string>
     <string name="location_message_added">Location added</string>
     <string name="location_message_updated">Location updated</string>
-    <string name="location_message_already_exists">A location with the same main weather source already exists.</string>
+    <string name="location_message_already_exists">Location list already contains this location with this forecast source.</string>
     <string name="location_message_deleted">Location deleted</string>
     <string name="location_delete_location_dialog_title">Delete location?</string>
     <string name="location_delete_location_dialog_message">You’re about to delete “%s” from your list of saved locations.</string>
@@ -289,42 +447,52 @@
     <string name="location_message_failed_to_locate">Failed to find current location</string>
     <string name="location_message_permission_missing">Access location permission missing</string>
     <string name="location_message_permission_background_missing">Access location in background permission missing</string>
+    <string name="location_message_location_access_off">Location access is off</string>
     <string name="location_message_reverse_geocoding_failed">Weather source failed to find a matching location</string>
-    <string name="location_dialog_failed_to_locate_title">Cannot get location correctly?</string>
-    <string name="location_dialog_failed_to_locate_action_check_permission">Check location permissions</string>
-    <string name="location_dialog_failed_to_locate_action_enable_information">Enable location information</string>
-    <string name="location_dialog_failed_to_locate_action_select_source">Select location service</string>
+    <string name="location_dialog_failed_to_locate_action_select_source">Use another location service</string>
     <string name="location_dialog_failed_to_locate_action_add_manually">Add location manually and delete “%s”</string>
     <string name="location_search_placeholder">Search for a location…</string>
-    <!-- Example: AccuWeather can’t find djglidfjg -->
     <string name="location_search_source">Location search source</string>
     <string name="location_search_change_source">Change location search source</string>
+    <!-- Example: AccuWeather can’t find djglidfjg -->
     <string name="location_search_no_results">%1$s can’t find %2$s</string>
     <string name="location_search_no_results_advice">Make sure your search is spelled correctly and not too specific. Alternatively, you can try another location search source which may produce different results.</string>
     <string name="location_current_not_found_yet">Current location not found yet…</string>
-    <!-- To be deprecated -->
+    <!-- Example: Last updated 3 hours ago. Don't translate “3 hours ago”. For example in Spanish, “3 hours ago” will be replaced by “hace 3 horas” so don’t translate as “Last updated hace %s”, or it will display as “Last updated hace hace 3 horas” -->
+    <string name="location_last_updated_x">Last updated %s</string>
+    <!-- Displayed in the location list when the location has at least 1 alert currently active -->
+    <string name="location_has_active_alerts">Active alert</string>
     <string name="location_service_native">Native API</string>
     <!-- Actions -->
     <string name="action_location_list">Location list</string>
     <string name="action_search">Search</string>
     <string name="action_add_current_location">Add current location</string>
     <string name="action_add_new_location">Add a new location</string>
+    <!-- Label shown when sharing coordinates from a maps app to Breezy Weather -->
+    <string name="action_add_as_location">Add as location</string>
+    <string name="action_add_debug_location" translatable="false">Add debug location</string>
     <string name="action_edit_location">Edit this location</string>
+    <string name="action_open_in_other_app">Open in another app</string>
+    <string name="action_open_in_other_app_description">Open this location in another app</string>
+    <string name="action_open_in_other_app_no_app">No maps app found</string>
     <string name="action_settings">Settings</string>
+    <!-- Example: Configure Daily forecast -->
+    <string name="action_configure_item">Configure %s</string>
     <string name="action_preview">Preview</string>
     <string name="action_about">About</string>
     <string name="action_dependencies" translatable="false">@string/about_dependencies</string>
-    <string name="action_app_store">App Store</string>
     <string name="action_refresh">Refresh</string>
+    <string name="action_pull_down_to_refresh">Pull down to refresh</string>
     <string name="action_restart">Restart</string>
-    <string name="action_see_more">See more</string>
+    <string name="action_more">More</string>
     <string name="action_edit">Edit</string>
+    <string name="action_change">Change</string>
+    <string name="action_reset_to_default">Reset to default</string>
     <string name="action_delete">Delete</string>
     <string name="action_back">Back</string>
     <string name="action_next">Next</string>
     <string name="action_done">Done</string>
     <string name="action_save">Save</string>
-    <string name="action_cancel">Cancel</string>
     <string name="action_undo">Undo</string>
     <string name="action_set">Set</string>
     <string name="action_help">Help</string>
@@ -332,34 +500,58 @@
     <string name="action_continue">Continue</string>
     <string name="action_confirm">Confirm</string>
     <string name="action_close">Close</string>
+    <string name="action_close_menu">Close menu</string>
+    <string name="action_toggle_data_type_menu">Toggle the data type selection menu</string>
     <string name="action_share">Share</string>
+    <string name="action_share_no_app">No app to share with found</string>
+    <string name="action_translate">Translate</string>
+    <string name="action_translate_no_app">No translation app found</string>
+    <string name="action_download">Download</string>
     <string name="action_show_errors">Tap to see details</string>
+    <string name="action_show">Show</string>
+    <string name="action_enable">Enable</string>
+    <string name="action_allow">Allow</string>
+    <string name="action_grant_permission">Tap to grant the permission.</string>
     <!-- Button shown in the weather selection dialog -->
-    <string name="action_help_me_choose">Help me choose</string>
+    <!-- Labels -->
+    <string name="label_description">Description</string>
+    <string name="label_expanded">Expanded</string>
+    <string name="label_collapsed">Collapsed</string>
     <!-- Dialogs -->
+    <string name="dialog_app_update_check_title">Stay up-to-date</string>
+    <string name="dialog_app_update_check_content">Tap here to enable notifications about app updates.</string>
     <string name="dialog_permissions_notification_title">Stay informed</string>
     <string name="dialog_permissions_notification_content">Tap here to enable notifications about weather alerts, or decide later in Settings.</string>
     <string name="dialog_permissions_location_title">Access location information</string>
-    <string name="dialog_permissions_location_content">Breezy Weather needs to collect your location information in foreground or background to provide the weather data of your current location. For this, we will request some permissions. Your location information will only be used to obtain weather data at your current location. If you don’t want to share your location information, you can deny those requirements and manually set your location in the management page.</string>
+    <string name="dialog_permissions_location_content">To use this feature, you need to grant the app permission to access your current location. It will only be shared with the selected weather sources. If you changed your mind, you can cancel the process and add a fixed location manually.</string>
     <string name="dialog_permissions_location_background_title">Access location in background</string>
-    <string name="dialog_permissions_location_background_content">In order to allow the app to access location information in background, so that we can perceive changes in location and provide you with valid weather data, please set location access as “Allow all the time”.</string>
+    <string name="dialog_permissions_location_background_content">To allow weather refresh in the background to be made for the most recent current location known by Android, you need to set location permission to “Allow all the time”. If you don’t, weather will be refreshed based on the latest retrieved coordinates in the foreground, which can be outdated.</string>
+    <string name="dialog_refresh_error_details_title">Refresh errors</string>
+    <string name="dialog_refresh_error_details_content">Tap on error messages with a question mark to get further help.</string>
     <string name="dialog_time_picker_select_time">Select time</string>
     <string name="dialog_time_picker_input_time">Input time</string>
     <string name="dialog_time_picker_toggle_touch_input_voice">Switch to Touch Input</string>
     <string name="dialog_time_picker_toggle_text_input_voice">Switch to Text Input</string>
     <!-- Miscellaneous messages -->
+    <!-- Please keep it as short as possible as only a limited number of characters can be displayed. -->
+    <string name="message_multiple_refresh_errors">Refresh completed with errors</string>
     <string name="message_invalid_incomplete_data">Invalid or incomplete data received from server</string>
+    <string name="message_outdated_server_data">Outdated data received from server</string>
+    <string name="message_incompatible_times_title">Incompatible forecast times</string>
+    <string name="message_incompatible_times_content">Change your forecast or air quality source so that times match.</string>
     <string name="message_network_unavailable">Network unavailable</string>
     <string name="message_server_timeout">Request timed out</string>
+    <string name="message_server_insecure_title">Secure connection failed</string>
     <string name="message_server_unavailable_title">Server unavailable</string>
     <string name="message_server_unavailable_content">This is usually a temporary error. If the error persists, please report an issue on GitHub.</string>
     <string name="message_parsing_error_title">Failed to parse weather data</string>
     <string name="message_parsing_error_content">Make sure you updated to latest version of the app. Server may be temporarily unavailable, in that case, please try again later. If the problem persists, please dump a crash log from debug settings, and report an issue on GitHub.</string>
     <string name="message_source_not_installed_error_title">Source no longer available</string>
-    <!-- Free as in “libre -->
-    <string name="message_source_not_installed_error_content_tip_1">This can happen when you added your location in the Standard flavor of Breezy Weather and then switched to the flavor with only free network sources. Going back to the Standard flavor may solve this problem.</string>
-    <string name="message_source_not_installed_error_content_tip_2">Either change the weather sources for this location or delete and re-add this location.</string>
+    <string name="message_source_not_installed_error_content">Either change the weather sources for this location, or delete and re-add this location.</string>
+    <string name="message_source_non_free_network_title">This source requires the Standard version of the app</string>
+    <string name="message_source_non_free_network_content">You’re using the Freenet version of the app, which only supports sources hosted on a free network. To keep using this source, switch back to the Standard version. Otherwise, choose a different source.</string>
     <string name="message_tap_again_to_exit">Tap again to exit</string>
+    <string name="message_please_wait_refresh">Please wait for refresh to complete</string>
     <!-- Widgets -->
     <string name="widget_day">Daily</string>
     <string name="widget_week">Weekly</string>
@@ -372,8 +564,8 @@
     <string name="widget_trend_daily">Daily trend</string>
     <string name="widget_trend_hourly">Hourly trend</string>
     <string name="widget_multi_city">Multi city</string>
-    <string name="widget_material_you_forecast">Material You - Forecast</string>
-    <string name="widget_material_you_current">Material You - Current</string>
+    <string name="widget_material_you_forecast">Material You – Forecast</string>
+    <string name="widget_material_you_current">Material You – Current</string>
     <string name="widget_refreshing">Refreshing</string>
     <string name="widget_ellipsis">…</string>
     <string name="widget_label_view_style">View style</string>
@@ -394,6 +586,8 @@
     <string name="widget_subtitle_data_feels_like">Feels like temperature</string>
     <string name="widget_subtitle_data_alternate_calendar" translatable="false">@string/settings_appearance_calendar_title</string>
     <string name="widget_subtitle_data_custom">Custom</string>
+    <string name="widget_custom_subtitle_help_content_description">Show custom subtitle keywords help</string>
+    <string name="widget_custom_subtitle_alert_box_title">Custom subtitle help</string>
     <!-- keep the “$cw$” part as is -->
     <string name="widget_custom_subtitle_explanation">You can input anything, but please pay attention to the length of the text. If you want to quote weather data, please use $ to reference the corresponding keyword.\n\nFor example, “Current weather is: $cw$.” will be displayed as “Current weather is: Clear sky.”.</string>
     <string name="widget_custom_subtitle_keyword_cw_description">Current weather</string>
@@ -402,7 +596,7 @@
     <string name="widget_custom_subtitle_keyword_at_description">Current feels like temperature (°C/°F)</string>
     <string name="widget_custom_subtitle_keyword_atd_description">Current feels like temperature (°)</string>
     <string name="widget_custom_subtitle_keyword_cwd_description">Current wind</string>
-    <string name="widget_custom_subtitle_keyword_caqi_description">Current Air Quality Index</string>
+    <string name="widget_custom_subtitle_keyword_caqi_description">Current air quality index</string>
     <string name="widget_custom_subtitle_keyword_cuv_description">Current UV</string>
     <string name="widget_custom_subtitle_keyword_ch_description">Current humidity</string>
     <string name="widget_custom_subtitle_keyword_cps_description">Current pressure</string>
@@ -431,7 +625,7 @@
     <string name="widget_custom_subtitle_keyword_xnp_description">Nighttime precipitation of today, tomorrow, …, 4 days later (%)</string>
     <string name="widget_custom_subtitle_keyword_xdwd_description">Daytime wind of today, tomorrow, …, 4 days later</string>
     <string name="widget_custom_subtitle_keyword_xnwd_description">Nighttime wind of today, tomorrow, …, 4 days later</string>
-    <string name="widget_custom_subtitle_keyword_xaqi_description">Air Quality Index of today, tomorrow, …, 4 days later</string>
+    <string name="widget_custom_subtitle_keyword_xaqi_description">Air quality index of today, tomorrow, …, 4 days later</string>
     <string name="widget_custom_subtitle_keyword_xpis_description">Pollen index summary of today, tomorrow, …, 4 days later</string>
     <string name="widget_custom_subtitle_keyword_xsr_description">Sunrise of today, tomorrow, …, 4 days later</string>
     <string name="widget_custom_subtitle_keyword_xss_description">Sunset of today, tomorrow, …, 4 days later</string>
@@ -456,6 +650,9 @@
     <string name="widget_live_wallpaper_weather_kind">Weather</string>
     <!-- Time as in “daytime” / “nighttime” -->
     <string name="widget_live_wallpaper_day_night_type">Time</string>
+    <string name="widget_live_wallpaper_animations_enable_dangerous">DANGEROUS</string>
+    <string name="widget_live_wallpaper_animations_enable_warning1">Wallpaper animations are known to cause, among other things: high battery consumption; battery overheating; high memory consumption; degraded system responsiveness; Android system crash.</string>
+    <string name="widget_live_wallpaper_animations_enable_warning2">If you decide to enable them, you assume full responsibility for any problem that may arise, and no support will be provided.</string>
     <!-- Settings (new design) -->
     <string name="settings_section_general">General</string>
     <string name="settings_background_updates">Background updates</string>
@@ -466,15 +663,7 @@
     <string name="settings_background_updates_refresh_never_warning1">By turning off background updates, you will no longer receive notifications of alerts or precipitation. Widgets won’t be refreshed until you open the app.</string>
     <string name="settings_background_updates_refresh_never_warning2">The background update process is lightweight: it only refreshes your first location at your select rate, and secondary locations only if you need them, once a day. It’s battery-efficient and should not exceed %d MB of data consumption a month.</string>
     <string name="settings_background_updates_refresh_never_warning3">Consider using a less frequent refresh rate rather than turning off background updates, otherwise tap “Continue” if you still want to proceed.</string>
-    <string name="settings_background_updates_refresh_30min">30 minutes</string>
-    <string name="settings_background_updates_refresh_1h">1 hour</string>
-    <string name="settings_background_updates_refresh_1h_30min">1.5 hours</string>
-    <string name="settings_background_updates_refresh_2h">2 hours</string>
-    <string name="settings_background_updates_refresh_3h">3 hours</string>
-    <string name="settings_background_updates_refresh_6h">6 hours</string>
-    <string name="settings_background_updates_refresh_12h">12 hours</string>
-    <string name="settings_background_updates_refresh_24h">24 hours</string>
-    <string name="settings_background_updates_refresh_ignore_when_battery_low">Ignore when battery is low</string>
+    <string name="settings_background_updates_refresh_skip_when_battery_low">Skip when battery is low</string>
     <string name="settings_background_updates_section_troubleshoot">Troubleshoot</string>
     <string name="settings_background_updates_battery_optimization">Disable battery optimization</string>
     <string name="settings_background_updates_battery_optimization_summary">This is the first thing to try when you don’t receive notifications or widgets are not refreshing.</string>
@@ -514,29 +703,62 @@
     <string name="settings_weather_sources_summary">Default weather source for new locations, custom API keys, other source settings</string>
     <string name="settings_weather_sources_section_general" translatable="false">@string/settings_section_general</string>
     <string name="settings_weather_sources_default_source">Default source for new locations</string>
-    <string name="settings_weather_source_main">Main source</string>
+    <string name="settings_weather_source_non_freenet">%s (non-free network service)</string>
     <string name="settings_weather_source_unavailable">%s (unavailable)</string>
+    <string name="settings_weather_source_not_configured">%s (not configured)</string>
+    <string name="settings_weather_source_no_longer_exists">%s (no longer exists)</string>
     <string name="settings_weather_source_none">None</string>
-    <string name="settings_weather_source_freenet_disclaimer">More weather sources are available from other flavors of Breezy Weather. Tap here to learn more.</string>
+    <string name="settings_weather_source_freenet_disclaimer">You are using the Freenet version of the app. Switch to the Standard version if you want to use non-free network services.</string>
+    <string name="settings_weather_source_current_position_disclaimer">More weather sources may become available for your location after the first refresh.</string>
     <string name="settings_weather_sources_per_location_summary">Customize weather data sources used for this location</string>
     <string name="settings_source_default_value">Default (unchanged)</string>
     <string name="settings_source_api_key">API key</string>
+    <string name="settings_source_api_key_invalid">Value is not in the expected format</string>
     <string name="settings_location_source_baidu_ip_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_accu_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_eccc_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_open_weather_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_pirate_weather_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_here_api_key" translatable="false">@string/settings_source_api_key</string>
-    <string name="settings_weather_source_msn_azure_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_mf_api_key" translatable="false">@string/settings_source_api_key</string>
     <string name="settings_weather_source_atmo_aura_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_atmo_france_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_atmo_grand_est_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_atmo_hdf_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_atmo_sud_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_cwa_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_bmkg_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_met_ie_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_met_office_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_aemet_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_infoplaza_api_key" translatable="false">@string/settings_source_api_key</string>
     <!-- Synonym of instance: Server -->
     <string name="settings_source_instance">Instance</string>
     <string name="settings_source_instance_invalid">Must be an https URL ending with a /</string>
     <!-- Synonym of instance: Server -->
     <string name="settings_source_instance_geocoding">Geocoding instance</string>
+    <string name="settings_weather_source_anam_bf_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_anamet_instance" translatable="false">@string/settings_source_instance</string>
     <string name="settings_weather_source_bright_sky_instance" translatable="false">@string/settings_source_instance</string>
-    <string name="settings_weather_source_recosante_instance" translatable="false">@string/settings_source_instance</string>
-    <string name="settings_weather_source_recosante_instance_geocoding" translatable="false">@string/settings_source_instance_geocoding</string>
+    <string name="settings_weather_source_dccms_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_dmn_ne_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_dwr_gm_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_ethiomet_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_fpas_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_gmet_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_igebu_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_imngb_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_mali_meteo_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_meteo_benin_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_meteo_tchad_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_mettelsat_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_msd_zw_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_nominatim_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_pirate_weather_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_knmi_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_sma_sc_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_sma_su_instance" translatable="false">@string/settings_source_instance</string>
+    <string name="settings_weather_source_ssms_instance" translatable="false">@string/settings_source_instance</string>
     <!-- Synonym of instance: Server -->
     <string name="settings_weather_source_open_meteo_instance_forecast">Forecast instance</string>
     <!-- Synonym of instance: Server -->
@@ -548,12 +770,20 @@
     <string name="settings_weather_source_open_meteo_weather_models_seamless">Seamless</string>
     <string name="settings_weather_source_open_meteo_weather_models_seamless_description">Combines all weather models from this provider into a seamless prediction</string>
     <string name="settings_source_geonames_api_key" translatable="false">@string/settings_source_api_key</string>
+    <string name="settings_weather_source_polleninfo_api_key" translatable="false">@string/settings_source_api_key</string>"
     <string name="settings_appearance">Appearance</string>
     <string name="settings_appearance_summary">Language, dark mode, icon pack, units</string>
+    <string name="settings_appearance_section_regional">Language and region</string>
+    <string name="settings_appearance_section_theme">Theme</string>
     <string name="settings_appearance_language_title">Language</string>
     <string name="settings_appearance_calendar_title">Alternate calendar</string>
-    <string name="settings_appearance_dark_mode_title">Dark mode</string>
-    <string name="settings_appearance_dark_mode_locations_title">Day / Night mode for locations</string>
+    <string name="settings_appearance_dark_mode_title">App dark mode</string>
+    <!-- %1$s = 22:00 / %2$s = 06:00 -->
+    <string name="settings_appearance_dark_mode_custom">Dark mode from %1$s to %2$s</string>
+    <string name="settings_appearance_dark_mode_locations_title">Location-based dark mode</string>
+    <!-- Literally means “Will be in light mode when sun is up and in dark mode when sun is down” -->
+    <string name="settings_appearance_dark_mode_locations_day_night">Follow day/night</string>
+    <string name="settings_appearance_dark_mode_locations_dark">Always dark when app is in dark mode</string>
     <string name="settings_appearance_icon_pack_title">Icon pack</string>
     <string name="settings_icon_packs_title">Icon packs</string>
     <string name="settings_icon_packs_check_details">Check details</string>
@@ -562,7 +792,6 @@
     <string name="settings_icon_packs_weather_icon_grey">Grey icon</string>
     <string name="settings_icon_packs_weather_icon_dark">Dark icon</string>
     <string name="settings_icon_packs_get_more">Get more</string>
-    <string name="settings_icon_providers_app_store" translatable="false">@string/action_app_store</string>
     <string name="settings_units">Units</string>
     <string name="settings_units_summary">Temperature, precipitation, distance, speed, pressure</string>
     <string name="settings_units_temperature">Temperature unit</string>
@@ -571,25 +800,29 @@
     <string name="settings_units_speed">Speed unit</string>
     <string name="settings_units_pressure">Pressure unit</string>
     <string name="settings_main">Main screen</string>
-    <string name="settings_main_summary">Cards order, items displayed, animations</string>
+    <string name="settings_main_summary">Blocks order, items displayed, animations</string>
     <!-- Data is plural here -->
     <string name="settings_main_section_displayed_data">Displayed data</string>
-    <string name="settings_main_cards_title">Cards</string>
+    <string name="settings_main_cards_title">Blocks</string>
     <string name="settings_main_daily_trends_title">Daily trends</string>
     <string name="settings_main_hourly_trends_title">Hourly trends</string>
-    <string name="settings_main_header_details_title">Details in header</string>
     <string name="settings_main_section_options">Options</string>
     <string name="settings_main_threshold_lines_on_charts">Threshold lines on charts</string>
     <string name="settings_main_section_animations">Animations</string>
+    <string name="settings_main_background_title">Weather-based background</string>
     <string name="settings_main_background_animation_title">Background animation</string>
     <string name="settings_main_background_animation_enabled">Enabled</string>
     <string name="settings_main_background_animation_disabled">Disabled</string>
     <string name="settings_main_gravity_sensor_switch">Gravity sensor</string>
-    <string name="settings_main_cards_fade_in_switch">Cards fade in</string>
+    <string name="settings_main_cards_fade_in_switch">Blocks fade in</string>
     <!-- Elements = temperature in header, AQI, sun &amp; moon arc, etc -->
     <string name="settings_main_cards_other_element_animations_switch">Other element animations</string>
     <string name="settings_notifications">Notifications</string>
     <string name="settings_notifications_summary">Notifications of weather alerts, precipitations or forecast for the first location</string>
+    <string name="settings_notifications_app_updates_check">Notifications of app updates</string>
+    <string name="settings_notifications_permission">Notification permission required</string>
+    <!-- %s is the string with the key action_grant_permission -->
+    <string name="settings_notifications_permission_summary">Needed to notify about alerts, forecasts and app updates. %s</string>
     <string name="settings_notifications_section_general" translatable="false">@string/settings_section_general</string>
     <!-- “important” means we won’t send notifications for minor severity alerts -->
     <string name="settings_notifications_alerts_title">Notifications of severe weather alerts</string>
@@ -599,34 +832,42 @@
     <string name="settings_notifications_forecast_time_today_title">Notification time for the day’s forecast</string>
     <string name="settings_notifications_forecast_tomorrow_title">Notification for next-day forecast</string>
     <string name="settings_notifications_forecast_time_tomorrow_title">Notification time for next-day forecast</string>
-    <string name="settings_widgets">Widgets &amp; Live wallpaper</string>
-    <string name="settings_widgets_summary">Set wallpaper, configure widgets used, notification widget</string>
-    <string name="settings_widgets_section_general" translatable="false">@string/settings_section_general</string>
-    <string name="settings_widgets_live_wallpaper_title">Live wallpaper</string>
-    <string name="settings_widgets_live_wallpaper_summary">Set a weather animation as wallpaper</string>
-    <string name="settings_widgets_live_wallpaper_error">Couldn’t launch wallpaper chooser. You can still enable Breezy Weather wallpaper by choosing “Live Wallpaper” in your home screen wallpaper picker.</string>
-    <string name="settings_widgets_week_icon_mode_title">Icon to display in weekly views</string>
-    <string name="settings_widgets_monochrome_icons_title">Monochrome icons</string>
-    <string name="settings_widgets_section_widgets_in_use">Widgets in use</string>
-    <string name="settings_widgets_configure_widget_summary">Configure this widget</string>
-    <string name="settings_widgets_section_notification_widget">Notification widget</string>
-    <string name="settings_widgets_notification_widget_title">Notification widget</string>
-    <string name="settings_widgets_notification_persistent_switch">Persistent</string>
-    <string name="settings_widgets_notification_style_title">Style</string>
-    <string name="settings_widgets_notification_temp_icon_switch">Temperature as status bar icon</string>
-    <string name="settings_widgets_notification_feels_like_switch">Use feels like temperature</string>
-    <string name="settings_widgets_broadcast_title">Data sharing</string>
+    <string name="settings_modules">External modules</string>
+    <string name="settings_modules_summary">Widgets, notification widget, wallpaper, data sharing with other apps</string>
+    <string name="settings_modules_section_general" translatable="false">@string/settings_section_general</string>
+    <string name="settings_modules_live_wallpaper_title">Live wallpaper</string>
+    <string name="settings_modules_live_wallpaper_summary">Set a weather animation as wallpaper</string>
+    <!-- %s = Breezy Weather -->
+    <string name="settings_modules_live_wallpaper_error">Couldn’t launch wallpaper chooser. You can still enable %s wallpaper by choosing “Live Wallpaper” in your home screen wallpaper picker.</string>
+    <string name="settings_modules_week_icon_mode_title">Icon to display in weekly views</string>
+    <string name="settings_modules_monochrome_icons_title">Monochrome icons</string>
+    <string name="settings_modules_section_widgets_in_use">Widgets in use</string>
+    <string name="settings_modules_configure_widget_summary">Configure this widget</string>
+    <string name="settings_modules_section_notification_widget">Notification widget</string>
+    <!-- %s is the string with the key action_grant_permission -->
+    <string name="settings_modules_notification_permission_summary">Needed to show the notification widget. %s</string>
+    <string name="settings_modules_notification_widget_title">Notification widget</string>
+    <string name="settings_modules_notification_persistent_switch">Persistent</string>
+    <string name="settings_modules_notification_style_title">Style</string>
+    <string name="settings_modules_notification_temp_icon_switch">Temperature as status bar icon</string>
+    <string name="settings_modules_notification_feels_like_switch">Use feels like temperature</string>
+    <string name="settings_modules_broadcast_title">Data sharing</string>
     <!-- %s is for example Gadgetbridge, as in "Send data of type Gadgetbridge" -->
-    <string name="settings_widgets_broadcast_send_data_title">Send %s data</string>
-    <string name="settings_widgets_broadcast_send_data_summary_empty">No compatible packages found</string>
+    <string name="settings_modules_broadcast_send_data_title">Send %s data</string>
+    <string name="settings_modules_broadcast_send_data_summary_empty">No compatible packages found</string>
     <string name="about_privacy_policy">Privacy policy</string>
     <string name="settings_debug">Debug</string>
+    <!-- %s is the string with the key action_grant_permission -->
+    <string name="settings_debug_notification_permission">Needed to notify about crash logs and failed weather updates. %s</string>
     <string name="settings_debug_summary">Crash logs</string>
     <string name="settings_debug_dump_crash_logs_title">Share crash logs</string>
     <string name="settings_debug_dump_crash_logs_summary">Saves error logs to a file for sharing with the developers</string>
     <string name="settings_debug_dump_crash_logs_saved">Crash logs saved</string>
     <string name="settings_debug_dump_crash_logs_tap_to_open">Tap to open</string>
     <!-- Only shown in debug builds, so we don’t need translations -->
+    <string name="settings_debug_section_unit_formatting" translatable="false">Unit formatting</string>
+    <string name="settings_debug_use_numberformatter" translatable="false">Use NumberFormatter when possible</string>
+    <string name="settings_debug_use_measureformat" translatable="false">Use MeasureFormat when possible</string>
     <string name="settings_debug_force_weather_update" translatable="false">Force weather update</string>
     <string name="settings_debug_section_refresh_error" translatable="false">Trigger refresh errors</string>
     <string name="settings_changes_apply_after_restart">Changes will take effect after restart</string>
@@ -635,8 +876,10 @@
     <string name="settings_enabled">Enabled</string>
     <string name="settings_disabled">Disabled</string>
     <string name="settings_unavailable_no_background_updates">Unavailable, enable background updates first</string>
+    <string name="settings_unavailable_no_animations">Unavailable, enable animations in Android settings first</string>
     <string name="settings_automatic">Automatic</string>
     <string name="settings_follow_system">Follow system</string>
+    <string name="settings_regional_preference">Regional preference</string>
     <string name="settings_none">None</string>
     <string name="settings_color_day_night">Day / Night</string>
     <!-- Used as "Follow app preference/setting", NOT as in "Follow us on Facebook". Keep it short or translate it “Automatic” if too complicated -->
@@ -648,72 +891,6 @@
     <string name="settings_color_dark">Dark</string>
     <string name="settings_invalid_syntax">Invalid syntax</string>
     <!-- Units -->
-    <string name="unit_bf">Bf</string>
-    <string name="unit_bf_voice">on Beaufort scale</string>
-    <string name="unit_mps">m/s</string>
-    <string name="unit_mps_voice">Meters per second</string>
-    <string name="unit_kph">km/h</string>
-    <string name="unit_kph_voice">Kilometers per hour</string>
-    <string name="unit_kn">kn</string>
-    <string name="unit_kn_voice">Knots</string>
-    <string name="unit_mph">mph</string>
-    <string name="unit_mph_voice">Miles per hour</string>
-    <string name="unit_ftps">ft/s</string>
-    <string name="unit_ftps_voice">Feet per second</string>
-    <string name="unit_mm">mm</string>
-    <string name="unit_mm_voice">Millimeters</string>
-    <string name="unit_cm">cm</string>
-    <string name="unit_cm_voice">Centimeters</string>
-    <string name="unit_in">inch</string>
-    <string name="unit_in_voice">Inches</string>
-    <string name="unit_lpsqm">L/m²</string>
-    <string name="unit_lpsqm_voice">Liters per square meter</string>
-    <string name="unit_mmph">mm/h</string>
-    <string name="unit_mmph_voice">Millimeters per hour</string>
-    <string name="unit_cmph">cm/h</string>
-    <string name="unit_cmph_voice">Centimeters per hour</string>
-    <string name="unit_inph">inch/h</string>
-    <string name="unit_inph_voice">Inches per hour</string>
-    <string name="unit_lpsqmph">L/m²/h</string>
-    <string name="unit_lpsqmph_voice">Liters per square meter per hour</string>
-    <string name="unit_celsius">°C</string>
-    <string name="unit_celsius_short">°</string>
-    <string name="unit_fahrenheit">°F</string>
-    <string name="unit_fahrenheit_short">°</string>
-    <string name="unit_kelvin">K</string>
-    <string name="unit_kelvin_short">K</string>
-    <string name="unit_km">km</string>
-    <string name="unit_km_voice">Kilometers</string>
-    <string name="unit_m">m</string>
-    <string name="unit_m_voice">Meters</string>
-    <string name="unit_mi">mi</string>
-    <string name="unit_mi_voice">Miles</string>
-    <string name="unit_nmi">nmi</string>
-    <string name="unit_nmi_voice">Nautical miles</string>
-    <string name="unit_ft">ft</string>
-    <string name="unit_ft_voice">Feet</string>
-    <string name="unit_mb">mb</string>
-    <string name="unit_mb_voice">Millibars</string>
-    <string name="unit_kpa">kPa</string>
-    <string name="unit_kpa_voice">Kilopascals</string>
-    <string name="unit_hpa">hPa</string>
-    <string name="unit_hpa_voice">Hectopascals</string>
-    <string name="unit_atm">atm</string>
-    <string name="unit_atm_voice">Atmospheres</string>
-    <string name="unit_mmhg">mmHg</string>
-    <string name="unit_mmhg_voice">Millimeters of mercury</string>
-    <string name="unit_inhg">inHg</string>
-    <string name="unit_inhg_voice">Inches of mercury</string>
-    <string name="unit_kgfpsqcm">kgf/cm²</string>
-    <string name="unit_kgfpsqcm_voice">Kilogram force per square centimeter</string>
-    <string name="unit_mugpcum">μg/m³</string>
-    <string name="unit_mugpcum_voice">Micrograms per cubic meter</string>
-    <string name="unit_mgpcum">mg/m³</string>
-    <string name="unit_mgpcum_voice">Milligrams per cubic meter</string>
-    <string name="unit_h">h</string>
-    <string name="unit_h_voice">hours</string>
-    <string name="unit_ppcm">/m³</string>
-    <string name="unit_ppcm_voice">Per cubic meter</string>
     <!-- Notifications -->
     <string name="notification_refreshed_at">Refreshed at</string>
     <string name="notification_channel_alerts">Alerts</string>
@@ -721,9 +898,9 @@
     <string name="notification_channel_widget">Widget</string>
     <string name="notification_channel_background_services">Background services</string>
     <string name="notification_channel_crash_logs">Crash logs</string>
+    <string name="notification_channel_app_updates">App updates</string>
     <string name="notification_running_in_background">Running in background to keep updating</string>
     <string name="notification_updating_weather_data">Updating weather data (%1$d/%2$d)</string>
-    <string name="notification_update_error">%d update(s) failed</string>
     <string name="notification_precipitation_starting">Precipitation soon</string>
     <!-- Example: Expected to start at 09:00 AM -->
     <string name="notification_precipitation_starting_desc">Expected to start at %s</string>
@@ -735,8 +912,12 @@
     <string name="notification_precipitation_stopping_desc">Expected to stop at %s</string>
     <string name="notification_style_native">Native</string>
     <string name="notification_style_cities">Cities</string>
+    <string name="notification_app_update_available">New version available!</string>
     <!-- About -->
     <string name="about_app">About app</string>
+    <string name="about_check_for_app_updates">Check for app updates</string>
+    <string name="about_no_new_updates">No new updates available</string>
+    <string name="about_update_check_eol">This Android version is no longer supported</string>
     <string name="about_contact">Contact</string>
     <string name="about_matrix">Matrix room</string>
     <string name="about_source_code">Source code</string>
@@ -747,12 +928,16 @@
     <string name="about_contribution_designer">Logo designer</string>
     <!-- %s is a link -->
     <string name="about_open_link_message">Open %s?</string>
+    <!-- Content provider -->
+    <string name="content_provider_permission_label">Read Breezy Weather data</string>
+    <string name="content_provider_permission_description">get weather information from Breezy Weather, including the coordinates of your locations, such as your current location if you added it</string>
     <!-- Weather condition text -->
     <!-- Check https://unterm.un.org/unterm2/en/ -->
     <!-- We don’t use all of them currently, but they might come useful some day -->
     <string name="common_weather_text_clear_sky">Clear sky</string>
-    <string name="common_weather_text_mainly_clear">Mainly clear</string>
+    <string name="common_weather_text_mostly_clear">Mostly clear</string>
     <string name="common_weather_text_partly_cloudy">Partly cloudy</string>
+    <string name="common_weather_text_mostly_cloudy">Mostly cloudy</string>
     <string name="common_weather_text_cloudy">Cloudy</string>
     <string name="common_weather_text_overcast">Overcast</string>
     <string name="common_weather_text_fog">Fog</string>
@@ -792,6 +977,23 @@
     <string name="common_weather_text_drizzle_freezing">Freezing drizzle</string>
     <string name="common_weather_text_drizzle_freezing_light">Light freezing drizzle</string>
     <string name="common_weather_text_drizzle_freezing_heavy">Heavy freezing drizzle</string>
+    <string name="common_weather_text_sand_storm">Sand storm</string>
+    <string name="common_weather_text_mist">Mist</string>
+    <string name="common_weather_text_dry">Dry</string>
+    <string name="common_weather_text_humid">Humid</string>
+    <string name="common_weather_text_hot">Hot</string>
+    <string name="common_weather_text_warm">Warm</string>
+    <string name="common_weather_text_cool">Cool</string>
+    <string name="common_weather_text_cold">Cold</string>
+    <string name="common_weather_text_smoke">Smoke</string>
+    <string name="common_weather_text_dust">Dust</string>
+    <string name="common_weather_text_dust_storm">Dust storm</string>
+    <string name="common_weather_text_frost">Frost</string>
+    <string name="common_weather_text_squall">Squall</string>
+    <string name="common_weather_text_tornado">Tornado</string>
+    <string name="common_weather_text_blowing_snow">Blowing snow</string>
+    <string name="common_weather_text_drifting_snow">Drifting snow</string>
+    <string name="common_weather_text_glaze">Glaze</string>
     <!-- Weather kind -->
     <string name="weather_kind_clear" translatable="false">@string/common_weather_text_clear_sky</string>
     <string name="weather_kind_partly_cloudy" translatable="false">@string/common_weather_text_partly_cloudy</string>
@@ -808,7 +1010,7 @@
     <!-- Weather texts for Open-Meteo, based on WMO terms -->
     <!-- https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM -->
     <string name="openmeteo_weather_text_clear_sky" translatable="false">@string/common_weather_text_clear_sky</string>
-    <string name="openmeteo_weather_text_mainly_clear" translatable="false">@string/common_weather_text_mainly_clear</string>
+    <string name="openmeteo_weather_text_mainly_clear" translatable="false">@string/common_weather_text_mostly_clear</string>
     <string name="openmeteo_weather_text_partly_cloudy" translatable="false">@string/common_weather_text_partly_cloudy</string>
     <string name="openmeteo_weather_text_overcast" translatable="false">@string/common_weather_text_overcast</string>
     <string name="openmeteo_weather_text_fog" translatable="false">@string/common_weather_text_fog</string>
@@ -838,7 +1040,7 @@
     <!-- Weather texts for MET Norway -->
     <string name="metno_weather_text_clearsky" translatable="false">@string/common_weather_text_clear_sky</string>
     <string name="metno_weather_text_cloudy" translatable="false">@string/common_weather_text_cloudy</string>
-    <string name="metno_weather_text_fair" translatable="false">@string/common_weather_text_mainly_clear</string>
+    <string name="metno_weather_text_fair" translatable="false">@string/common_weather_text_mostly_clear</string>
     <string name="metno_weather_text_fog" translatable="false">@string/common_weather_text_fog</string>
     <string name="metno_weather_text_heavyrain" translatable="false">@string/common_weather_text_rain_heavy</string>
     <string name="metno_weather_text_heavyrainshowers" translatable="false">@string/common_weather_text_rain_showers_heavy</string>
@@ -859,8 +1061,185 @@
     <string name="metno_weather_text_sleetshowers" translatable="false">@string/common_weather_text_rain_snow_mixed_showers</string>
     <string name="metno_weather_text_snow" translatable="false">@string/common_weather_text_snow</string>
     <string name="metno_weather_text_snowshowers" translatable="false">@string/common_weather_text_snow_showers</string>
+    <!-- Weather texts for Meteo AM -->
+    <string name="meteoam_weather_text_clear_sky" translatable="false">@string/common_weather_text_clear_sky</string>
+    <string name="meteoam_weather_text_mainly_cloudy" translatable="false">@string/common_weather_text_mostly_cloudy</string>
+    <string name="meteoam_weather_text_partly_cloudy" translatable="false">@string/common_weather_text_partly_cloudy</string>
+    <string name="meteoam_weather_text_cloudy" translatable="false">@string/common_weather_text_cloudy</string>
+    <string name="meteoam_weather_text_overcast" translatable="false">@string/common_weather_text_overcast</string>
+    <string name="meteoam_weather_text_rain_light" translatable="false">@string/common_weather_text_rain_light</string>
+    <string name="meteoam_weather_text_rain_heavy" translatable="false">@string/common_weather_text_rain_heavy</string>
+    <string name="meteoam_weather_text_rain_snow_mixed" translatable="false">@string/common_weather_text_rain_snow_mixed</string>
+    <string name="meteoam_weather_text_rain_freezing" translatable="false">@string/common_weather_text_rain_freezing</string>
+    <string name="meteoam_weather_text_fog" translatable="false">@string/common_weather_text_fog</string>
+    <string name="meteoam_weather_text_snow" translatable="false">@string/common_weather_text_snow</string>
+    <string name="meteoam_weather_text_thunderstorm" translatable="false">@string/weather_kind_thunderstorm</string>
+    <string name="meteoam_weather_text_haze" translatable="false">@string/weather_kind_haze</string>
+    <string name="meteoam_weather_text_hail" translatable="false">@string/weather_kind_hail</string>
+    <!-- Literally "air or marine tornado" in Italian -->
+    <string name="meteoam_weather_text_tornado_watersprout">Tornado or waterspout</string>
+    <string name="meteoam_weather_text_smoke" translatable="false">@string/common_weather_text_smoke</string>
+    <string name="meteoam_weather_text_sand_storm" translatable="false">@string/common_weather_text_sand_storm</string>
     <!-- Example: Heavy rain and thunder -->
     <string name="metno_weather_text_andthunder">%s and thunder</string>
+    <!-- Weather texts for HKO -->
+    <string name="hko_weather_text_sunny" translatable="false">@string/common_weather_text_clear_sky</string>
+    <string name="hko_weather_text_sunny_periods" translatable="false">Sunny periods</string>
+    <string name="hko_weather_text_sunny_intervals" translatable="false">Sunny intervals</string>
+    <string name="hko_weather_text_sunny_periods_with_a_few_showers" translatable="false">Sunny periods with a few showers</string>
+    <string name="hko_weather_text_sunny_intervals_with_showers" translatable="false">Sunny intervals with showers</string>
+    <string name="hko_weather_text_cloudy" translatable="false">@string/common_weather_text_cloudy</string>
+    <string name="hko_weather_text_overcast" translatable="false">@string/common_weather_text_overcast</string>
+    <string name="hko_weather_text_light_rain" translatable="false">@string/common_weather_text_rain_light</string>
+    <string name="hko_weather_text_rain" translatable="false">@string/common_weather_text_rain</string>
+    <string name="hko_weather_text_heavy_rain" translatable="false">@string/common_weather_text_rain_heavy</string>
+    <string name="hko_weather_text_thunderstorms" translatable="false">@string/weather_kind_thunderstorm</string>
+    <string name="hko_weather_text_fine" translatable="false">@string/common_weather_text_clear_sky</string>
+    <string name="hko_weather_text_mainly_cloudy" translatable="false">@string/common_weather_text_mostly_cloudy</string>
+    <string name="hko_weather_text_mainly_fine" translatable="false">@string/common_weather_text_mostly_clear</string>
+    <string name="hko_weather_text_windy" translatable="false">@string/weather_kind_wind</string>
+    <string name="hko_weather_text_dry" translatable="false">@string/common_weather_text_dry</string>
+    <string name="hko_weather_text_humid" translatable="false">@string/common_weather_text_humid</string>
+    <string name="hko_weather_text_fog" translatable="false">@string/weather_kind_fog</string>
+    <string name="hko_weather_text_mist" translatable="false">@string/common_weather_text_mist</string>
+    <string name="hko_weather_text_haze" translatable="false">@string/weather_kind_haze</string>
+    <string name="hko_weather_text_hot" translatable="false">@string/common_weather_text_hot</string>
+    <string name="hko_weather_text_warm" translatable="false">@string/common_weather_text_warm</string>
+    <string name="hko_weather_text_cool" translatable="false">@string/common_weather_text_cool</string>
+    <string name="hko_weather_text_cold" translatable="false">@string/common_weather_text_cold</string>
+    <string name="hko_warning_text_tropical_cyclone_1" translatable="false">Standby Signal No. 1</string>
+    <string name="hko_warning_text_tropical_cyclone_3" translatable="false">Strong Wind Signal No. 3</string>
+    <string name="hko_warning_text_tropical_cyclone_8_northeast" translatable="false">No. 8 Northeast Gale or Storm Signal</string>
+    <string name="hko_warning_text_tropical_cyclone_8_northwest" translatable="false">No. 8 Northwest Gale or Storm Signal</string>
+    <string name="hko_warning_text_tropical_cyclone_8_southeast" translatable="false">No. 8 Southeast Gale or Storm Signal</string>
+    <string name="hko_warning_text_tropical_cyclone_8_southwest" translatable="false">No. 8 Southwest Gale or Storm Signal</string>
+    <string name="hko_warning_text_tropical_cyclone_9" translatable="false">Increasing Gale or Storm Signal No. 9</string>
+    <string name="hko_warning_text_tropical_cyclone_10" translatable="false">Hurricane Signal No. 10</string>
+    <string name="hko_warning_text_tropical_cyclone_pre_8" translatable="false">Pre-8 Tropical Cyclone Special Announcement</string>
+    <string name="hko_warning_text_rainstorm_amber" translatable="false">Amber Rainstorm Warning Signal</string>
+    <string name="hko_warning_text_rainstorm_red" translatable="false">Red Rainstorm Warning Signal</string>
+    <string name="hko_warning_text_rainstorm_black" translatable="false">Black Rainstorm Warning Signal</string>
+    <string name="hko_warning_text_fire_yellow" translatable="false">Yellow Fire Danger Warning</string>
+    <string name="hko_warning_text_fire_red" translatable="false">Red Fire Danger Warning</string>
+    <string name="hko_warning_text_thunderstorm" translatable="false">Thunderstorm Warning</string>
+    <string name="hko_warning_text_flooding_northern_nt" translatable="false">Special Announcement on Flooding in Northern New Territories</string>
+    <string name="hko_warning_text_landslip" translatable="false">Landslip Warning</string>
+    <string name="hko_warning_text_strong_monsoon" translatable="false">Strong Monsoon Signal</string>
+    <string name="hko_warning_text_frost" translatable="false">Frost Warning</string>
+    <string name="hko_warning_text_cold" translatable="false">Cold Weather Warning</string>
+    <string name="hko_warning_text_very_hot" translatable="false">Very Hot Weather Warning</string>
+    <string name="hko_warning_text_tsunami" translatable="false">Tsunami Warning</string>
+    <string name="hko_warning_text_fire_yellow_description" translatable="false">The Fire Danger Warning is Yellow and the fire risk is High.</string>
+    <string name="hko_warning_text_fire_red_description" translatable="false">The Fire Danger Warning is Red and the fire risk is Extreme.</string>
+    <!-- Warning texts for SMG -->
+    <string name="smg_warning_text_tropical_cyclone_1" translatable="false">Signal No.1</string>
+    <string name="smg_warning_text_tropical_cyclone_3" translatable="false">Signal No.3</string>
+    <string name="smg_warning_text_tropical_cyclone_8_northeast" translatable="false">Signal No.8NE</string>
+    <string name="smg_warning_text_tropical_cyclone_8_northwest" translatable="false">Signal No.8NW</string>
+    <string name="smg_warning_text_tropical_cyclone_8_southeast" translatable="false">Signal No.8SE</string>
+    <string name="smg_warning_text_tropical_cyclone_8_southwest" translatable="false">Signal No.8SW</string>
+    <string name="smg_warning_text_tropical_cyclone_9" translatable="false">Signal No.9</string>
+    <string name="smg_warning_text_tropical_cyclone_10" translatable="false">Signal No.10</string>
+    <string name="smg_warning_text_rainstorm_yellow" translatable="false">Yellow Rainstorm Warning Signal</string>
+    <string name="smg_warning_text_rainstorm_red" translatable="false">Red Rainstorm Warning Signal</string>
+    <string name="smg_warning_text_rainstorm_black" translatable="false">Black Rainstorm Warning Signal</string>
+    <string name="smg_warning_text_strong_monsoon" translatable="false">Strong Monsoon Signal</string>
+    <string name="smg_warning_text_thunderstorm" translatable="false">Thunderstorm Warning</string>
+    <string name="smg_warning_text_storm_surge_blue" translatable="false">Blue Storm Surge Warning</string>
+    <string name="smg_warning_text_storm_surge_yellow" translatable="false">Yellow Storm Surge Warning</string>
+    <string name="smg_warning_text_storm_surge_orange" translatable="false">Orange Storm Surge Warning</string>
+    <string name="smg_warning_text_storm_surge_red" translatable="false">Red Storm Surge Warning</string>
+    <string name="smg_warning_text_storm_surge_black" translatable="false">Black Storm Surge Warning</string>
+    <string name="smg_warning_text_tsunami" translatable="false">Tsunami Warning Signal</string>
+    <!-- Warning texts for MeteoLux -->
+    <string name="meteolux_warning_text_wind" translatable="false">Wind warning</string>
+    <string name="meteolux_warning_text_rain" translatable="false">Rain warning</string>
+    <string name="meteolux_warning_text_snow" translatable="false">Snow warning</string>
+    <string name="meteolux_warning_text_black_ice" translatable="false">Black ice warning</string>
+    <string name="meteolux_warning_text_thunderstorm" translatable="false">Thunderstorm warning</string>
+    <string name="meteolux_warning_text_heat" translatable="false">Heat warning</string>
+    <string name="meteolux_warning_text_cold" translatable="false">Cold warning</string>
+    <string name="meteolux_warning_text_flood" translatable="false">Flood warning*</string>
+    <string name="meteolux_warning_text_ozone" translatable="false">Ozone in the air*</string>
+    <string name="meteolux_warning_text_pm" translatable="false">Particle pollution (PM) in the air*</string>
+    <string name="meteolux_warning_text_level_2" translatable="false">Potential danger</string>
+    <string name="meteolux_warning_text_level_3" translatable="false">Danger</string>
+    <string name="meteolux_warning_text_level_4" translatable="false">Significant danger</string>
+    <!-- Warning texts for JMA -->
+    <string name="jma_warning_text_heavy_rain_emergency" translatable="false">Heavy rain emergency warning</string>
+    <string name="jma_warning_text_heavy_rain_warning" translatable="false">Heavy rain warning</string>
+    <string name="jma_warning_text_heavy_rain_advisory" translatable="false">Heavy rain advisory</string>
+    <string name="jma_warning_text_flood_warning" translatable="false">Flood warning</string>
+    <string name="jma_warning_text_flood_advisory" translatable="false">Flood advisory</string>
+    <string name="jma_warning_text_storm_emergency" translatable="false">Storm emergency warning</string>
+    <string name="jma_warning_text_storm_warning" translatable="false">Storm warning</string>
+    <string name="jma_warning_text_gale_advisory" translatable="false">Gale advisory</string>
+    <string name="jma_warning_text_snowstorm_emergency" translatable="false">Snowstorm emergency warning</string>
+    <string name="jma_warning_text_snowstorm_warning" translatable="false">Snowstorm warning</string>
+    <string name="jma_warning_text_gale_and_snow_advisory" translatable="false">Gale and snow advisory</string>
+    <string name="jma_warning_text_heavy_snow_emergency" translatable="false">Heavy snow emergency warning</string>
+    <string name="jma_warning_text_heavy_snow_warning" translatable="false">Heavy snow warning</string>
+    <string name="jma_warning_text_heavy_snow_advisory" translatable="false">Heavy snow advisory</string>
+    <string name="jma_warning_text_high_wave_emergency" translatable="false">High wave emergency warning</string>
+    <string name="jma_warning_text_high_wave_warning" translatable="false">High wave warning</string>
+    <string name="jma_warning_text_high_wave_advisory" translatable="false">High wave advisory</string>
+    <string name="jma_warning_text_storm_surge_emergency" translatable="false">Storm surge emergency warning</string>
+    <string name="jma_warning_text_storm_surge_warning" translatable="false">Storm surge warning</string>
+    <string name="jma_warning_text_storm_surge_advisory" translatable="false">Storm surge advisory</string>
+    <string name="jma_warning_text_thunderstorm_advisory" translatable="false">Thunderstorm advisory</string>
+    <string name="jma_warning_text_snow_melting_advisory" translatable="false">Snow melting advisory</string>
+    <string name="jma_warning_text_dense_fog_advisory" translatable="false">Dense fog advisory</string>
+    <string name="jma_warning_text_dry_air_advisory" translatable="false">Dry air advisory</string>
+    <string name="jma_warning_text_avalanche_advisory" translatable="false">Avalanche advisory</string>
+    <string name="jma_warning_text_low_temperature_advisory" translatable="false">Low temperature advisory</string>
+    <string name="jma_warning_text_frost_advisory" translatable="false">Frost advisory</string>
+    <string name="jma_warning_text_ice_accretion_advisory" translatable="false">Ice accretion advisory</string>
+    <string name="jma_warning_text_snow_accretion_advisory" translatable="false">Snow accretion advisory</string>
+    <!-- Weather texts for NWS -->
+    <string name="nws_weather_text_freezing_spray" translatable="false">Freezing spray</string>
+    <string name="nws_weather_text_ice_crystals" translatable="false">Ice crystals</string>
+    <string name="nws_weather_text_ice_fog" translatable="false">Ice fog</string>
+    <string name="nws_weather_text_volcanic_ash" translatable="false">Volcanic ash</string>
+    <string name="nws_weather_text_waterspout" translatable="false">Waterspout</string>
+    <string name="nws_weather_text_intensity_light" translatable="false">Light %s</string>
+    <string name="nws_weather_text_intensity_heavy" translatable="false">Heavy %s</string>
+    <string name="nws_weather_text_coverage_areas_of" translatable="false">Areas of %s</string>
+    <string name="nws_weather_text_coverage_brief" translatable="false">Brief %s</string>
+    <string name="nws_weather_text_coverage_chance_of" translatable="false">Chance of %s</string>
+    <string name="nws_weather_text_coverage_few" translatable="false">A few %s</string>
+    <string name="nws_weather_text_coverage_frequent" translatable="false">Frequent %s</string>
+    <string name="nws_weather_text_coverage_intermittent" translatable="false">Intermittent %s</string>
+    <string name="nws_weather_text_coverage_isolated" translatable="false">Isolated %s</string>
+    <string name="nws_weather_text_coverage_likely" translatable="false">%s likely</string>
+    <string name="nws_weather_text_coverage_numerous" translatable="false">Numerous %s</string>
+    <string name="nws_weather_text_coverage_occasional" translatable="false">Occasional %s</string>
+    <string name="nws_weather_text_coverage_patchy" translatable="false">Patchy %s</string>
+    <string name="nws_weather_text_coverage_periods_of" translatable="false">Periods of %s</string>
+    <string name="nws_weather_text_coverage_scattered" translatable="false">Scattered %s</string>
+    <string name="nws_weather_text_coverage_slight_chance_of" translatable="false">Slight chance of %s</string>
+    <string name="nws_weather_text_coverage_widespread" translatable="false">Widespread %s</string>
+    <!-- "Mainly clear and breezy" -->
+    <string name="nws_weather_text_condition_and_wind" translatable="false">%1$s and %2$s</string>
+    <string name="nws_weather_text_wind_high_wind" translatable="false">High Wind</string>
+    <string name="nws_weather_text_wind_very_windy" translatable="false">Very Windy</string>
+    <string name="nws_weather_text_wind_windy" translatable="false">Windy</string>
+    <string name="nws_weather_text_wind_breezy" translatable="false">Breezy</string>
+    <!-- "Heavy rain with large hail" -->
+    <string name="nws_weather_text_condition_with_attribute" translatable="false">%1$s with %2$s</string>
+    <string name="nws_weather_text_attribute_wind_damaging" translatable="false">Damaging Wind</string>
+    <string name="nws_weather_text_attribute_flooding" translatable="false">Flooding</string>
+    <string name="nws_weather_text_attribute_wind_gusty" translatable="false">Gusty Wind</string>
+    <string name="nws_weather_text_attribute_hail_large" translatable="false">Large Hail</string>
+    <string name="nws_weather_text_attribute_hail_small" translatable="false">Small Hail</string>
+    <string name="nws_weather_text_separator_and" translatable="false"> and </string>
+    <!-- Weather texts for Vedur.is -->
+    <string name="veduris_weather_text_fog_drizzle" translatable="false">Fog drizzle</string>
+    <string name="veduris_weather_text_thunderstorm_light" translatable="false">Light thunderstorm</string>
+    <!-- Weather texts for FMI -->
+    <string name="fmi_weather_text_ice_pellets_light" translatable="false">Light ice pellets</string>
+    <string name="fmi_weather_text_ice_pellets_moderate" translatable="false">Moderate ice pellets</string>
+    <string name="fmi_weather_text_ice_pellets_heavy" translatable="false">Heavy ice pellets</string>
+    <string name="fmi_weather_text_ice_crystals" translatable="false">@string/nws_weather_text_ice_crystals</string>
     <!-- Do NOT translate everything below -->
     <!-- Widgets -->
     <string name="widget_custom_subtitle_keyword_cw" translatable="false">$cw$</string>
@@ -905,31 +1284,8 @@
     <string name="widget_custom_subtitle_keyword_xmr" translatable="false">$0mr$, $1mr$, …, $4mr$</string>
     <string name="widget_custom_subtitle_keyword_xms" translatable="false">$0ms$, $1ms$, …, $4ms$</string>
     <string name="widget_custom_subtitle_keyword_xmp" translatable="false">$0mp$, $1mp$, …, $4mp$</string>
-    <!-- Preferences -->
-    <string name="sp_widget_day_setting" translatable="false">widget_day_setting</string>
-    <string name="sp_widget_week_setting" translatable="false">widget_week_setting</string>
-    <string name="sp_widget_day_week_setting" translatable="false">widget_day_week_setting</string>
-    <string name="sp_widget_clock_day_horizontal_setting" translatable="false">widget_clock_day_horizontal_setting</string>
-    <string name="sp_widget_clock_day_details_setting" translatable="false">widget_clock_day_details_setting</string>
-    <string name="sp_widget_clock_day_vertical_setting" translatable="false">widget_clock_day_vertical_setting</string>
-    <string name="sp_widget_clock_day_week_setting" translatable="false">widget_clock_day_week_setting</string>
-    <string name="sp_widget_text_setting" translatable="false">widget_text_setting</string>
-    <string name="sp_widget_daily_trend_setting" translatable="false">widget_daily_trend_setting</string>
-    <string name="sp_widget_hourly_trend_setting" translatable="false">widget_hourly_trend_setting</string>
-    <string name="sp_widget_multi_city" translatable="false">widget_multi_city</string>
-    <string name="key_view_type" translatable="false">view_type</string>
-    <string name="key_card_style" translatable="false">card_style</string>
-    <string name="key_card_alpha" translatable="false">card_alpha_1</string>
-    <string name="key_hide_subtitle" translatable="false">hide_refresh_time</string>
-    <string name="key_subtitle_data" translatable="false">subtitle_data</string>
-    <string name="key_text_color" translatable="false">text_color</string>
-    <string name="key_text_size" translatable="false">text_size</string>
-    <string name="key_clock_font" translatable="false">clock_font</string>
-    <!-- Alternate calendar, keep the old name for compatibility reasons -->
-    <string name="key_hide_alternate_calendar" translatable="false">hide_lunar</string>
-    <string name="key_align_end" translatable="false">align_end</string>
     <!-- Tags -->
-    <string name="tag_temperature" translatable="false">@string/temperature</string>
+    <string name="tag_temperature" translatable="false">@string/conditions</string>
     <string name="tag_wind" translatable="false">@string/wind</string>
     <string name="tag_precipitation" translatable="false">@string/precipitation</string>
     <string name="tag_aqi" translatable="false">@string/air_quality</string>
@@ -943,5 +1299,40 @@
     <!-- Keyword shown when data is missing, for example requesting humidity in widgets but data doesn’t exist -->
     <string name="null_data_text">N/A</string>
     <string name="colon_separator" translatable="false">:\u0020</string>
-    <string name="comma_separator" translatable="false">,\u0020</string>
+    <string name="dot_separator" translatable="false">\u0020•\u0020</string>
+    <string name="parenthesis" translatable="false">%1$s (%2$s)</string>
+    <string name="knmi_weather_text_light_rain_heavy_clouds" translatable="false">Light rain with heavy clouds</string>
+    <string name="knmi_weather_text_moderate_rain_heavy_clouds" translatable="false">Moderate rain with heavy clouds</string>
+    <string name="knmi_weather_text_heavy_rain_heavy_clouds" translatable="false">Heavy rain with heavy clouds</string>
+    <string name="knmi_weather_text_drizzle_heavy_clouds" translatable="false">Drizzle with heavy clouds</string>
+    <string name="knmi_weather_text_drizzle_with_sun" translatable="false">Drizzle with some sun</string>
+    <string name="knmi_weather_text_thunderstorm_moderate_rain_heavy_clouds" translatable="false">Thunderstorm with moderate rain and heavy clouds</string>
+    <string name="knmi_weather_text_thunderstorm_moderate_rain_with_sun" translatable="false">Thunderstorm with moderate rain and some sun</string>
+    <string name="knmi_weather_text_thunderstorm_heavy_rain_sun" translatable="false">Thunderstorm with heavy rain and some sun</string>
+    <string name="knmi_weather_text_thunderstorm_hail_heavy_clouds" translatable="false">Thunderstorm with hail and heavy clouds</string>
+    <string name="knmi_weather_text_sunny" translatable="false">@string/common_weather_text_clear_sky</string>
+    <string name="knmi_weather_text_heavy_clouds" translatable="false">@string/common_weather_text_cloudy</string>
+    <string name="knmi_weather_text_cloudy_with_sun" translatable="false">@string/common_weather_text_mostly_cloudy</string>
+    <string name="knmi_weather_text_light_rain_with_sun" translatable="false">@string/common_weather_text_rain_showers_light</string>
+    <string name="knmi_weather_text_moderate_rain_with_sun" translatable="false">@string/common_weather_text_rain_showers_moderate</string>
+    <string name="knmi_weather_text_heavy_rain_with_sun" translatable="false">@string/common_weather_text_rain_showers_heavy</string>
+    <string name="knmi_weather_text_thunderstorm_heavy_rain_heavy_clouds" translatable="false">Thunderstorm with heavy rain and heavy clouds</string>
+    <string name="knmi_weather_text_thunderstorm_heavy_rain_with_sun" translatable="false">Thunderstorm with heavy rain and some sun</string>
+    <string name="knmi_weather_text_thunderstorm_hail_with_sun" translatable="false">Thunderstorm with hail and some sun</string>
+    <string name="knmi_weather_text_winter_rain_thunderstorm_heavy_clouds" translatable="false">Winter rain with thunderstorm and heavy clouds</string>
+    <string name="knmi_weather_text_winter_rain_thunderstorm_with_sun" translatable="false">Winter rain with thunderstorm and some sun</string>
+    <string name="knmi_weather_text_snow_thunderstorm_heavy_clouds" translatable="false">Snow with thunderstorm and heavy clouds</string>
+    <string name="knmi_weather_text_snow_thunderstorm_with_sun" translatable="false">Snow with thunderstorm and some sun</string>
+    <string name="knmi_weather_text_light_snow_heavy_clouds" translatable="false">Light snow with heavy clouds</string>
+    <string name="knmi_weather_text_light_snow_with_sun" translatable="false">Light snow with some sun</string>
+    <string name="knmi_weather_text_moderate_snow_heavy_clouds" translatable="false">Moderate snow with heavy clouds</string>
+    <string name="knmi_weather_text_moderate_snow_with_sun" translatable="false">Moderate snow with some sun</string>
+    <string name="knmi_weather_text_heavy_snow_heavy_clouds" translatable="false">Heavy snow with heavy clouds</string>
+    <string name="knmi_weather_text_heavy_snow_with_sun" translatable="false">Heavy snow with some sun</string>
+    <string name="knmi_weather_text_wet_snow_with_sun" translatable="false">Wet snow with some sun</string>
+    <string name="knmi_weather_text_wet_snow_heavy_clouds" translatable="false">Wet snow with heavy clouds</string>
+    <string name="knmi_weather_text_hail_heavy_clouds" translatable="false">Hail with heavy clouds</string>
+    <string name="knmi_weather_text_hail_with_sun" translatable="false">Hail with some sun</string>
+    <string name="knmi_weather_text_slippery_due_to_sleet" translatable="false">Slipperiness due to sleet</string>
+    <string name="knmi_weather_text_fog" translatable="false">@string/common_weather_text_fog</string>
 </resources>

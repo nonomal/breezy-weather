@@ -10,10 +10,11 @@ on:
 
 jobs:
   lock:
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-24.04'
     steps:
-      - uses: dessant/lock-threads@v5
+      - uses: dessant/lock-threads@89ae32b08ed1a541efecbab17912962a5e38981c # v6.0.2
         with:
           github-token: ${{ github.token }}
           issue-inactive-days: '2'
           pr-inactive-days: '2'
+          discussion-inactive-days: '2'

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,7 +24,7 @@ data class MetNoForecastData(
     val instant: MetNoForecastDataInstant?,
     @SerialName("next_12_hours") val next12Hours: MetNoForecastDataNextHours?,
     @SerialName("next_1_hours") val next1Hours: MetNoForecastDataNextHours?,
-    @SerialName("next_6_hours") val next6Hours: MetNoForecastDataNextHours?
+    @SerialName("next_6_hours") val next6Hours: MetNoForecastDataNextHours?,
 ) {
     val symbolCode: String?
         get() = next1Hours?.summary?.symbolCode

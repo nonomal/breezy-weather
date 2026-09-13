@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- app theme -->
-    <style name="BreezyWeatherTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="BreezyWeatherTheme" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -41,7 +41,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
-        <item name="colorControlHighlight">@color/colorRipple</item>
+        <!-- Reset flag to default to fix a bug in the SplashScreen API which keeps an incorrect
+         value for the postSplashScreenTheme causing layouts to be unintentionally offset into the
+         display cutout area in landscape mode.
+         Related issue: https://issuetracker.google.com/issues/214408199 -->
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">default</item>
+
+        <item name="colorControlHighlight">@color/colorRipple_regular</item>
         <item name="colorTitleText">@color/colorTextTitle</item>
         <item name="colorBodyText">@color/colorTextContent</item>
         <item name="colorCaptionText">@color/colorTextSubtitle</item>
@@ -50,9 +56,10 @@
         <item name="actionBarSize">@dimen/action_bar_height</item>
     </style>
 
-    <style name="BreezyWeatherTheme.Main" parent="BreezyWeatherTheme">
-        <item name="android:windowBackground">@drawable/launch_background</item>
-        <item name="colorControlHighlight">@color/colorRipple_regular</item>
+    <style name="BreezyWeatherTheme.Main" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorSplashScreen</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/BreezyWeatherTheme</item>
     </style>
 
     <style name="BreezyWeatherTheme.Search" parent="BreezyWeatherTheme">
@@ -86,14 +93,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginLeft">@dimen/little_margin</item>
-        <item name="android:layout_marginRight">@dimen/little_margin</item>
-        <item name="android:layout_marginBottom">@dimen/little_margin</item>
-        <item name="android:clickable">true</item>
+        <item name="android:layout_marginLeft">@dimen/small_margin</item>
+        <item name="android:layout_marginRight">@dimen/small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin</item>
         <item name="cardCornerRadius">@dimen/material3_card_list_item_corner_radius</item>
         <item name="cardElevation">2dp</item>
         <item name="cardBackgroundColor">?attr/colorSurface</item>
-        <item name="android:stateListAnimator" tools:ignore="NewApi">@animator/touch_raise</item>
         <item name="android:foreground">@drawable/selectable_item_background</item>
     </style>
 
@@ -218,8 +223,8 @@
     <style name="material_image_button">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
-        <item name="android:padding">@dimen/little_margin</item>
-        <item name="android:layout_margin">@dimen/little_margin</item>
+        <item name="android:padding">@dimen/small_margin</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
         <item name="android:background">@drawable/selectable_item_background_borderless</item>
         <item name="android:tint">@color/colorTextContent</item>
     </style>
@@ -288,10 +293,27 @@
 
     <!-- progress bar. -->
     <style name="widget_progress">
-        <item name="android:layout_width">@dimen/widget_little_weather_icon_size</item>
-        <item name="android:layout_height">@dimen/widget_little_weather_icon_size</item>
+        <item name="android:layout_width">@dimen/widget_small_weather_icon_size</item>
+        <item name="android:layout_height">@dimen/widget_small_weather_icon_size</item>
         <item name="android:indeterminate">true</item>
         <item name="android:indeterminateTintMode" tools:ignore="NewApi">src_atop</item>
         <item name="android:indeterminateTint" tools:ignore="NewApi">@color/lightPrimary_5</item>
+    </style>
+
+    <!-- Charts -->
+    <style name="NowcastingChart">
+        <item name="layers">column</item>
+        <item name="showBottomAxis">true</item>
+    </style>
+
+    <!-- Weather blocks -->
+    <style name="Weather.TextAppearance.MainBlock.NumberDigit" parent="@style/TextAppearance.Material3.DisplaySmall">
+        <item name="android:textSize">45sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+    <style name="Weather.TextAppearance.MainBlock.Clock" parent="@style/TextAppearance.Material3.DisplaySmall">
+        <item name="android:fontFamily">@font/robotoflex_family</item>
+        <item name="android:textSize">50sp</item>
     </style>
 </resources>

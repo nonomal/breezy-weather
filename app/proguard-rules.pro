@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class org.breezyweather.common.basic.models.** { *; }
+-keep class org.breezyweather.common.activities.models.** { *; }
 -keep class org.breezyweather.db.entities.** { *; }
 -keep interface org.breezyweather.sources.**.* { *; }
 -keep class org.breezyweather.sources.**.json.** { *; }
@@ -68,3 +68,6 @@
 
 # RestrictionBypass
 -keep class org.chickenhook.restrictionbypass.** { *; }
+
+# Jwt
+-keep class io.jsonwebtoken.impl.** { *; }

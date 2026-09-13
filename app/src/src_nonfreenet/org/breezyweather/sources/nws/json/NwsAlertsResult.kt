@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -20,5 +20,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NwsAlertsResult(
-    val features: List<NwsAlert>? = null
+    val features: List<NwsAlert>? = null,
 )

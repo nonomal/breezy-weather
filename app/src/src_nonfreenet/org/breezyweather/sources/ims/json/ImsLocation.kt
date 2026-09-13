@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,5 +23,5 @@ data class ImsLocation(
     val lid: String,
     val name: String,
     val lat: String,
-    val lon: String
+    val lon: String,
 )

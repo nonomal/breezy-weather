@@ -13,7 +13,7 @@
         <include layout="@layout/notification_base" />
 
     </FrameLayout>
-    
+
     <LinearLayout
         android:id="@+id/notification_multi_city_1"
         android:orientation="horizontal"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingHorizontal="@dimen/normal_margin"
-        android:paddingVertical="@dimen/little_margin"
+        android:paddingVertical="@dimen/small_margin"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -42,7 +42,7 @@
             android:layout_marginStart="@dimen/normal_margin"
             style="@style/notification_title_text"
             tools:text="Wienau, 16°/2°" />
-        
+
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingHorizontal="@dimen/normal_margin"
-        android:paddingVertical="@dimen/little_margin"
+        android:paddingVertical="@dimen/small_margin"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingHorizontal="@dimen/normal_margin"
-        android:paddingVertical="@dimen/little_margin"
+        android:paddingVertical="@dimen/small_margin"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView

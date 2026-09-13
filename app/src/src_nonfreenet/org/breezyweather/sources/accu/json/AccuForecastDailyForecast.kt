@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -21,8 +21,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AccuForecastDailyForecast(
     val EpochDate: Long,
-    val Sun: AccuForecastSun?,
-    val Moon: AccuForecastMoon?,
     val Temperature: AccuForecastTemperature?,
     val RealFeelTemperature: AccuForecastTemperature?,
     val RealFeelTemperatureShade: AccuForecastTemperature?,
@@ -31,5 +29,5 @@ data class AccuForecastDailyForecast(
     val Day: AccuForecastHalfDay?,
     val Night: AccuForecastHalfDay?,
     val AirAndPollen: List<AccuForecastAirAndPollen>?,
-    val Sources: List<String>?
+    val Sources: List<String>?,
 )

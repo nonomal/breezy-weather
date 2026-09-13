@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -30,5 +30,5 @@ data class ChinaCurrent(
     val uvIndex: String?,
     val visibility: ChinaUnitValue?,
     val weather: String?,
-    val wind: ChinaCurrentWind?
+    val wind: ChinaCurrentWind?,
 )

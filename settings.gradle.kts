@@ -34,3 +34,13 @@ include(":app")
 include(":data")
 include(":domain")
 include(":maps-utils")
+include(":ui-weather-view")
+include(":weather-unit")
+
+// To test local changes
+/*includeBuild("../breezy-weather-data-sharing-lib/") {
+    dependencySubstitution {
+        substitute(module("com.github.breezy-weather:breezy-weather-data-sharing-lib"))
+            .using(project(":lib"))
+    }
+}*/

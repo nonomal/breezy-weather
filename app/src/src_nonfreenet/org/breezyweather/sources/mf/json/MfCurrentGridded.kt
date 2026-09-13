@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,5 +26,5 @@ data class MfCurrentGridded(
     @SerialName("wind_direction") val windDirection: Int?,
     @SerialName("wind_icon") val windIcon: String?,
     @SerialName("weather_icon") val weatherIcon: String?,
-    @SerialName("weather_description") val weatherDescription: String?
+    @SerialName("weather_description") val weatherDescription: String?,
 )

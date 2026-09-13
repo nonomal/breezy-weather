@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,5 +24,5 @@ data class AccuForecastAirAndPollen(
     val Value: Int?,
     val Category: String?,
     val CategoryValue: Int?,
-    val Type: String?
+    val Type: String?,
 )

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -32,5 +32,5 @@ data class AccuAlertResult(
     val Color: AccuColor?,
     val Source: String?,
     val SourceId: Int,
-    val Area: List<AccuAlertArea>?
+    val Area: List<AccuAlertArea>?,
 )

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -31,5 +31,5 @@ data class AccuLocationResult(
     val AdministrativeArea: AccuLocationArea?,
     val TimeZone: AccuLocationTimeZone,
     val GeoPosition: AccuLocationGeoPosition,
-    val DataSets: List<String>?
+    val DataSets: List<String>?,
 )

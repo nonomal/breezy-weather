@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -25,5 +25,5 @@ data class NwsPointProperties(
     val gridY: Int,
     val relativeLocation: NwsPointLocation?,
     val forecastZone: String?,
-    val timeZone: String
+    val timeZone: String,
 )

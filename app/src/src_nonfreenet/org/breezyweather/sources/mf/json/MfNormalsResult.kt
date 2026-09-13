@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,5 +24,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MfNormalsResult(
     val geometry: MfGeometry? = null,
-    val properties: MfNormalsProperties? = null
+    val properties: MfNormalsProperties? = null,
 )

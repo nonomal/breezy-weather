@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -18,63 +18,100 @@ package org.breezyweather.sources.accu
 
 import android.content.Context
 import android.graphics.Color
+import androidx.annotation.DrawableRes
 import breezyweather.domain.location.model.Location
-import breezyweather.domain.weather.wrappers.SecondaryWeatherWrapper
+import breezyweather.domain.location.model.LocationAddressInfo
+import breezyweather.domain.source.SourceFeature
+import breezyweather.domain.weather.model.AirQuality
+import breezyweather.domain.weather.model.Alert
+import breezyweather.domain.weather.model.DegreeDay
+import breezyweather.domain.weather.model.Minutely
+import breezyweather.domain.weather.model.Normals
+import breezyweather.domain.weather.model.Pollen
+import breezyweather.domain.weather.model.Precipitation
+import breezyweather.domain.weather.model.PrecipitationDuration
+import breezyweather.domain.weather.model.PrecipitationProbability
+import breezyweather.domain.weather.model.UV
+import breezyweather.domain.weather.model.Wind
+import breezyweather.domain.weather.reference.AlertSeverity
+import breezyweather.domain.weather.reference.Month
+import breezyweather.domain.weather.reference.WeatherCode
+import breezyweather.domain.weather.wrappers.AirQualityWrapper
+import breezyweather.domain.weather.wrappers.CurrentWrapper
+import breezyweather.domain.weather.wrappers.DailyWrapper
+import breezyweather.domain.weather.wrappers.HalfDayWrapper
+import breezyweather.domain.weather.wrappers.HourlyWrapper
+import breezyweather.domain.weather.wrappers.PollenWrapper
+import breezyweather.domain.weather.wrappers.TemperatureWrapper
 import breezyweather.domain.weather.wrappers.WeatherWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
-import org.breezyweather.common.basic.models.options.unit.PrecipitationUnit
-import org.breezyweather.common.exceptions.ApiKeyMissingException
 import org.breezyweather.common.exceptions.InvalidLocationException
-import org.breezyweather.common.exceptions.SecondaryWeatherException
 import org.breezyweather.common.extensions.code
 import org.breezyweather.common.extensions.codeWithCountry
 import org.breezyweather.common.extensions.currentLocale
 import org.breezyweather.common.extensions.toCalendarWithTimeZone
+import org.breezyweather.common.extensions.toDate
+import org.breezyweather.common.extensions.toTimezoneSpecificHour
 import org.breezyweather.common.preference.EditTextPreference
 import org.breezyweather.common.preference.ListPreference
 import org.breezyweather.common.preference.Preference
-import org.breezyweather.common.source.ConfigurableSource
-import org.breezyweather.common.source.HttpSource
-import org.breezyweather.common.source.LocationParametersSource
-import org.breezyweather.common.source.LocationSearchSource
-import org.breezyweather.common.source.MainWeatherSource
-import org.breezyweather.common.source.ReverseGeocodingSource
-import org.breezyweather.common.source.SecondaryWeatherSource
-import org.breezyweather.common.source.SecondaryWeatherSourceFeature
-import org.breezyweather.settings.SettingsManager
-import org.breezyweather.settings.SourceConfigStore
+import org.breezyweather.domain.settings.SettingsManager
+import org.breezyweather.domain.settings.SourceConfigStore
+import org.breezyweather.sources.accu.json.AccuAirQualityData
 import org.breezyweather.sources.accu.json.AccuAirQualityResult
 import org.breezyweather.sources.accu.json.AccuAlertResult
 import org.breezyweather.sources.accu.json.AccuClimoSummaryResult
 import org.breezyweather.sources.accu.json.AccuCurrentResult
+import org.breezyweather.sources.accu.json.AccuForecastAirAndPollen
+import org.breezyweather.sources.accu.json.AccuForecastDailyForecast
 import org.breezyweather.sources.accu.json.AccuForecastDailyResult
 import org.breezyweather.sources.accu.json.AccuForecastHourlyResult
+import org.breezyweather.sources.accu.json.AccuLocationResult
 import org.breezyweather.sources.accu.json.AccuMinutelyResult
+import org.breezyweather.sources.accu.json.AccuValue
 import org.breezyweather.sources.accu.preferences.AccuDaysPreference
 import org.breezyweather.sources.accu.preferences.AccuHoursPreference
 import org.breezyweather.sources.accu.preferences.AccuPortalPreference
+import org.breezyweather.unit.distance.Distance
+import org.breezyweather.unit.distance.Distance.Companion.feet
+import org.breezyweather.unit.distance.Distance.Companion.kilometers
+import org.breezyweather.unit.distance.Distance.Companion.meters
+import org.breezyweather.unit.distance.Distance.Companion.miles
+import org.breezyweather.unit.pollen.PollenConcentration.Companion.perCubicMeter
+import org.breezyweather.unit.pollutant.PollutantConcentration
+import org.breezyweather.unit.pollutant.PollutantConcentration.Companion.microgramsPerCubicMeter
+import org.breezyweather.unit.precipitation.Precipitation.Companion.centimeters
+import org.breezyweather.unit.precipitation.Precipitation.Companion.inches
+import org.breezyweather.unit.precipitation.Precipitation.Companion.millimeters
+import org.breezyweather.unit.precipitation.PrecipitationUnit
+import org.breezyweather.unit.pressure.Pressure.Companion.hectopascals
+import org.breezyweather.unit.ratio.Ratio.Companion.percent
+import org.breezyweather.unit.speed.Speed
+import org.breezyweather.unit.speed.Speed.Companion.kilometersPerHour
+import org.breezyweather.unit.speed.Speed.Companion.milesPerHour
+import org.breezyweather.unit.temperature.Temperature
+import org.breezyweather.unit.temperature.Temperature.Companion.celsius
+import org.breezyweather.unit.temperature.Temperature.Companion.fahrenheit
 import retrofit2.Retrofit
 import java.util.Calendar
 import java.util.Date
+import java.util.TimeZone
 import javax.inject.Inject
+import javax.inject.Named
+import kotlin.math.roundToInt
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 class AccuService @Inject constructor(
     @ApplicationContext context: Context,
-    client: Retrofit.Builder
-) : HttpSource(), MainWeatherSource, SecondaryWeatherSource,
-    LocationSearchSource, ReverseGeocodingSource,
-    ConfigurableSource, LocationParametersSource {
+    @Named("JsonClient") client: Retrofit.Builder,
+) : AccuServiceStub() {
 
-    override val id = "accu"
-    override val name = "AccuWeather"
     override val privacyPolicyUrl = "https://www.accuweather.com/en/privacy"
-
-    override val color = Color.rgb(240, 85, 20)
-    override val weatherAttribution = "AccuWeather"
-    override val locationSearchAttribution = weatherAttribution
 
     private val mDeveloperApi by lazy {
         client
@@ -89,59 +126,94 @@ class AccuService @Inject constructor(
             .create(AccuEnterpriseApi::class.java)
     }
 
-    override val supportedFeaturesInMain = listOf(
-        SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY,
-        SecondaryWeatherSourceFeature.FEATURE_POLLEN,
-        SecondaryWeatherSourceFeature.FEATURE_MINUTELY,
-        SecondaryWeatherSourceFeature.FEATURE_ALERT,
-        SecondaryWeatherSourceFeature.FEATURE_NORMALS
+    override val attributionLinks = mapOf(
+        weatherAttribution to "https://www.accuweather.com/"
     )
 
-    override fun requestWeather(
-        context: Context, location: Location, ignoreFeatures: List<SecondaryWeatherSourceFeature>
-    ): Observable<WeatherWrapper> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
-        val locationKey = location.parameters.getOrElse(id) { null }?.getOrElse("locationKey") { null }
-        if (locationKey.isNullOrEmpty()) {
-            return Observable.error(InvalidLocationException())
-        }
+    @DrawableRes
+    override fun getAttributionIcon(): Int {
+        return R.drawable.accu_icon
+    }
 
+    override fun requestWeather(
+        context: Context,
+        location: Location,
+        requestedFeatures: List<SourceFeature>,
+    ): Observable<WeatherWrapper> {
         val apiKey = getApiKeyOrDefault()
         val mApi = if (portal == AccuPortalPreference.ENTERPRISE) mEnterpriseApi else mDeveloperApi
+        val locationKey = location.parameters.getOrElse(id) { null }?.getOrElse("locationKey") { null }
+        if (
+            (
+                SourceFeature.FORECAST in requestedFeatures ||
+                    SourceFeature.CURRENT in requestedFeatures ||
+                    SourceFeature.AIR_QUALITY in requestedFeatures ||
+                    SourceFeature.POLLEN in requestedFeatures ||
+                    SourceFeature.NORMALS in requestedFeatures ||
+                    (SourceFeature.ALERT in requestedFeatures && mApi is AccuEnterpriseApi)
+                ) &&
+            locationKey.isNullOrEmpty()
+        ) {
+            return Observable.error(InvalidLocationException())
+        }
 
         val languageCode = if (supportedLanguages.contains(context.currentLocale.codeWithCountry)) {
             context.currentLocale.codeWithCountry
         } else if (supportedLanguages.contains(context.currentLocale.code)) {
             context.currentLocale.code
-        } else "en"
-        val metric = SettingsManager.getInstance(context).precipitationUnit != PrecipitationUnit.IN
-        val current = mApi.getCurrent(
-            locationKey,
-            apiKey,
-            languageCode,
-            details = true
-        )
-        val daily = mApi.getDaily(
-            days.id,
-            locationKey,
-            apiKey,
-            languageCode,
-            details = true,
-            metric = metric
-        )
-        val hourly = mApi.getHourly(
-            hours.id,
-            locationKey,
-            apiKey,
-            languageCode,
-            details = true,
-            metric = metric
-        )
-        val minute = if (!ignoreFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_MINUTELY) &&
-            mApi is AccuEnterpriseApi
-        ) {
+        } else if (context.currentLocale.code.startsWith("iw")) {
+            "he"
+        } else {
+            "en"
+        }
+        // Using precipitation unit setting as a proxy of whether to use metric or imperial units.
+        // This is because AccuWeather's summary text reports precipitation amounts rather than temperature.
+        val metric = SettingsManager.getInstance(context).getPrecipitationUnit(context) != PrecipitationUnit.INCH
+        val failedFeatures = mutableMapOf<SourceFeature, Throwable>()
+        val current = if (SourceFeature.CURRENT in requestedFeatures) {
+            mApi.getCurrent(
+                locationKey!!,
+                apiKey,
+                languageCode,
+                details = true
+            ).onErrorResumeNext {
+                failedFeatures[SourceFeature.CURRENT] = it
+                Observable.just(emptyList())
+            }
+        } else {
+            Observable.just(emptyList())
+        }
+        val daily = if (SourceFeature.FORECAST in requestedFeatures || SourceFeature.POLLEN in requestedFeatures) {
+            mApi.getDaily(
+                days.id,
+                locationKey!!,
+                apiKey,
+                languageCode,
+                details = true,
+                metric = metric
+            ).onErrorResumeNext {
+                failedFeatures[SourceFeature.FORECAST] = it
+                Observable.just(AccuForecastDailyResult())
+            }
+        } else {
+            Observable.just(AccuForecastDailyResult())
+        }
+        val hourly = if (SourceFeature.FORECAST in requestedFeatures) {
+            mApi.getHourly(
+                hours.id,
+                locationKey!!,
+                apiKey,
+                languageCode,
+                details = true,
+                metric = metric
+            ).onErrorResumeNext {
+                failedFeatures[SourceFeature.FORECAST] = it
+                Observable.just(emptyList())
+            }
+        } else {
+            Observable.just(emptyList())
+        }
+        val minute = if (SourceFeature.MINUTELY in requestedFeatures && mApi is AccuEnterpriseApi) {
             mApi.getMinutely(
                 minutes = 1,
                 apiKey,
@@ -149,16 +221,13 @@ class AccuService @Inject constructor(
                 languageCode,
                 details = true
             ).onErrorResumeNext {
-                Observable.create { emitter ->
-                    emitter.onNext(AccuMinutelyResult())
-                }
+                failedFeatures[SourceFeature.MINUTELY] = it
+                Observable.just(AccuMinutelyResult())
             }
         } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuMinutelyResult())
-            }
+            Observable.just(AccuMinutelyResult())
         }
-        val alert = if (!ignoreFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_ALERT)) {
+        val alert = if (SourceFeature.ALERT in requestedFeatures) {
             if (mApi is AccuEnterpriseApi) {
                 mApi.getAlertsByPosition(
                     apiKey,
@@ -166,68 +235,64 @@ class AccuService @Inject constructor(
                     languageCode,
                     details = true
                 ).onErrorResumeNext {
-                    Observable.create { emitter ->
-                        emitter.onNext(ArrayList())
+                    mApi.getAlertsByCityKey(
+                        locationKey!!,
+                        apiKey,
+                        languageCode,
+                        details = true
+                    ).onErrorResumeNext {
+                        failedFeatures[SourceFeature.ALERT] = it
+                        Observable.just(emptyList())
                     }
                 }
             } else {
                 mApi.getAlertsByCityKey(
-                    locationKey,
+                    locationKey!!,
                     apiKey,
                     languageCode,
                     details = true
                 ).onErrorResumeNext {
-                    Observable.create { emitter ->
-                        emitter.onNext(ArrayList())
-                    }
+                    failedFeatures[SourceFeature.ALERT] = it
+                    Observable.just(emptyList())
                 }
             }
         } else {
-            Observable.create { emitter ->
-                emitter.onNext(ArrayList())
-            }
+            Observable.just(emptyList())
         }
         val airQuality = if (
-            !ignoreFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY) &&
+            SourceFeature.AIR_QUALITY in requestedFeatures &&
             mApi is AccuEnterpriseApi
         ) {
             mApi.getAirQuality(
-                locationKey,
+                locationKey!!,
                 apiKey,
                 pollutants = true,
                 languageCode
             ).onErrorResumeNext {
-                Observable.create { emitter ->
-                    emitter.onNext(AccuAirQualityResult())
-                }
+                failedFeatures[SourceFeature.AIR_QUALITY] = it
+                Observable.just(AccuAirQualityResult())
             }
         } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuAirQualityResult())
-            }
+            Observable.just(AccuAirQualityResult())
         }
-        // TODO: Only call once a month, unless it’s current position
-        val cal = Date().toCalendarWithTimeZone(location.javaTimeZone)
+        val cal = Date().toCalendarWithTimeZone(location.timeZone)
         val climoSummary = if (
-            !ignoreFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_NORMALS) &&
+            SourceFeature.NORMALS in requestedFeatures &&
             mApi is AccuEnterpriseApi
         ) {
             mApi.getClimoSummary(
                 cal[Calendar.YEAR],
                 cal[Calendar.MONTH] + 1,
-                locationKey,
+                locationKey!!,
                 apiKey,
                 languageCode,
                 details = false
             ).onErrorResumeNext {
-                Observable.create { emitter ->
-                    emitter.onNext(AccuClimoSummaryResult())
-                }
+                failedFeatures[SourceFeature.NORMALS] = it
+                Observable.just(AccuClimoSummaryResult())
             }
         } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuClimoSummaryResult())
-            }
+            Observable.just(AccuClimoSummaryResult())
         }
         return Observable.zip(
             current,
@@ -237,218 +302,473 @@ class AccuService @Inject constructor(
             alert,
             airQuality,
             climoSummary
-        ) { accuRealtimeResults: List<AccuCurrentResult>,
-            accuDailyResult: AccuForecastDailyResult,
-            accuHourlyResults: List<AccuForecastHourlyResult>,
-            accuMinutelyResult: AccuMinutelyResult,
-            accuAlertResults: List<AccuAlertResult>,
-            accuAirQualityResult: AccuAirQualityResult,
-            accuClimoResult: AccuClimoSummaryResult
+        ) {
+                accuRealtimeResults: List<AccuCurrentResult>,
+                accuDailyResult: AccuForecastDailyResult,
+                accuHourlyResults: List<AccuForecastHourlyResult>,
+                accuMinutelyResult: AccuMinutelyResult,
+                accuAlertResults: List<AccuAlertResult>,
+                accuAirQualityResult: AccuAirQualityResult,
+                accuClimoResult: AccuClimoSummaryResult,
             ->
-            convert(
-                location,
-                accuRealtimeResults[0],
-                accuDailyResult,
-                accuHourlyResults,
-                accuMinutelyResult,
-                accuAlertResults,
-                accuAirQualityResult,
-                accuClimoResult,
-                cal[Calendar.MONTH]
+            WeatherWrapper(
+                /*base = Base(
+                    publishDate = currentResult.EpochTime.seconds.inWholeMilliseconds.toDate(),
+                ),*/
+                dailyForecast = if (SourceFeature.FORECAST in requestedFeatures) {
+                    getDailyList(accuDailyResult.DailyForecasts, location)
+                } else {
+                    null
+                },
+                hourlyForecast = if (SourceFeature.FORECAST in requestedFeatures) {
+                    getHourlyList(accuHourlyResults)
+                } else {
+                    null
+                },
+                current = if (SourceFeature.CURRENT in requestedFeatures) {
+                    getCurrent(accuRealtimeResults.getOrNull(0), accuDailyResult, accuMinutelyResult)
+                } else {
+                    null
+                },
+                airQuality = if (SourceFeature.AIR_QUALITY in requestedFeatures) {
+                    getAirQualityWrapper(accuAirQualityResult.data)
+                } else {
+                    null
+                },
+                pollen = if (SourceFeature.POLLEN in requestedFeatures) {
+                    getPollenWrapper(accuDailyResult.DailyForecasts, location)
+                } else {
+                    null
+                },
+                minutelyForecast = if (SourceFeature.MINUTELY in requestedFeatures) {
+                    getMinutelyList(accuMinutelyResult)
+                } else {
+                    null
+                },
+                alertList = if (SourceFeature.ALERT in requestedFeatures) {
+                    getAlertList(accuAlertResults)
+                } else {
+                    null
+                },
+                normals = if (SourceFeature.NORMALS in requestedFeatures &&
+                    accuClimoResult.Normals?.Temperatures != null
+                ) {
+                    mapOf(
+                        Month.fromCalendarMonth(cal[Calendar.MONTH]) to Normals(
+                            daytimeTemperature = accuClimoResult.Normals.Temperatures.Maximum.Metric?.Value?.celsius,
+                            nighttimeTemperature = accuClimoResult.Normals.Temperatures.Minimum.Metric?.Value?.celsius
+                        )
+                    )
+                } else {
+                    null
+                },
+                failedFeatures = failedFeatures
             )
         }
     }
 
-    // SECONDARY WEATHER SOURCE
-    override val supportedFeaturesInSecondary = listOf(
-        SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY,
-        SecondaryWeatherSourceFeature.FEATURE_POLLEN,
-        SecondaryWeatherSourceFeature.FEATURE_MINUTELY,
-        SecondaryWeatherSourceFeature.FEATURE_ALERT,
-        SecondaryWeatherSourceFeature.FEATURE_NORMALS
-    )
-    override fun isFeatureSupportedInSecondaryForLocation(
+    private fun getCurrent(
+        currentResult: AccuCurrentResult?,
+        dailyResult: AccuForecastDailyResult? = null,
+        minuteResult: AccuMinutelyResult? = null,
+    ): CurrentWrapper? {
+        if (currentResult == null) return null
+
+        return CurrentWrapper(
+            weatherText = currentResult.WeatherText,
+            weatherCode = getWeatherCode(currentResult.WeatherIcon),
+            temperature = TemperatureWrapper(
+                temperature = currentResult.Temperature?.Metric?.Value?.celsius,
+                feelsLike = currentResult.RealFeelTemperature?.Metric?.Value?.celsius
+            ),
+            wind = Wind(
+                degree = currentResult.Wind?.Direction?.Degrees?.toDouble(),
+                speed = currentResult.Wind?.Speed?.Metric?.Value?.kilometersPerHour,
+                gusts = currentResult.WindGust?.Speed?.Metric?.Value?.kilometersPerHour
+            ),
+            uV = UV(index = currentResult.UVIndex?.toDouble()),
+            relativeHumidity = currentResult.RelativeHumidity?.percent,
+            dewPoint = currentResult.DewPoint?.Metric?.Value?.celsius,
+            pressure = currentResult.Pressure?.Metric?.Value?.hectopascals,
+            cloudCover = currentResult.CloudCover?.percent,
+            visibility = currentResult.Visibility?.Metric?.Value?.kilometers,
+            ceiling = currentResult.Ceiling?.Metric?.Value?.meters,
+            dailyForecast = dailyResult?.Headline?.Text,
+            hourlyForecast = minuteResult?.Summary?.LongPhrase
+        )
+    }
+
+    private fun getDailyList(
+        dailyForecasts: List<AccuForecastDailyForecast>?,
         location: Location,
-        feature: SecondaryWeatherSourceFeature
-    ): Boolean {
-        return (isConfigured && portal == AccuPortalPreference.ENTERPRISE)
+    ): List<DailyWrapper>? {
+        return dailyForecasts?.map { forecasts ->
+            DailyWrapper(
+                date = forecasts.EpochDate.seconds.inWholeMilliseconds.toDate()
+                    .toTimezoneSpecificHour(location.timeZone, hour = 0),
+                day = HalfDayWrapper(
+                    weatherText = forecasts.Day?.ShortPhrase,
+                    weatherSummary = forecasts.Day?.LongPhrase,
+                    weatherCode = getWeatherCode(forecasts.Day?.Icon),
+                    temperature = TemperatureWrapper(
+                        temperature = getTemperature(forecasts.Temperature?.Maximum),
+                        feelsLike = getTemperature(forecasts.RealFeelTemperature?.Maximum)
+                    ),
+                    precipitation = Precipitation(
+                        total = getQuantity(forecasts.Day?.TotalLiquid),
+                        rain = getQuantity(forecasts.Day?.Rain),
+                        snow = getQuantity(forecasts.Day?.Snow),
+                        ice = getQuantity(forecasts.Day?.Ice)
+                    ),
+                    precipitationProbability = PrecipitationProbability(
+                        total = forecasts.Day?.PrecipitationProbability?.percent,
+                        thunderstorm = forecasts.Day?.ThunderstormProbability?.percent,
+                        rain = forecasts.Day?.RainProbability?.percent,
+                        snow = forecasts.Day?.SnowProbability?.percent,
+                        ice = forecasts.Day?.IceProbability?.percent
+                    ),
+                    precipitationDuration = PrecipitationDuration(
+                        total = forecasts.Day?.HoursOfPrecipitation?.hours,
+                        rain = forecasts.Day?.HoursOfRain?.hours,
+                        snow = forecasts.Day?.HoursOfSnow?.hours,
+                        ice = forecasts.Day?.HoursOfIce?.hours
+                    ),
+                    wind = Wind(
+                        degree = forecasts.Day?.Wind?.Direction?.Degrees?.toDouble(),
+                        speed = getSpeedInMetersPerSecond(forecasts.Day?.Wind?.Speed),
+                        gusts = getSpeedInMetersPerSecond(forecasts.Day?.WindGust?.Speed)
+                    )
+                ),
+                night = HalfDayWrapper(
+                    weatherText = forecasts.Night?.ShortPhrase,
+                    weatherSummary = forecasts.Night?.LongPhrase,
+                    weatherCode = getWeatherCode(forecasts.Night?.Icon),
+                    temperature = TemperatureWrapper(
+                        temperature = getTemperature(forecasts.Temperature?.Minimum),
+                        feelsLike = getTemperature(forecasts.RealFeelTemperature?.Minimum)
+                    ),
+                    precipitation = Precipitation(
+                        total = getQuantity(forecasts.Night?.TotalLiquid),
+                        rain = getQuantity(forecasts.Night?.Rain),
+                        snow = getQuantity(forecasts.Night?.Snow),
+                        ice = getQuantity(forecasts.Night?.Ice)
+                    ),
+                    precipitationProbability = PrecipitationProbability(
+                        total = forecasts.Night?.PrecipitationProbability?.percent,
+                        thunderstorm = forecasts.Night?.ThunderstormProbability?.percent,
+                        rain = forecasts.Night?.RainProbability?.percent,
+                        snow = forecasts.Night?.SnowProbability?.percent,
+                        ice = forecasts.Night?.IceProbability?.percent
+                    ),
+                    precipitationDuration = PrecipitationDuration(
+                        total = forecasts.Night?.HoursOfPrecipitation?.hours,
+                        rain = forecasts.Night?.HoursOfRain?.hours,
+                        snow = forecasts.Night?.HoursOfSnow?.hours,
+                        ice = forecasts.Night?.HoursOfIce?.hours
+                    ),
+                    wind = Wind(
+                        degree = forecasts.Night?.Wind?.Direction?.Degrees?.toDouble(),
+                        speed = getSpeedInMetersPerSecond(forecasts.Night?.Wind?.Speed),
+                        gusts = getSpeedInMetersPerSecond(forecasts.Night?.WindGust?.Speed)
+                    )
+                ),
+                degreeDay = DegreeDay(
+                    heating = getDegreeDayInCelsius(forecasts.DegreeDaySummary?.Heating),
+                    cooling = getDegreeDayInCelsius(forecasts.DegreeDaySummary?.Cooling)
+                ),
+                uV = getDailyUV(forecasts.AirAndPollen),
+                sunshineDuration = forecasts.HoursOfSun?.hours
+            )
+        }
     }
-    override val airQualityAttribution = weatherAttribution
-    override val pollenAttribution = weatherAttribution
-    override val minutelyAttribution = weatherAttribution
-    override val alertAttribution = weatherAttribution
-    override val normalsAttribution = weatherAttribution
 
-    override fun requestSecondaryWeather(
-        context: Context, location: Location,
-        requestedFeatures: List<SecondaryWeatherSourceFeature>
-    ): Observable<SecondaryWeatherWrapper> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
+    /**
+     * Accu returns 0 / m³ for all days if they don’t measure it, instead of null values
+     * This function will tell us if they measured at least one pollen or mold during the 15-day period
+     * to make the difference between a 0 and a null
+     */
+    private fun supportsPollen(dailyForecasts: List<AccuForecastDailyForecast>): Boolean {
+        dailyForecasts.forEach { daily ->
+            val pollens = listOf(
+                daily.AirAndPollen?.firstOrNull { it.Name == "Tree" },
+                daily.AirAndPollen?.firstOrNull { it.Name == "Grass" },
+                daily.AirAndPollen?.firstOrNull { it.Name == "Ragweed" },
+                daily.AirAndPollen?.firstOrNull { it.Name == "Mold" }
+            ).filter { it?.Value != null && it.Value > 0 }
+            if (pollens.isNotEmpty()) return true
         }
-        val mApi = if (portal == AccuPortalPreference.ENTERPRISE) mEnterpriseApi else mDeveloperApi
+        return false
+    }
 
-        val apiKey = getApiKeyOrDefault()
-        val languageCode = if (supportedLanguages.contains(context.currentLocale.codeWithCountry)) {
-            context.currentLocale.codeWithCountry
-        } else if (supportedLanguages.contains(context.currentLocale.code)) {
-            context.currentLocale.code
-        } else "en"
-        val locationKey = location.parameters.getOrElse(id) { null }?.getOrElse("locationKey") { null }
+    private fun getDailyPollen(list: List<AccuForecastAirAndPollen>?): Pollen? {
+        if (list == null) return null
 
-        val airQuality = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY)) {
-            if (portal != AccuPortalPreference.ENTERPRISE) {
-                return Observable.error(SecondaryWeatherException())
-            }
-            if (locationKey.isNullOrEmpty()) {
-                return Observable.error(InvalidLocationException())
-            }
-            mEnterpriseApi.getAirQuality(
-                locationKey,
-                apiKey,
-                pollutants = true,
-                languageCode
+        val grass = list.firstOrNull { it.Name == "Grass" }
+        val mold = list.firstOrNull { it.Name == "Mold" }
+        val ragweed = list.firstOrNull { it.Name == "Ragweed" }
+        val tree = list.firstOrNull { it.Name == "Tree" }
+        return Pollen(
+            grass = grass?.Value?.perCubicMeter,
+            mold = mold?.Value?.perCubicMeter,
+            ragweed = ragweed?.Value?.perCubicMeter,
+            tree = tree?.Value?.perCubicMeter
+        )
+    }
+
+    private fun getDailyUV(
+        list: List<AccuForecastAirAndPollen>?,
+    ): UV? {
+        if (list == null) return null
+
+        val uv = list.firstOrNull { it.Name == "UVIndex" }
+        return UV(index = uv?.Value?.toDouble())
+    }
+
+    private fun getHourlyList(
+        resultList: List<AccuForecastHourlyResult>,
+    ): List<HourlyWrapper> {
+        return resultList.map { result ->
+            HourlyWrapper(
+                date = result.EpochDateTime.seconds.inWholeMilliseconds.toDate(),
+                isDaylight = result.IsDaylight,
+                weatherText = result.IconPhrase,
+                weatherCode = getWeatherCode(result.WeatherIcon),
+                temperature = TemperatureWrapper(
+                    temperature = getTemperature(result.Temperature),
+                    feelsLike = getTemperature(result.RealFeelTemperature)
+                ),
+                precipitation = Precipitation(
+                    total = getQuantity(result.TotalLiquid),
+                    rain = getQuantity(result.Rain),
+                    snow = getQuantity(result.Snow),
+                    ice = getQuantity(result.Ice)
+                ),
+                precipitationProbability = PrecipitationProbability(
+                    total = result.PrecipitationProbability?.percent,
+                    thunderstorm = result.ThunderstormProbability?.percent,
+                    rain = result.RainProbability?.percent,
+                    snow = result.SnowProbability?.percent,
+                    ice = result.IceProbability?.percent
+                ),
+                wind = Wind(
+                    degree = result.Wind?.Direction?.Degrees?.toDouble(),
+                    speed = getSpeedInMetersPerSecond(result.Wind?.Speed),
+                    gusts = getSpeedInMetersPerSecond(result.WindGust?.Speed)
+                ),
+                uV = UV(index = result.UVIndex?.toDouble()),
+                relativeHumidity = result.RelativeHumidity?.percent,
+                dewPoint = getTemperature(result.DewPoint),
+                cloudCover = result.CloudCover?.percent,
+                visibility = getDistance(result.Visibility)
             )
-        } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuAirQualityResult())
-            }
         }
+    }
 
-        val dailyPollen = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_POLLEN)) {
-            if (locationKey.isNullOrEmpty()) {
-                return Observable.error(InvalidLocationException())
-            }
-            mApi.getDaily(
-                days.id,
-                locationKey,
-                apiKey,
-                languageCode,
-                details = true,
-                metric = true
-            )
-        } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuForecastDailyResult())
-            }
-        }
+    private fun getAirQualityWrapper(airQualityHourlyResult: List<AccuAirQualityData>?): AirQualityWrapper? {
+        if (airQualityHourlyResult.isNullOrEmpty()) return null
 
-        val minute = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_MINUTELY)) {
-            if (portal != AccuPortalPreference.ENTERPRISE) {
-                return Observable.error(SecondaryWeatherException())
-            }
-            mEnterpriseApi.getMinutely(
-                minutes = 1,
-                apiKey,
-                location.latitude.toString() + "," + location.longitude,
-                languageCode,
-                details = true
-            )
-        } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuMinutelyResult())
-            }
-        }
-
-        val alert = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_ALERT)) {
-            if (mApi is AccuEnterpriseApi) {
-                mApi.getAlertsByPosition(
-                    apiKey,
-                    location.latitude.toString() + "," + location.longitude,
-                    languageCode,
-                    details = true
-                )
-            } else {
-                if (locationKey.isNullOrEmpty()) {
-                    return Observable.error(InvalidLocationException())
+        val airQualityHourly = mutableMapOf<Date, AirQuality>()
+        airQualityHourlyResult
+            .forEach {
+                var pm25: PollutantConcentration? = null
+                var pm10: PollutantConcentration? = null
+                var so2: PollutantConcentration? = null
+                var no2: PollutantConcentration? = null
+                var o3: PollutantConcentration? = null
+                var co: PollutantConcentration? = null
+                it.pollutants?.forEach { p ->
+                    when (p.type) {
+                        "O3" -> o3 = p.concentration.value?.microgramsPerCubicMeter
+                        "NO2" -> no2 = p.concentration.value?.microgramsPerCubicMeter
+                        "PM2_5" -> pm25 = p.concentration.value?.microgramsPerCubicMeter
+                        "PM10" -> pm10 = p.concentration.value?.microgramsPerCubicMeter
+                        "SO2" -> so2 = p.concentration.value?.microgramsPerCubicMeter
+                        "CO" -> co = p.concentration.value?.microgramsPerCubicMeter
+                    }
                 }
-                mApi.getAlertsByCityKey(
-                    locationKey,
-                    apiKey,
-                    languageCode,
-                    details = true
-                )
-            }
-        } else {
-            Observable.create { emitter ->
-                emitter.onNext(emptyList())
-            }
-        }
-
-        // TODO: Only call once a month, unless it’s current position
-        val cal = Date().toCalendarWithTimeZone(location.javaTimeZone)
-        val climoSummary = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_NORMALS)) {
-            if (portal != AccuPortalPreference.ENTERPRISE) {
-                return Observable.error(SecondaryWeatherException())
-            }
-            if (locationKey.isNullOrEmpty()) {
-                return Observable.error(InvalidLocationException())
-            }
-            mEnterpriseApi.getClimoSummary(
-                cal[Calendar.YEAR],
-                cal[Calendar.MONTH] + 1,
-                locationKey,
-                apiKey,
-                languageCode,
-                details = false
-            ).onErrorResumeNext {
-                Observable.create { emitter ->
-                    emitter.onNext(AccuClimoSummaryResult())
+                val airQuality = if (pm25 != null ||
+                    pm10 != null ||
+                    so2 != null ||
+                    no2 != null ||
+                    o3 != null ||
+                    co != null
+                ) {
+                    AirQuality(
+                        pM25 = pm25,
+                        pM10 = pm10,
+                        sO2 = so2,
+                        nO2 = no2,
+                        o3 = o3,
+                        cO = co
+                    )
+                } else {
+                    null
+                }
+                if (airQuality != null) {
+                    airQualityHourly[it.epochDate.seconds.inWholeMilliseconds.toDate()] = airQuality
                 }
             }
-        } else {
-            Observable.create { emitter ->
-                emitter.onNext(AccuClimoSummaryResult())
-            }
-        }
 
-        return Observable.zip(
-            airQuality,
-            dailyPollen,
-            minute,
-            alert,
-            climoSummary
-        ) { accuAirQualityResult: AccuAirQualityResult,
-            accuDailyPollenResult: AccuForecastDailyResult,
-            accuMinutelyResult: AccuMinutelyResult,
-            accuAlertResults: List<AccuAlertResult>,
-            accuClimoResult: AccuClimoSummaryResult
-            ->
-            convertSecondary(
-                location,
-                if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY)) {
-                    accuAirQualityResult
-                } else null,
-                if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_POLLEN)) {
-                    accuDailyPollenResult
-                } else null,
-                if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_MINUTELY)) {
-                    accuMinutelyResult
-                } else null,
-                if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_ALERT)) {
-                    accuAlertResults
-                } else null,
-                if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_NORMALS)) {
-                    accuClimoResult
-                } else null,
-                cal[Calendar.MONTH]
+        return AirQualityWrapper(
+            hourlyForecast = airQualityHourly
+        )
+    }
+
+    /**
+     * Used from secondary
+     */
+    private fun getPollenWrapper(
+        dailyPollenResult: List<AccuForecastDailyForecast>?,
+        location: Location,
+    ): PollenWrapper? {
+        if (dailyPollenResult.isNullOrEmpty()) return null
+        if (!supportsPollen(dailyPollenResult)) return null
+
+        val pollenDaily = mutableMapOf<Date, Pollen>()
+        dailyPollenResult
+            .forEach {
+                val dailyPollen = getDailyPollen(it.AirAndPollen)
+                if (dailyPollen != null) {
+                    pollenDaily[
+                        it.EpochDate.seconds.inWholeMilliseconds.toDate()
+                            .toTimezoneSpecificHour(location.timeZone, hour = 0)
+                    ] = dailyPollen
+                }
+            }
+
+        return PollenWrapper(
+            dailyForecast = pollenDaily
+        )
+    }
+
+    private fun getMinutelyList(
+        minuteResult: AccuMinutelyResult?,
+    ): List<Minutely>? {
+        if (minuteResult == null) return null
+        if (minuteResult.Intervals.isNullOrEmpty()) return emptyList()
+        return minuteResult.Intervals.mapIndexed { i, interval ->
+            Minutely(
+                date = Date(interval.StartEpochDateTime),
+                minuteInterval = if (i < minuteResult.Intervals.size - 1) {
+                    (
+                        (minuteResult.Intervals[i + 1].StartEpochDateTime - interval.StartEpochDateTime) /
+                            1.minutes.inWholeMilliseconds
+                        ).toDouble().roundToInt()
+                } else {
+                    (
+                        (interval.StartEpochDateTime - minuteResult.Intervals[i - 1].StartEpochDateTime) /
+                            1.minutes.inWholeMilliseconds
+                        ).toDouble().roundToInt()
+                },
+                precipitationIntensity = Minutely.dbzToPrecipitationIntensity(interval.Dbz)?.millimeters
             )
+        }
+    }
+
+    private fun getAlertList(
+        resultList: List<AccuAlertResult>?,
+    ): List<Alert>? {
+        if (resultList == null) return null
+        return resultList.map { result ->
+            val severity = when (result.Priority) {
+                1 -> AlertSeverity.EXTREME
+                2 -> AlertSeverity.SEVERE
+                3 -> AlertSeverity.MODERATE
+                4, 5 -> AlertSeverity.MINOR
+                else -> AlertSeverity.UNKNOWN
+            }
+            Alert(
+                alertId = result.AlertID.toString(),
+                startDate = result.Area?.getOrNull(0)?.let { area ->
+                    area.EpochStartTime?.seconds?.inWholeMilliseconds?.toDate()
+                },
+                endDate = result.Area?.getOrNull(0)?.let { area ->
+                    area.EpochEndTime?.seconds?.inWholeMilliseconds?.toDate()
+                },
+                headline = result.Description?.Localized,
+                description = result.Area?.getOrNull(0)?.Text,
+                source = result.Source,
+                severity = severity,
+                color = result.Color?.let {
+                    Color.rgb(it.Red, it.Green, it.Blue)
+                } ?: Alert.colorFromSeverity(severity)
+            )
+        }
+    }
+
+    private fun getWeatherCode(icon: Int?): WeatherCode? {
+        return when (icon) {
+            null -> null
+            1, 2, 30, 33, 34 -> WeatherCode.CLEAR
+            3, 4, 6, 35, 36, 38 -> WeatherCode.PARTLY_CLOUDY
+            5, 37 -> WeatherCode.HAZE
+            7, 8 -> WeatherCode.CLOUDY
+            11 -> WeatherCode.FOG
+            12, 13, 14, 18, 39, 40 -> WeatherCode.RAIN
+            15, 16, 17, 41, 42 -> WeatherCode.THUNDERSTORM
+            19, 20, 21, 22, 23, 24, 31, 43, 44 -> WeatherCode.SNOW
+            25 -> WeatherCode.HAIL
+            26, 29 -> WeatherCode.SLEET
+            32 -> WeatherCode.WIND
+            else -> null
+        }
+    }
+
+    private fun getTemperature(value: AccuValue?): Temperature? {
+        return if (value?.UnitType == 18) { // F
+            value.Value?.fahrenheit
+        } else {
+            value?.Value?.celsius
+        }
+    }
+
+    private fun getDegreeDayInCelsius(value: AccuValue?): Temperature? {
+        return if (value?.UnitType == 18) {
+            value.Value?.div(1.8)?.celsius // TODO: Convert using degree day conversion
+        } else {
+            value?.Value?.celsius
+        }
+    }
+
+    private fun getSpeedInMetersPerSecond(value: AccuValue?): Speed? {
+        return if (value?.UnitType == 9) {
+            value.Value?.milesPerHour
+        } else {
+            value?.Value?.kilometersPerHour
+        }
+    }
+
+    private fun getDistance(value: AccuValue?): Distance? {
+        return when (value?.UnitType) {
+            2 -> value.Value?.miles
+            0 -> value.Value?.feet
+            6 -> value.Value?.kilometers
+            else -> value?.Value?.meters
+        }
+    }
+
+    private fun getQuantity(value: AccuValue?): org.breezyweather.unit.precipitation.Precipitation? {
+        return when (value?.UnitType) {
+            1 -> value.Value?.inches
+            4 -> value.Value?.centimeters
+            else -> value?.Value?.millimeters
         }
     }
 
     override fun requestLocationSearch(
         context: Context,
-        query: String
-    ): Observable<List<Location>> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
+        query: String,
+    ): Observable<List<LocationAddressInfo>> {
         val apiKey = getApiKeyOrDefault()
         val languageCode = if (supportedLanguages.contains(context.currentLocale.codeWithCountry)) {
             context.currentLocale.codeWithCountry
         } else if (supportedLanguages.contains(context.currentLocale.code)) {
             context.currentLocale.code
-        } else "en"
+        } else if (context.currentLocale.code.startsWith("iw")) {
+            "he"
+        } else {
+            "en"
+        }
         val mApi = if (portal == AccuPortalPreference.ENTERPRISE) mEnterpriseApi else mDeveloperApi
         return mApi.getWeatherLocation(
             apiKey,
@@ -458,35 +778,67 @@ class AccuService @Inject constructor(
             alias = "Always"
         ).map { results ->
             results.map {
-                convert(null, it)
+                convertLocation(it)
             }
         }
     }
 
-    override fun requestReverseGeocodingLocation(
+    override fun requestNearestLocation(
         context: Context,
-        location: Location
-    ): Observable<List<Location>> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
+        latitude: Double,
+        longitude: Double,
+    ): Observable<List<LocationAddressInfo>> {
         val apiKey = getApiKeyOrDefault()
         val languageCode = if (supportedLanguages.contains(context.currentLocale.codeWithCountry)) {
             context.currentLocale.codeWithCountry
         } else if (supportedLanguages.contains(context.currentLocale.code)) {
             context.currentLocale.code
-        } else "en"
+        } else if (context.currentLocale.code.startsWith("iw")) {
+            "he"
+        } else {
+            "en"
+        }
         val mApi = if (portal == AccuPortalPreference.ENTERPRISE) mEnterpriseApi else mDeveloperApi
         return mApi.getWeatherLocationByGeoPosition(
             apiKey,
             languageCode,
             details = false,
-            location.latitude.toString() + "," + location.longitude
+            "$latitude,$longitude"
         ).map {
-            val locationList = mutableListOf<Location>()
-            locationList.add(convert(location, it))
-            locationList
+            listOf(convertLocation(it))
         }
+    }
+
+    private fun convertLocation(
+        result: AccuLocationResult,
+    ): LocationAddressInfo {
+        if (result.Country.ID.isNullOrEmpty()) {
+            throw InvalidLocationException()
+        }
+
+        val countryCode = result.Country.ID.let {
+            if (it.equals("FI", ignoreCase = true) &&
+                result.AdministrativeArea?.ID?.equals("01") == true
+            ) {
+                "AX"
+            } else {
+                it
+            }
+        }
+
+        return LocationAddressInfo(
+            latitude = result.GeoPosition.Latitude,
+            longitude = result.GeoPosition.Longitude,
+            timeZoneId = result.TimeZone.Name,
+            country = result.Country.LocalizedName.ifEmpty { result.Country.EnglishName },
+            countryCode = countryCode,
+            admin2 = result.AdministrativeArea?.LocalizedName?.ifEmpty {
+                result.AdministrativeArea.EnglishName
+            },
+            admin2Code = result.AdministrativeArea?.ID,
+            city = result.LocalizedName?.ifEmpty { result.EnglishName } ?: "",
+            cityCode = result.Key
+        )
     }
 
     // CONFIG
@@ -497,13 +849,14 @@ class AccuService @Inject constructor(
         }
         get() = config.getString("apikey", null) ?: ""
 
-    private var portal: AccuPortalPreference
+    override var portal: AccuPortalPreference
         set(value) {
             config.edit().putString("portal", value.id).apply()
         }
         get() = AccuPortalPreference.getInstance(
             if (apikey.isEmpty() || apikey == BuildConfig.ACCU_WEATHER_KEY) {
-                "enterprise" // Force portal to make sure a user didn’t select a portal incompatible with the default key
+                // Force portal to make sure a user didn’t select a portal incompatible with the default key
+                "enterprise"
             } else {
                 config.getString("portal", null) ?: "enterprise"
             }
@@ -525,7 +878,9 @@ class AccuService @Inject constructor(
             (config.getString("hours", null) ?: "240").let {
                 if (portal != AccuPortalPreference.ENTERPRISE && it == "240") {
                     "120" // 120 hours is the max on developer portal
-                } else it
+                } else {
+                    it
+                }
             }
         )
 
@@ -536,8 +891,6 @@ class AccuService @Inject constructor(
     override val isConfigured
         get() = getApiKeyOrDefault().isNotEmpty()
 
-    override val isRestricted = false
-
     override fun getPreferences(context: Context): List<Preference> {
         return listOf(
             ListPreference(
@@ -547,7 +900,7 @@ class AccuService @Inject constructor(
                 nameArrayId = R.array.accu_preference_portal,
                 onValueChanged = {
                     portal = AccuPortalPreference.getInstance(it)
-                },
+                }
             ),
             EditTextPreference(
                 titleId = R.string.settings_weather_source_accu_api_key,
@@ -568,7 +921,7 @@ class AccuService @Inject constructor(
                 nameArrayId = R.array.accu_preference_days,
                 onValueChanged = {
                     days = AccuDaysPreference.getInstance(it)
-                },
+                }
             ),
             ListPreference(
                 titleId = R.string.setting_weather_source_accu_hours,
@@ -577,7 +930,7 @@ class AccuService @Inject constructor(
                 nameArrayId = R.array.accu_preference_hours,
                 onValueChanged = {
                     hours = AccuHoursPreference.getInstance(it)
-                },
+                }
             )
         )
     }
@@ -586,32 +939,38 @@ class AccuService @Inject constructor(
     override fun needsLocationParametersRefresh(
         location: Location,
         coordinatesChanged: Boolean,
-        features: List<SecondaryWeatherSourceFeature>
+        features: List<SourceFeature>,
     ): Boolean {
         if (coordinatesChanged) return true
 
-        return if (features.isEmpty() ||
-            features.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY) ||
-            features.contains(SecondaryWeatherSourceFeature.FEATURE_POLLEN) ||
-            features.contains(SecondaryWeatherSourceFeature.FEATURE_NORMALS)) {
-            val currentLocationKey = location.parameters
-                .getOrElse(id) { null }?.getOrElse("locationKey") { null }
+        return if (SourceFeature.FORECAST in features ||
+            SourceFeature.CURRENT in features ||
+            SourceFeature.AIR_QUALITY in features ||
+            SourceFeature.POLLEN in features ||
+            SourceFeature.NORMALS in features ||
+            SourceFeature.ALERT in features
+        ) {
+            val currentLocationKey = location.parameters.getOrElse(id) { null }?.getOrElse("locationKey") { null }
             currentLocationKey.isNullOrEmpty()
-        } else false // If we request alerts or minutely, we don't need locationKey
+        } else {
+            false
+        } // If we request alerts or minutely, we don't need locationKey
     }
 
     override fun requestLocationParameters(
-        context: Context, location: Location
+        context: Context,
+        location: Location,
     ): Observable<Map<String, String>> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
         val apiKey = getApiKeyOrDefault()
         val languageCode = if (supportedLanguages.contains(context.currentLocale.codeWithCountry)) {
             context.currentLocale.codeWithCountry
         } else if (supportedLanguages.contains(context.currentLocale.code)) {
             context.currentLocale.code
-        } else "en"
+        } else if (context.currentLocale.code.startsWith("iw")) {
+            "he"
+        } else {
+            "en"
+        }
         val mApi = if (portal == AccuPortalPreference.ENTERPRISE) mEnterpriseApi else mDeveloperApi
         return mApi.getWeatherLocationByGeoPosition(
             apiKey,
@@ -624,6 +983,23 @@ class AccuService @Inject constructor(
             )
         }
     }
+
+    override val testingLocations = listOf(
+        Location(
+            city = "State College",
+            latitude = 40.79339,
+            longitude = -77.86,
+            timeZone = TimeZone.getTimeZone("America/New_York"),
+            countryCode = "US",
+            forecastSource = id,
+            currentSource = id,
+            airQualitySource = id,
+            pollenSource = id,
+            minutelySource = id,
+            alertSource = id,
+            normalsSource = id
+        )
+    )
 
     companion object {
         private const val ACCU_DEVELOPER_BASE_URL = "https://dataservice.accuweather.com/"

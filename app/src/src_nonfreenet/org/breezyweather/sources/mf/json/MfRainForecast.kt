@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,5 +24,5 @@ import java.util.Date
 @Serializable
 data class MfRainForecast(
     @Serializable(DateSerializer::class) val time: Date,
-    @SerialName("rain_intensity") val rainIntensity: Int?
+    @SerialName("rain_intensity") val rainIntensity: Int?,
 )

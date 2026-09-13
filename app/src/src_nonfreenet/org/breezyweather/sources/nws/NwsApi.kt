@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -18,8 +18,11 @@ package org.breezyweather.sources.nws
 
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.sources.nws.json.NwsAlertsResult
+import org.breezyweather.sources.nws.json.NwsCurrentResult
+import org.breezyweather.sources.nws.json.NwsDailyResult
 import org.breezyweather.sources.nws.json.NwsGridPointResult
 import org.breezyweather.sources.nws.json.NwsPointResult
+import org.breezyweather.sources.nws.json.NwsStationsResult
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
@@ -30,23 +33,43 @@ interface NwsApi {
     fun getPoints(
         @Header("User-Agent") userAgent: String,
         @Path("lat") lat: Double,
-        @Path("lon") lon: Double
+        @Path("lon") lon: Double,
     ): Observable<NwsPointResult>
+
+    @GET("gridpoints/{gridId}/{gridX},{gridY}/stations")
+    fun getStations(
+        @Header("User-Agent") userAgent: String,
+        @Path("gridId") gridId: String,
+        @Path("gridX") gridX: Int,
+        @Path("gridY") gridY: Int,
+    ): Observable<NwsStationsResult>
 
     @GET("gridpoints/{gridId}/{gridX},{gridY}")
     fun getForecast(
         @Header("User-Agent") userAgent: String,
         @Path("gridId") gridId: String,
         @Path("gridX") gridX: Int,
-        @Path("gridY") gridY: Int
+        @Path("gridY") gridY: Int,
     ): Observable<NwsGridPointResult>
+
+    @GET("gridpoints/{gridId}/{gridX},{gridY}/forecast")
+    fun getDaily(
+        @Header("User-Agent") userAgent: String,
+        @Header("Feature-Flags") featureFlags: String = "forecast_temperature_qv,forecast_wind_speed_qv",
+        @Path("gridId") gridId: String,
+        @Path("gridX") gridX: Int,
+        @Path("gridY") gridY: Int,
+    ): Observable<NwsDailyResult>
+
+    @GET("stations/{station}/observations/latest")
+    fun getCurrent(
+        @Header("User-Agent") userAgent: String,
+        @Path("station") station: String,
+    ): Observable<NwsCurrentResult>
 
     @GET("alerts/active")
     fun getActiveAlerts(
         @Header("User-Agent") userAgent: String,
-        /**
-         * Format: lat,lon
-         */
-        @Query("point") point: String
+        @Query("point") point: String, // Format: lat,lon
     ): Observable<NwsAlertsResult>
 }

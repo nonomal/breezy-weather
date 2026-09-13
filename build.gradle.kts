@@ -1,8 +1,3 @@
-import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.BasePlugin
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
-
 buildscript {
     dependencies {
         classpath(libs.aboutLibraries.gradle)
@@ -12,40 +7,16 @@ buildscript {
 }
 
 plugins {
+    alias(libs.plugins.kotlinKsp) apply false
     alias(libs.plugins.kotlinSerialization) apply false
-}
-
-subprojects {
-    tasks.withType<KotlinJvmCompile> {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-        }
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
-        testLogging {
-            events(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
-        }
-    }
-
-    plugins.withType<BasePlugin> {
-        plugins.apply("breezy.lint")
-        configure<BaseExtension> {
-            compileSdkVersion(AndroidConfig.compileSdk)
-            defaultConfig {
-                minSdk = AndroidConfig.minSdk
-                targetSdk = AndroidConfig.targetSdk
-            }
-
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
-        }
-    }
+    alias(libs.plugins.aboutLibraries) apply false
+    alias(libs.plugins.sqldelight) apply false
 }
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
+    delete("app/src/main/res/values-in/")
+    delete("app/src/main/res/values-iw/")
+    delete("app/src/main/res/xml/locales_config.xml")
+    // delete("app/src/main/res/raw/ne_50m_admin_0_countries.json")
 }

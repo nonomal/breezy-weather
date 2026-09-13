@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,8 +22,7 @@ import kotlinx.serialization.Serializable
 data class ChinaForecastDaily(
     val precipitationProbability: ChinaPrecipitationProbability?,
     val pubTime: String?,
-    val sunRiseSet: ChinaSunRiseSet?,
     val temperature: ChinaValueListChinaFromTo?,
     val weather: ChinaValueListChinaFromTo?,
-    val wind: ChinaDailyWind?
+    val wind: ChinaDailyWind?,
 )

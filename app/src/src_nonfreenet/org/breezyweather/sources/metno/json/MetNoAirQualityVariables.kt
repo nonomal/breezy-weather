@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -25,5 +25,5 @@ data class MetNoAirQualityVariables(
     @SerialName("pm10_concentration") val pm10Concentration: MetNoAirQualityConcentration?,
     @SerialName("pm25_concentration") val pm25Concentration: MetNoAirQualityConcentration?,
     @SerialName("o3_concentration") val o3Concentration: MetNoAirQualityConcentration?,
-    @SerialName("so2_concentration") val so2Concentration: MetNoAirQualityConcentration?
+    @SerialName("so2_concentration") val so2Concentration: MetNoAirQualityConcentration?,
 )

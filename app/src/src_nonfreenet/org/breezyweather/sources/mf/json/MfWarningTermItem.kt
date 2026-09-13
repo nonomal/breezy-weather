@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MfWarningTermItem(
     @SerialName("risk_name") val riskName: String?,
-    @SerialName("subdivision_text") val subdivisionTexts: List<MfWarningSubdivisionText>?
+    @SerialName("subdivision_text") val subdivisionTexts: List<MfWarningSubdivisionText>?,
 )

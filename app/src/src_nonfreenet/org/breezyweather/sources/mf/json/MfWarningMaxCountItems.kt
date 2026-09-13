@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,5 +23,5 @@ import kotlinx.serialization.Serializable
 data class MfWarningMaxCountItems(
     @SerialName("color_id") val colorId: Int,
     val count: Int,
-    @SerialName("text_count") val textCount: String?
+    @SerialName("text_count") val textCount: String?,
 )

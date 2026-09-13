@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,11 +23,12 @@ import kotlinx.serialization.Serializable
 data class ImsHourly(
     val hour: String,
     @SerialName("weather_code") val weatherCode: String?,
+    val rain: String?,
     @SerialName("rain_chance") val rainChance: String?,
     @SerialName("precise_temperature") val preciseTemperature: String?,
     @SerialName("relative_humidity") val relativeHumidity: String?,
     @SerialName("wind_direction_id") val windDirectionId: String?,
     @SerialName("wind_speed") val windSpeed: Int?,
     @SerialName("wind_chill") val windChill: String?,
-    @SerialName("u_v_index") val uvIndex: String?
+    @SerialName("u_v_index") val uvIndex: String?,
 )

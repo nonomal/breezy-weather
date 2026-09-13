@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -20,7 +20,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class OpenWeatherForecast(
-    val dt: Long,
+    val dt: Long? = null,
     val main: OpenWeatherForecastMain? = null,
     val weather: List<OpenWeatherForecastWeather>? = null,
     val clouds: OpenWeatherForecastClouds? = null,
@@ -28,5 +28,5 @@ data class OpenWeatherForecast(
     val visibility: Int? = null,
     val pop: Double? = null,
     val rain: OpenWeatherForecastPrecipitation? = null,
-    val snow: OpenWeatherForecastPrecipitation? = null
+    val snow: OpenWeatherForecastPrecipitation? = null,
 )

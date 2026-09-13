@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -25,6 +25,6 @@ interface BaiduIPLocationApi {
     @GET("location/ip")
     fun getLocation(
         @Query("ak") ak: String,
-        @Query("coor") coor: String
+        @Query("coor") coor: String,
     ): Observable<BaiduIPLocationResult>
 }

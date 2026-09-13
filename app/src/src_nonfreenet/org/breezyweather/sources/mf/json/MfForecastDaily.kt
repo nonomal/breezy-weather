@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,9 +26,11 @@ data class MfForecastDaily(
     @Serializable(DateSerializer::class) val time: Date,
     @SerialName("T_min") val tMin: Double?,
     @SerialName("T_max") val tMax: Double?,
+    @SerialName("relative_humidity_min") val relativeHumidityMin: Int?,
+    @SerialName("relative_humidity_max") val relativeHumidityMax: Int?,
     @SerialName("daily_weather_icon") val dailyWeatherIcon: String?,
     @SerialName("daily_weather_description") val dailyWeatherDescription: String?,
     @SerialName("sunrise_time") @Serializable(DateSerializer::class) val sunriseTime: Date?,
     @SerialName("sunset_time") @Serializable(DateSerializer::class) val sunsetTime: Date?,
-    @SerialName("uv_index") val uvIndex: Int?
+    @SerialName("uv_index") val uvIndex: Int?,
 )

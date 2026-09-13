@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,5 +23,5 @@ import java.util.Date
 
 @Serializable
 data class MetNoForecastPropertiesMeta(
-    @Serializable(DateSerializer::class) @SerialName("updated_at") val updatedAt: Date?
+    @Serializable(DateSerializer::class) @SerialName("updated_at") val updatedAt: Date?,
 )

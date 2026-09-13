@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -25,7 +25,8 @@ data class MfForecastProperties(
     @SerialName("daily_forecast") val dailyForecast: List<MfForecastDaily>?,
     val forecast: List<MfForecastHourly>?,
     @SerialName("french_department") val frenchDepartment: String?,
+    @SerialName("zone_vigi1") val zoneVigi1: String?,
     val name: String,
     @SerialName("probability_forecast") val probabilityForecast: List<MfForecastProbability>?,
-    val timezone: String
+    val timezone: String,
 )

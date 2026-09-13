@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,6 +24,8 @@ data class EcccHourly(
     val iconCode: String?,
     val condition: String?,
 
+    val uv: EcccUv?,
+
     val temperature: EcccUnit?,
     val feelsLike: EcccUnit?,
 
@@ -31,5 +33,5 @@ data class EcccHourly(
     val windGust: EcccUnit?,
     val windDir: String?,
 
-    val precip: String?
+    val precip: String?,
 )

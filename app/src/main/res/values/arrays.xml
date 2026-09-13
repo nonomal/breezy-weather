@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <!-- Do not translate this file -->
-    <!-- If you need to translate something not available as a string, please open an issue -->
+    <!-- If you need to translate something not available as a string</item>
+        <item> please open an issue -->
 
     <!-- Dark mode. -->
     <string-array name="dark_modes">
@@ -17,17 +17,27 @@
         <item>dark</item>
     </string-array>
 
+    <!-- Location-based dark mode. -->
+    <string-array name="dark_modes_location">
+        <item>@string/settings_appearance_dark_mode_locations_day_night</item>
+        <item>@string/settings_appearance_dark_mode_locations_dark</item>
+    </string-array>
+    <string-array name="dark_mode_location_values">
+        <item>day_night</item>
+        <item>dark</item>
+    </string-array>
+
     <!-- automatic refresh rate. -->
     <string-array name="automatic_refresh_rates">
         <item>@string/settings_background_updates_refresh_never</item>
-        <item>@string/settings_background_updates_refresh_30min</item>
-        <item>@string/settings_background_updates_refresh_1h</item>
-        <item>@string/settings_background_updates_refresh_1h_30min</item>
-        <item>@string/settings_background_updates_refresh_2h</item>
-        <item>@string/settings_background_updates_refresh_3h</item>
-        <item>@string/settings_background_updates_refresh_6h</item>
-        <item>@string/settings_background_updates_refresh_12h</item>
-        <item>@string/settings_background_updates_refresh_24h</item>
+        <item>30 min</item>
+        <item>1 hr</item>
+        <item>1 hr and 30 min</item>
+        <item>2 hr</item>
+        <item>3 hr</item>
+        <item>6 hr</item>
+        <item>12 hr</item>
+        <item>24 hr</item>
     </string-array>
     <string-array name="automatic_refresh_rate_values">
         <item>never</item>
@@ -270,19 +280,24 @@
     <!-- Open-Meteo models -->
     <string-array name="open_meteo_weather_models">
         <item>Best match</item>
-        <item>ECMWF IFS 0.4°</item>
+        <item>ECMWF IFS HRES 9 km</item>
         <item>ECMWF IFS 0.25°</item>
-        <item>ECMWF AIFS 0.25°</item>
+        <item>ECMWF AIFS 0.25° Single</item>
         <item>CMA GRAPES Global</item>
         <item>BOM ACCESS Global</item>
-        <item>MET Norway Nordic</item>
-        <item>GFS Seamless</item>
-        <item>GFS Global</item>
-        <item>GFS HRRR</item>
-        <item>GFS GraphCast</item>
+        <item>NCEP GFS Seamless</item>
+        <item>NCEP GFS Global 0.11° / 0.25°</item>
+        <item>NCEP HRRR U.S. Conus</item>
+        <item>NCEP NBM U.S. Conus</item>
+        <item>NCEP NAM U.S. Conus</item>
+        <item>NCEP AIGFS 0.25°</item>
+        <item>NCEP HGEFS 0.25° Ensemble Mean</item>
         <item>JMA Seamless</item>
         <item>JMA MSM</item>
         <item>JMA GSM</item>
+        <item>KMA Seamless</item>
+        <item>KMA LDPS</item>
+        <item>KMA GDPS</item>
         <item>DWD ICON Seamless</item>
         <item>DWD ICON Global</item>
         <item>DWD ICON EU</item>
@@ -291,49 +306,118 @@
         <item>GEM Global</item>
         <item>GEM Regional</item>
         <item>GEM HRDPS Continental</item>
+        <item>GEM HRDPS West</item>
         <item>Météo-France Seamless</item>
         <item>Météo-France ARPEGE World</item>
         <item>Météo-France ARPEGE Europe</item>
         <item>Météo-France AROME France</item>
         <item>Météo-France AROME France HD</item>
-        <item>ARPAE Seamless</item>
-        <item>ARPAE COSMO 2I</item>
-        <item>ARPAE COSMO 2I RUC</item>
-        <item>ARPAE COSMO 5M</item>
+        <item>ItaliaMeteo ARPAE ICON 2I</item>
+        <item>MET Norway Nordic (with ECMWF) Seamless</item>
+        <item>MET Norway Nordic</item>
+        <item>KNMI (with ECMWF) Seamless</item>
+        <item>KNMI HARMONIE-AROME Europe</item>
+        <item>KNMI HARMONIE-AROME Netherlands</item>
+        <item>DMI (with ECMWF) Seamless</item>
+        <item>DMI HARMONIE-AROME Europe</item>
+        <item>UK Met Office Seamless</item>
+        <item>UK Met Office Global 10 km</item>
+        <item>UK Met Office UK 2 km</item>
+        <item>MeteoSwiss ICON Seamless</item>
+        <item>MeteoSwiss ICON CH1</item>
+        <item>MeteoSwiss ICON CH2</item>
+        <item>GeoSphere (with ECMWF) Seamless</item>
+        <item>GeoSphere AROME Austria</item>
+        <item>CHMI Aladin Seamless</item>
+        <item>CHMI Aladin Central Europe 2 km</item>
+        <item>CHMI Aladin CZ 1 km</item>
     </string-array>
     <string-array name="open_meteo_weather_models_values">
         <item>best_match</item>
-        <item>ecmwf_ifs04</item>
+        <item>ecmwf_ifs</item>
         <item>ecmwf_ifs025</item>
-        <item>ecmwf_aifs025</item>
+        <item>ecmwf_aifs025_single</item>
         <item>cma_grapes_global</item>
         <item>bom_access_global</item>
-        <item>metno_nordic</item>
-        <item>gfs_seamless</item>
-        <item>gfs_global</item>
-        <item>gfs_hrrr</item>
-        <item>gfs_graphcast025</item>
+        <item>ncep_gfs_seamless</item>
+        <item>ncep_gfs_global</item>
+        <item>ncep_hrrr_conus</item>
+        <item>ncep_nbm_conus</item>
+        <item>ncep_nam_conus</item>
+        <item>ncep_aigfs025</item>
+        <item>ncep_hgefs025_ensemble_mean</item>
         <item>jma_seamless</item>
         <item>jma_msm</item>
         <item>jma_gsm</item>
-        <item>icon_seamless</item>
-        <item>icon_global</item>
-        <item>icon_eu</item>
-        <item>icon_d2</item>
-        <item>gem_seamless</item>
-        <item>gem_global</item>
-        <item>gem_regional</item>
-        <item>gem_hrdps_continental</item>
+        <item>kma_seamless</item>
+        <item>kma_ldps</item>
+        <item>kma_gdps</item>
+        <item>dwd_icon_seamless</item>
+        <item>dwd_icon_global</item>
+        <item>dwd_icon_eu</item>
+        <item>dwd_icon_d2</item>
+        <item>cmc_gem_seamless</item>
+        <item>cmc_gem_gdps</item>
+        <item>cmc_gem_rdps</item>
+        <item>cmc_gem_hrdps</item>
+        <item>cmc_gem_hrdps_west</item>
         <item>meteofrance_seamless</item>
         <item>meteofrance_arpege_world</item>
         <item>meteofrance_arpege_europe</item>
         <item>meteofrance_arome_france</item>
         <item>meteofrance_arome_france_hd</item>
-        <item>arpae_cosmo_seamless</item>
-        <item>arpae_cosmo_2i</item>
-        <item>arpae_cosmo_2i_ruc</item>
-        <item>arpae_cosmo_5m</item>
+        <item>italia_meteo_arpae_icon_2i</item>
+        <item>metno_seamless</item>
+        <item>metno_nordic</item>
+        <item>knmi_seamless</item>
+        <item>knmi_harmonie_arome_europe</item>
+        <item>knmi_harmonie_arome_netherlands</item>
+        <item>dmi_seamless</item>
+        <item>dmi_harmonie_arome_europe</item>
+        <item>ukmo_seamless</item>
+        <item>ukmo_global_deterministic_10km</item>
+        <item>ukmo_uk_deterministic_2km</item>
+        <item>meteoswiss_icon_seamless</item>
+        <item>meteoswiss_icon_ch1</item>
+        <item>meteoswiss_icon_ch2</item>
+        <item>geosphere_seamless</item>
+        <item>geosphere_arome_austria</item>
+        <item>chmi_aladin_seamless</item>
+        <item>chmi_aladin_central_europe_2km</item>
+        <item>chmi_aladin_cz_1km</item>
     </string-array>
+
+    <!-- Beaufort scale levels -->
+    <string-array name="wind_strength_descriptions">
+        <item>@string/wind_strength_0</item>
+        <item>@string/wind_strength_1</item>
+        <item>@string/wind_strength_2</item>
+        <item>@string/wind_strength_3</item>
+        <item>@string/wind_strength_4</item>
+        <item>@string/wind_strength_5</item>
+        <item>@string/wind_strength_6</item>
+        <item>@string/wind_strength_7</item>
+        <item>@string/wind_strength_8</item>
+        <item>@string/wind_strength_9</item>
+        <item>@string/wind_strength_10</item>
+        <item>@string/wind_strength_11</item>
+        <item>@string/wind_strength_12</item>
+    </string-array>
+    <integer-array name="wind_strength_colors">
+        <item>@color/windStrength_bf0</item>
+        <item>@color/windStrength_bf1</item>
+        <item>@color/windStrength_bf2</item>
+        <item>@color/windStrength_bf3</item>
+        <item>@color/windStrength_bf4</item>
+        <item>@color/windStrength_bf5</item>
+        <item>@color/windStrength_bf6</item>
+        <item>@color/windStrength_bf7</item>
+        <item>@color/windStrength_bf8</item>
+        <item>@color/windStrength_bf9</item>
+        <item>@color/windStrength_bf10</item>
+        <item>@color/windStrength_bf11</item>
+        <item>@color/windStrength_bf12</item>
+    </integer-array>
 
     <!-- air quality levels -->
     <string-array name="air_quality_levels">
@@ -351,6 +435,14 @@
         <item>@string/air_quality_level_4_description</item>
         <item>@string/air_quality_level_5_description</item>
         <item>@string/air_quality_level_6_description</item>
+    </string-array>
+    <string-array name="air_quality_level_harmless_exposures">
+        <item>@string/air_quality_level_1_harmless_exposure</item>
+        <item>@string/air_quality_level_2_harmless_exposure</item>
+        <item>@string/air_quality_level_3_harmless_exposure</item>
+        <item>@string/air_quality_level_4_harmless_exposure</item>
+        <item>@string/air_quality_level_5_harmless_exposure</item>
+        <item>@string/air_quality_level_6_harmless_exposure</item>
     </string-array>
     <integer-array name="air_quality_level_colors">
         <item>@color/aqiLevel_1</item>
@@ -377,199 +469,19 @@
         <item>@color/pollenLevel_5</item>
     </integer-array>
 
-    <string-array name="pollen_recosante_levels">
-        <item>Risque nul</item>
-        <item>Très faible</item>
-        <item>Faible</item>
-        <item>Moyen</item>
-        <item>Élevé</item>
-        <item>Très élevé</item>
+    <string-array name="pollen_polleninfo_levels">
+        <item>@string/pollen_level_0</item>
+        <item>@string/pollen_level_2</item>
+        <item>@string/pollen_level_3</item>
+        <item>@string/pollen_level_4</item>
+        <item>@string/pollen_level_5</item>
     </string-array>
-    <integer-array name="pollen_recosante_level_colors">
-        <item>@color/pollenRecosanteLevel_0</item>
-        <item>@color/pollenRecosanteLevel_1</item>
-        <item>@color/pollenRecosanteLevel_2</item>
-        <item>@color/pollenRecosanteLevel_3</item>
-        <item>@color/pollenRecosanteLevel_4</item>
-        <item>@color/pollenRecosanteLevel_5</item>
+    <integer-array name="pollen_polleninfo_level_colors">
+        <item>@color/pollenPollenInfoLevel_0</item>
+        <item>@color/pollenPollenInfoLevel_1</item>
+        <item>@color/pollenPollenInfoLevel_2</item>
+        <item>@color/pollenPollenInfoLevel_3</item>
+        <item>@color/pollenPollenInfoLevel_4</item>
     </integer-array>
 
-    <!-- speed unit. -->
-    <string-array name="speed_units">
-        <item>@string/unit_bf</item>
-        <item>@string/unit_mps</item>
-        <item>@string/unit_kph</item>
-        <item>@string/unit_kn</item>
-        <item>@string/unit_mph</item>
-        <item>@string/unit_ftps</item>
-    </string-array>
-    <string-array name="speed_unit_voices">
-        <item>@string/unit_bf_voice</item>
-        <item>@string/unit_mps_voice</item>
-        <item>@string/unit_kph_voice</item>
-        <item>@string/unit_kn_voice</item>
-        <item>@string/unit_mph_voice</item>
-        <item>@string/unit_ftps_voice</item>
-    </string-array>
-    <string-array name="speed_unit_values">
-        <item>bf</item>
-        <item>mps</item>
-        <item>kph</item>
-        <item>kn</item>
-        <item>mph</item>
-        <item>ftps</item>
-    </string-array>
-
-    <!-- precipitation unit. -->
-    <string-array name="precipitation_units">
-        <item>@string/unit_mm</item>
-        <item>@string/unit_cm</item>
-        <item>@string/unit_in</item>
-        <item>@string/unit_lpsqm</item>
-    </string-array>
-    <string-array name="precipitation_unit_voices">
-        <item>@string/unit_mm_voice</item>
-        <item>@string/unit_cm_voice</item>
-        <item>@string/unit_in_voice</item>
-        <item>@string/unit_lpsqm_voice</item>
-    </string-array>
-    <string-array name="precipitation_unit_values">
-        <item>mm</item>
-        <item>cm</item>
-        <item>in</item>
-        <item>lpsqm</item>
-    </string-array>
-
-    <!-- precipitation intensity unit. -->
-    <string-array name="precipitation_intensity_units">
-        <item>@string/unit_mmph</item>
-        <item>@string/unit_cmph</item>
-        <item>@string/unit_inph</item>
-        <item>@string/unit_lpsqmph</item>
-    </string-array>
-    <string-array name="precipitation_intensity_unit_voices">
-        <item>@string/unit_mmph_voice</item>
-        <item>@string/unit_cmph_voice</item>
-        <item>@string/unit_inph_voice</item>
-        <item>@string/unit_lpsqmph_voice</item>
-    </string-array>
-    <string-array name="precipitation_intensity_unit_values">
-        <item>mmph</item>
-        <item>cmph</item>
-        <item>inph</item>
-        <item>lpsqmph</item>
-    </string-array>
-
-    <!-- temperature unit. -->
-    <string-array name="temperature_units">
-        <item>@string/unit_celsius</item>
-        <item>@string/unit_fahrenheit</item>
-        <item>@string/unit_kelvin</item>
-    </string-array>
-    <string-array name="temperature_units_short">
-        <item>@string/unit_celsius_short</item>
-        <item>@string/unit_fahrenheit_short</item>
-        <item>@string/unit_kelvin_short</item>
-    </string-array>
-    <string-array name="temperature_unit_values">
-        <item>c</item>
-        <item>f</item>
-        <item>k</item>
-    </string-array>
-
-    <!-- distance unit. -->
-    <string-array name="distance_units">
-        <item>@string/unit_km</item>
-        <item>@string/unit_m</item>
-        <item>@string/unit_mi</item>
-        <item>@string/unit_nmi</item>
-        <item>@string/unit_ft</item>
-    </string-array>
-    <string-array name="distance_unit_voices">
-        <item>@string/unit_km_voice</item>
-        <item>@string/unit_m_voice</item>
-        <item>@string/unit_mi_voice</item>
-        <item>@string/unit_nmi_voice</item>
-        <item>@string/unit_ft_voice</item>
-    </string-array>
-    <string-array name="distance_unit_values">
-        <item>km</item>
-        <item>m</item>
-        <item>mi</item>
-        <item>nmi</item>
-        <item>ft</item>
-    </string-array>
-
-    <!-- pressure unit. -->
-    <string-array name="pressure_units">
-        <item>@string/unit_mb</item>
-        <item>@string/unit_kpa</item>
-        <item>@string/unit_hpa</item>
-        <item>@string/unit_atm</item>
-        <item>@string/unit_mmhg</item>
-        <item>@string/unit_inhg</item>
-        <item>@string/unit_kgfpsqcm</item>
-    </string-array>
-    <string-array name="pressure_unit_voices">
-        <item>@string/unit_mb_voice</item>
-        <item>@string/unit_kpa_voice</item>
-        <item>@string/unit_hpa_voice</item>
-        <item>@string/unit_atm_voice</item>
-        <item>@string/unit_mmhg_voice</item>
-        <item>@string/unit_inhg_voice</item>
-        <item>@string/unit_kgfpsqcm_voice</item>
-    </string-array>
-    <string-array name="pressure_unit_values">
-        <item>mb</item>
-        <item>kpa</item>
-        <item>hpa</item>
-        <item>atm</item>
-        <item>mmhg</item>
-        <item>inhg</item>
-        <item>kgfpsqcm</item>
-    </string-array>
-
-    <!-- air quality unit. -->
-    <string-array name="air_quality_units">
-        <item>@string/unit_mugpcum</item>
-    </string-array>
-    <string-array name="air_quality_unit_voices">
-        <item>@string/unit_mugpcum_voice</item>
-    </string-array>
-    <string-array name="air_quality_unit_values">
-        <item>mugpcum</item>
-    </string-array>
-
-    <!-- air quality co unit. -->
-    <string-array name="air_quality_co_units">
-        <item>@string/unit_mgpcum</item>
-    </string-array>
-    <string-array name="air_quality_co_unit_voices">
-        <item>@string/unit_mgpcum_voice</item>
-    </string-array>
-    <string-array name="air_quality_co_unit_values">
-        <item>mgpcum</item>
-    </string-array>
-
-    <!-- duration unit. -->
-    <string-array name="duration_units">
-        <item>@string/unit_h</item> <!-- hour -->
-    </string-array>
-    <string-array name="duration_unit_voices">
-        <item>@string/unit_h_voice</item>
-    </string-array>
-    <string-array name="duration_unit_values">
-        <item>h</item>
-    </string-array>
-
-    <!-- pollen unit. -->
-    <string-array name="pollen_units">
-        <item>@string/unit_ppcm</item>
-    </string-array>
-    <string-array name="pollen_unit_voices">
-        <item>@string/unit_ppcm_voice</item>
-    </string-array>
-    <string-array name="pollen_unit_values">
-        <item>ppcm</item>
-    </string-array>
 </resources>

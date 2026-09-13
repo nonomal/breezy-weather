@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,6 +23,7 @@ import java.util.Date
 @Serializable
 data class WmoSevereWeatherAlertProperties(
     val capurl: String?,
+    val rlink: String?, // Alternative cap URL for other languages
     val identifier: String?,
     @Serializable(DateSerializer::class) val sent: Date?,
     val description: String?,
@@ -31,5 +32,5 @@ data class WmoSevereWeatherAlertProperties(
     @Serializable(DateSerializer::class) val effective: Date?,
     @Serializable(DateSerializer::class) val onset: Date?,
     val url: String?,
-    @Serializable(DateSerializer::class) val expires: Date?
+    @Serializable(DateSerializer::class) val expires: Date?,
 )

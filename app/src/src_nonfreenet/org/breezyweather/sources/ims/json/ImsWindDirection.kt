@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -20,5 +20,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ImsWindDirection(
-    val direction: String?
+    val direction: String?,
 )

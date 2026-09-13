@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -17,35 +17,31 @@
 package org.breezyweather.sources.geonames
 
 import android.content.Context
-import breezyweather.domain.location.model.Location
+import breezyweather.domain.location.model.LocationAddressInfo
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
-import org.breezyweather.common.exceptions.ApiKeyMissingException
 import org.breezyweather.common.exceptions.ApiLimitReachedException
 import org.breezyweather.common.exceptions.LocationSearchException
 import org.breezyweather.common.extensions.codeForGeonames
 import org.breezyweather.common.extensions.currentLocale
 import org.breezyweather.common.preference.EditTextPreference
 import org.breezyweather.common.preference.Preference
-import org.breezyweather.common.source.ConfigurableSource
-import org.breezyweather.common.source.HttpSource
-import org.breezyweather.common.source.LocationSearchSource
-import org.breezyweather.settings.SourceConfigStore
+import org.breezyweather.domain.settings.SourceConfigStore
+import org.breezyweather.sources.geonames.json.GeoNamesLocation
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 class GeoNamesService @Inject constructor(
     @ApplicationContext context: Context,
-    client: Retrofit.Builder
-) : HttpSource(), LocationSearchSource, ConfigurableSource {
+    @Named("JsonClient") client: Retrofit.Builder,
+) : GeoNamesServiceStub() {
 
-    override val id = "geonames"
-    override val name = "GeoNames"
-    override val privacyPolicyUrl = ""
-
-    override val locationSearchAttribution = "GeoNames (CC BY 4.0)"
+    override val attributionLinks = mapOf(
+        name to "https://www.geonames.org/"
+    )
 
     private val mApi by lazy {
         client
@@ -56,11 +52,8 @@ class GeoNamesService @Inject constructor(
 
     override fun requestLocationSearch(
         context: Context,
-        query: String
-    ): Observable<List<Location>> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
+        query: String,
+    ): Observable<List<LocationAddressInfo>> {
         val apiKey = getApiKeyOrDefault()
         val languageCode = context.currentLocale.codeForGeonames
         return mApi.getLocation(
@@ -77,16 +70,45 @@ class GeoNamesService @Inject constructor(
                     else -> throw LocationSearchException()
                 }
             } else {
-                val locationList = mutableListOf<Location>()
-                results.geonames?.forEach {
-                    val locationConverted = convert(it, languageCode)
-                    if (locationConverted != null) {
-                        locationList.add(locationConverted)
-                    }
-                }
-                locationList
+                results.geonames
+                    ?.filter { (it.lat != 0.0 || it.lng != 0.0) && !it.countryCode.isNullOrEmpty() }
+                    ?.map { convertLocation(it, languageCode) }
+                    ?: emptyList()
             }
         }
+    }
+
+    private fun convertLocation(
+        result: GeoNamesLocation,
+        languageCode: String,
+    ): LocationAddressInfo {
+        return LocationAddressInfo(
+            latitude = result.lat,
+            longitude = result.lng,
+            timeZoneId = result.timezone?.timeZoneId,
+            country = result.countryName,
+            countryCode = result.countryCode!!,
+            admin1 = result.adminName1,
+            admin1Code = result.adminCode1,
+            admin2 = result.adminName2,
+            admin2Code = result.adminCode2,
+            admin3 = result.adminName3,
+            admin3Code = result.adminCode3,
+            admin4 = result.adminName4,
+            admin4Code = result.adminCode4,
+            city = getLocalizedName(result, languageCode),
+            cityCode = result.geonameId.toString()
+        )
+    }
+
+    private fun getLocalizedName(
+        result: GeoNamesLocation,
+        languageCode: String,
+    ): String? {
+        val localizedName = result.alternateNames?.firstOrNull {
+            it.lang.equals(languageCode, ignoreCase = true)
+        }
+        return if (!localizedName?.name.isNullOrEmpty()) localizedName.name else result.name
     }
 
     // CONFIG
@@ -106,6 +128,7 @@ class GeoNamesService @Inject constructor(
 
     override val isRestricted
         get() = apikey.isEmpty()
+
     override fun getPreferences(context: Context): List<Preference> {
         return listOf(
             EditTextPreference(

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,6 +22,6 @@ import java.util.Date
 
 @Serializable
 data class GeoSphereAtTimeseriesResult(
-    val timestamps: List<@Serializable(DateSerializer::class) Date>? = null,
-    val features: List<GeoSphereAtHourlyFeature>? = null
+    @Suppress("ktlint") val timestamps: List<@Serializable(DateSerializer::class) Date>? = null,
+    val features: List<GeoSphereAtHourlyFeature>? = null,
 )

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -34,7 +34,7 @@ interface OpenWeatherApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("units") units: String,
-        @Query("lang") lang: String
+        @Query("lang") lang: String,
     ): Observable<OpenWeatherForecastResult>
 
     @GET("data/2.5/weather")
@@ -43,13 +43,13 @@ interface OpenWeatherApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("units") units: String,
-        @Query("lang") lang: String
+        @Query("lang") lang: String,
     ): Observable<OpenWeatherForecast>
 
     @GET("data/2.5/air_pollution/forecast")
     fun getAirPollution(
         @Query("appid") apikey: String,
         @Query("lat") lat: Double,
-        @Query("lon") lon: Double
+        @Query("lon") lon: Double,
     ): Observable<OpenWeatherAirPollutionResult>
 }

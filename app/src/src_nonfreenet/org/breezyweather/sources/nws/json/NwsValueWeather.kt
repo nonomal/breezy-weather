@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NwsValueWeather(
     val validTime: String, // Convert to Date + interval later
-    val value: List<NwsValueWeatherValue>?
+    val value: List<NwsValueWeatherValue>?,
 )

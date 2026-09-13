@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -28,5 +28,5 @@ data class ChinaAlert(
     val alertId: String?,
     val detail: String?,
     val title: String?,
-    val type: String?
+    val type: String?,
 )

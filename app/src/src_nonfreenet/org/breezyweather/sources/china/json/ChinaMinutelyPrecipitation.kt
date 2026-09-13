@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -25,5 +25,5 @@ data class ChinaMinutelyPrecipitation(
     @Serializable(DateSerializer::class) val pubTime: Date?,
     val weather: String?,
     val description: String?,
-    val value: List<Double>?
+    val value: List<Double>?,
 )

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MfWarningComments(
     @SerialName("bloc_title") val blocTitle: String?,
-    @SerialName("text_bloc_item") val textBlocItems: List<MfWarningTextBlocItem>?
+    @SerialName("text_bloc_item") val textBlocItems: List<MfWarningTextBlocItem>?,
 )

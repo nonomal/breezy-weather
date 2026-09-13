@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -29,6 +29,6 @@ interface GeoNamesApi {
         @Query("fuzzy") fuzzy: Double,
         @Query("maxRows") maxRows: Int,
         @Query("username") username: String,
-        @Query("style") style: String
+        @Query("style") style: String,
     ): Observable<GeoNamesSearchResult>
 }

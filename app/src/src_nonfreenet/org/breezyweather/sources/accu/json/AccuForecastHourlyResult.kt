@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -47,5 +47,5 @@ data class AccuForecastHourlyResult(
     val RelativeHumidity: Int?,
     val DewPoint: AccuValue?,
     val CloudCover: Int?,
-    val Visibility: AccuValue?
+    val Visibility: AccuValue?,
 )

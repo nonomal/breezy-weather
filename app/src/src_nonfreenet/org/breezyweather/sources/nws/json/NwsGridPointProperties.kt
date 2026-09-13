@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -39,5 +39,5 @@ data class NwsGridPointProperties(
     val ceilingHeight: NwsValueDoubleContainer?,
     val visibility: NwsValueDoubleContainer?,
     val pressure: NwsValueDoubleContainer?,
-    val probabilityOfThunder: NwsValueIntContainer?,
+    val probabilityOfThunder: NwsValueDoubleContainer?,
 )

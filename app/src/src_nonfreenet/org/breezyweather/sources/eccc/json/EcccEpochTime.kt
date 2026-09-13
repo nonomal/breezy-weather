@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -21,5 +21,5 @@ import org.breezyweather.sources.eccc.serializers.EcccEpochTimeSerializer
 
 @Serializable(with = EcccEpochTimeSerializer::class)
 data class EcccEpochTime(
-    val epochTimeRounded: Int?
+    val epochTimeRounded: Int?,
 )

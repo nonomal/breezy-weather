@@ -4,6 +4,8 @@ Breezy Weather offers no radar feature because there is no free radar API we can
 
 Below is a list of suggested alternatives (you can submit a pull request to add more).
 
+Update 2026-07-02: we have been made aware of new radar opportunities, and are currently reviewing integration in Breezy Weather. In the meantime, the data below is still valid.
+
 
 ## Open source apps and Websites
 
@@ -41,8 +43,7 @@ Websites below often offer closed source apps as well, but adding a bookmark to 
         <td>
             <ul>
                 <li>10-min step</li>
-                <li>2 next hours</li>
-                <li>Past hour</li>
+                <li>Past 2 hours</li>
             </ul>
         </td>
         <td>

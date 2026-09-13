@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -28,11 +28,11 @@ interface DmiApi {
     fun getWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("cmd") cmd: String
+        @Query("cmd") cmd: String,
     ): Observable<DmiResult>
 
     @GET("dmidk_byvejrWS/rest/texts/varsler/geonameid/{id}")
     fun getAlerts(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): Observable<DmiWarningResult>
 }

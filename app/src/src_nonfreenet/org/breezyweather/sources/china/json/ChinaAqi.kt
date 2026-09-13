@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -35,5 +35,5 @@ data class ChinaAqi(
     val no2: String?,
     val no2Desc: String?,
     val co: String?,
-    val coDesc: String?
+    val coDesc: String?,
 )

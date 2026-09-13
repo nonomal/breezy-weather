@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -18,10 +18,11 @@ package org.breezyweather.sources.mf
 
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.sources.mf.json.MfCurrentResult
-import org.breezyweather.sources.mf.json.MfEphemerisResult
 import org.breezyweather.sources.mf.json.MfForecastResult
 import org.breezyweather.sources.mf.json.MfNormalsResult
 import org.breezyweather.sources.mf.json.MfRainResult
+import org.breezyweather.sources.mf.json.MfWarningDictionaryResult
+import org.breezyweather.sources.mf.json.MfWarningsOverseasResult
 import org.breezyweather.sources.mf.json.MfWarningsResult
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -38,7 +39,7 @@ interface MfApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("formatDate") formatDate: String,
-        @Query("token") token: String
+        @Query("token") token: String,
     ): Observable<MfForecastResult>
 
     @GET("v2/observation")
@@ -48,7 +49,7 @@ interface MfApi {
         @Query("lon") lon: Double,
         @Query("lang") lang: String,
         @Query("formatDate") formatDate: String,
-        @Query("token") token: String
+        @Query("token") token: String,
     ): Observable<MfCurrentResult>
 
     @GET("v3/nowcast/rain")
@@ -58,32 +59,39 @@ interface MfApi {
         @Query("lon") lon: Double,
         @Query("lang") lang: String,
         @Query("formatDate") formatDate: String,
-        @Query("token") token: String
+        @Query("token") token: String,
     ): Observable<MfRainResult>
-
-    @GET("ephemeris")
-    fun getEphemeris(
-        @Header("User-Agent") userAgent: String,
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
-        @Query("lang") lang: String,
-        @Query("formatDate") formatDate: String,
-        @Query("token") token: String
-    ): Observable<MfEphemerisResult>
 
     @GET("v2/normals")
     fun getNormals(
         @Header("User-Agent") userAgent: String,
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
-        @Query("token") token: String
+        @Query("token") token: String,
     ): Observable<MfNormalsResult>
 
     @GET("v3/warning/full")
     fun getWarnings(
         @Header("User-Agent") userAgent: String,
         @Query(encoded = true, value = "domain") domain: String,
+        @Query("echeance") echeance: String,
         @Query("formatDate") formatDate: String,
-        @Query("token") token: String
+        @Query("token") token: String,
     ): Observable<MfWarningsResult>
+
+    @GET("v2/warning/dictionary")
+    fun getOverseasWarningsDictionary(
+        @Header("User-Agent") userAgent: String,
+        @Query(encoded = true, value = "domain") domain: String,
+        @Query("token") token: String,
+    ): Observable<MfWarningDictionaryResult>
+
+    @GET("v2/warning/full")
+    fun getOverseasWarnings(
+        @Header("User-Agent") userAgent: String,
+        @Query(encoded = true, value = "domain") domain: String,
+        @Query("warning_type") warningType: String?, // vigilance4colors needed for VIGI974 / La Réunion
+        @Query("formatDate") formatDate: String,
+        @Query("token") token: String,
+    ): Observable<MfWarningsOverseasResult>
 }

@@ -1,12 +1,52 @@
-# Homepage
+# Main screen
 
-This page intends to give some explanations to how features displayed in the homepage of Breezy Weather work and how they should be interpreted. Position of elements are described for a LtR display.
+This page intends to give some explanations to how features displayed in the main screen of Breezy Weather work and how they should be interpreted. Position of elements are described for a Left-to-Right display.
 
-Homepage shows the weather for the selected location. When talking about current weather below, we will talk about current weather at the time of refresh.
+Main screen shows the weather for the selected location, with an optional drawer showing location list on large display devices.
 
-In the background, you can see an animation matching the current weather condition. This animation is dynamic by default, but you can choose a static one in the settings (Appearance).
 
-On top, you have city name of the location on the left, and location list and settings buttons on the right. You also have an Edit button that lets you access different options specific to the location, such as:
+## Glossary
+
+- Current weather: weather at the time of the last refresh
+- Days splitting: Each day starts at 06:00 and ends at 29:59 (05:59 the day after). Days are split into two moments (or “half days”): daytime (06:00 to 17:59) and nighttime (18:00 to 29:59). *Some sources might use slightly different hours, such as China from 10:00 to 19:59 and from 20:00 to 31:59.*
+
+
+## Theme
+
+The main screen is a location-based screen, meaning the dark mode is based on day and night at the viewed location, with one exception possible for accessibility reasons described below. Additionally, the background adjusts to the current weather condition.
+
+When app dark mode¹ is off:
+- During daytime, the sun is up, so the weather condition is depicted using bright colors and the dark mode is off
+- During nighttime, the sun is down, so the weather condition is depicted using dark colors and the dark mode is on
+
+When app dark mode¹ is on:
+- During daytime, the sun is up, but the **Location-based dark mode** preference (from `Settings` > `Appearance`) will affect the theme:
+  - When set to **Follow day/night**, the weather condition is depicted using bright colors and the dark mode is off
+  - When set to **Always dark when app is in dark mode**, a solar eclipse will cause the weather conditions to be depicted in dark colors and dark mode to be on
+- During nighttime, the sun is down, so the weather condition is depicted using dark colors and the dark mode is on
+
+By default, the **Location-based dark mode** preference is set **Always dark when app is in dark mode**, so that users with accessibility needs are not affected by bright colors, but we recommend setting it to **Follow day/night** for a more accurate weather-condition representation, if you can.
+
+Summary:
+
+| App dark mode¹ | Location-based dark mode             | Theme when sun is up | Theme when sun is down |
+|----------------|--------------------------------------|----------------------|------------------------|
+| Light          | Follow day/night                     | Light                | Dark                   |
+| Light          | Always dark when app is in dark mode | Light                | Dark                   |
+| Dark           | Follow day/night                     | Light                | Dark                   |
+| Dark           | Always dark when app is in dark mode | Dark (solar eclipse) | Dark                   |
+
+¹If set to **Follow system**, pick the current system dark mode
+
+In `Settings` > `Main screen`, you’ll find several options for customizing the background behavior:
+- **Weather-based background** lets you replace the theme with a static white or black background with no animations
+- **Background animation** lets you decide if you want the elements (sun, clouds, etc.) to animate or remain static
+- **Gravity sensor** lets you decide if you want the elements (sun, clouds, etc.) to move when you tilt your device
+
+
+## App bar
+
+On top, you have a back button to access location list and city name of the location on the left. On the right, you have an “Open in another app” button that lets you open this location coordinates in a compatible application. You also have an Edit button that lets you access different options specific to the location, such as:
 - Reorganize main screen (applies to all locations)
 - (Current location only) Change location service
 - Change main weather source or secondary weather sources (air quality, allergens, precipitations minute by minute, alerts)
@@ -14,62 +54,93 @@ On top, you have city name of the location on the left, and location list and se
 
 Just below, you can see the last time of refresh.
 
-Above cards, you have details about current weather:
-- Temperature
-- A text about weather condition
 
-Followed by default by the following current details:
-- Feels Like temperature
-- Wind
-- UV index (only during daylight)
-- Humidity
+## Header
 
-Details shown in header can be configured in the settings (Appearance). You can fit up to 4 details in portrait, and 5 details in landscape. You can configure more than 5 details because if some detail is missing from the source or if it’s nighttime (no UV), it will fallback to the next detail you configured in order. All details that you configured to display in header but don’t fit will be displayed in the Details card instead.
+Above weather blocks, you have details about current weather:
 
+- A description of the current weather condition
+- Temperature. When entering screen, this will animate from previous location’s temperature (or 0° if just opening the app) to the current location’s temperature, for a duration of 1 to 2 seconds depending on the temperature difference. This animation can be disabled in `Settings` > `Main screen` > `Other element animations`.
+- (If different from temperature) Feels like temperature
+- The temperature for the current and next half days:
+  - Before 06:00, it will show yesterday nighttime min temperature (if available), followed by today daytime max temperature
+  - Before 18:00, it will show today daytime max temperature, followed by today nighttime min temperature
+  - After 18:00, it will show today nighttime min temperature, followed by tomorrow daytime max temperature
 
-## Cards
+## Blocks
 
-By default, cards are configured to display in this order and are all enabled:
+By default, blocks are configured to display in this order and can be reordered by drag & drop or from settings:
+
+- Alerts (cannot be removed, will always show on top)
+- Precipitation nowcasting
 - Daily forecast
 - Hourly forecast
-- Current air quality
-- Current allergens
-- Ephemeris (Sun & Moon)
-- Current details
+- Precipitation
+- Wind
+- Air quality
+- Pollen
+- Humidity
+- UV
+- Visibility
+- Pressure
+- Sun
+- Moon
+- Clock (not enabled by default)
 
-Some cards may not show with some sources if the data is not available. Check [sources](SOURCES.md) for more info.
+Some blocks may not show with some sources if the data is not available. Check [sources](SOURCES.md) for more info.
 
-On top of the first card, you have all current alerts listed with their starting time and ending time, if they are restricted to a period. If there are no alerts currently, but there are some scheduled for the future, it will be written, and you will be able to tap on the text to see the details of these future alerts.
+**All blocks can be tapped on to access more details.**
+
+The number of small blocks displayed per row varies between 1 and 5 depending on your width display size and font scale.
+
+
+### Alerts
+
+The first blocks is always the Alerts.
+
+Current alerts are listed with their starting time and ending time, if they are valid for a specific period.
+If there are no alerts currently, but there are some scheduled for the future, it will be written, and you will be able to tap on the text to see the details of these future alerts.
+
+
+### Nowcasting precipitation
+
+Nowcasting precipitation, not to be confused with Precipitation, are the precipitations in the very short term, minute by minute.
+
+This block will show when you selected a compatible Nowcasting source AND there are precipitation in the next hour(s).
+
+You can drag a guideline on the chart to see the expected precipitation quantity 5 minute by 5 minute.
 
 
 ### Daily forecast
-
-Each day starts at 06:00 and ends at 29:59 (05:59 the day after). Days are split into two moments: daytime (06:00 to 17:59) and nighttime (18:00 to 29:59). *Some sources might use slightly different hours, such as China from 10:00 to 19:59 and from 20:00 to 31:59.*
 
 Daily forecast is made of multiple tabs called trends. Order of daily trends can be changed in settings.
 
 For each trend, the day of the week or "Today" is shown on top of each column, and just below, the day of the month and the month are shown.
 
+The number of columns shown at once depends on your display size and font scale.
+
 When data is missing for the whole period, the tab will be hidden.
 
 
-#### Temperature trends
+#### Conditions trends
 
 From top to bottom:
+
 - Weather condition of daytime (icon)
 - Maximum temperature of daytime (graph)
 - Minimum temperature of nighttime (graph)
 - Weather condition of nighttime (icon)
-- Maximum precipitation probability for the whole day (bar + text)
+- Maximum precipitation probability for daytime + nighttime (bar + text)
 
 If weather source has normals data, it will show two lines with maximum and minimum temperature normals for the month of the first day in forecast. If normals are not available, it will fallback to use a median maximum and minimum temperature for the daily forecast period.
 
 
 #### Air quality trends
 
-Each column shows the maximum air quality index for the day (bar + text) from 00:00 to 23:59. More details about air quality index can be read in Air quality card section.
+Each column shows the maximum air quality index for the day (bar + text) from 00:00 to 23:59. More details about air quality index can be read in Air quality block section.
 
 Bar color will have a different color according to air quality index:
+
 - Green: from 0 to 20
 - Yellow: from 21 to 50
 - Orange: from 51 to 100
@@ -83,12 +154,16 @@ Two lines show two alert levels (20 and 150). It can be disabled in the settings
 #### Wind trends
 
 From top to bottom:
-- Direction of the dominant wind with the highest speed during daytime (arrow icon)
+
+- Origin of the dominant wind with the highest speed during daytime (arrow icon)
+- *New in v6.2.3* Highest wind gusts of daytime if they are greater than the highest wind speed of daytime (text in a pill + transparent bar behind the highest wind speed of daytime bar)
 - Highest wind speed of daytime (text + bar)
 - Highest wind speed of nighttime (text + bar)
-- Direction of the dominant wind with the highest speed during daytime (arrow icon)
+- *New in v6.2.3* Highest wind gusts of nighttime if they are greater than the highest wind speed of nighttime (text in a pill + transparent bar behind the highest wind speed of nighttime bar)
+- Origin of the dominant wind with the highest speed during nighttime (arrow icon)
 
 Wind icons and speed bars have a different color according to Beaufort wind scale:
+
 - Green: from 0 to 3
 - Yellow: from 4 to 5
 - Orange: from 6 to 7
@@ -104,6 +179,7 @@ Two lines are shown corresponding to show when wind speed is exceeding Gentle br
 Each column shows the maximum UV index for the day (bar + text).
 
 Bar color will have a different color according to UV level:
+
 - Green: from 0 to 2
 - Yellow: from 3 to 5
 - Orange: from 6 to 7
@@ -116,14 +192,11 @@ A line shows the alert level (7). It can be disabled in the settings (Appearance
 #### Precipitation trends
 
 From top to bottom:
+
 - Weather condition of daytime (icon)
 - Total of all precipitation for daytime (bar + text)
 - Total of all precipitation for nighttime (bar + text)
 - Weather condition of nighttime (icon)
-
-If total of all precipitation is 0, it will not be shown.
-
-If total of all precipitation for all days is 0, precipitation trends will be hidden.
 
 
 #### Sunshine trends
@@ -136,19 +209,20 @@ Bar color is always light orange. It’s filled relative to the maximum daylight
 #### Feels like trends
 
 Feels like temperature is the first available data from this list:
-- RealFeel® temperature
-- RealFeel Shade™ temperature
-- Apparent temperature
-- Wind chill temperature
-- Wet bulb temperature
+
+- Source-provided feels like temperature
+- Computed apparent temperature
+- Computed wind chill temperature
+- Computed Humidex
 - Temperature
 
 From top to bottom:
+
 - Weather condition of daytime (icon)
 - Maximum feels like temperature of daytime (graph)
 - Minimum feels like temperature of nighttime (graph)
 - Weather condition of nighttime (icon)
-- Maximum precipitation probability for the whole day (bar + text)
+- Maximum precipitation probability for daytime + nighttime (bar + text)
 
 If weather source has normals data, it will show two lines with maximum and minimum temperature normals for the month of the first day in forecast. If normals are not available, it will fallback to use a median maximum and minimum temperature for the daily forecast period.
 
@@ -157,16 +231,19 @@ If weather source has normals data, it will show two lines with maximum and mini
 
 Just like daily forecast, hourly is made of the same tabs called trends. Order of hourly trends can be changed in settings.
 
-For each trend, the hour of the week is shown on top of each column, and just below, the day of the month and the month are shown. If it is the first hour listed or if it midnight, the subtitle will be highlighted.
+For each trend, the hour is shown on top of each column. If it is the first hour listed or if it midnight, the subtitle will be highlighted.
 
-Below trends, a minute by minute precipitation quantity graph will be shown if precipitations in the next hour are above 0.
+Only the next 24 hours are displayed at most.
+
+The number of columns shown at once depends on your display size and font scale.
 
 When data is missing for the whole period, the tab will be hidden.
 
 
-#### Temperature trends
+#### Conditions trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Temperature of the hour (graph)
 - Precipitation probability (text)
@@ -174,9 +251,10 @@ From top to bottom:
 
 #### Air quality trends
 
-Each column shows the air quality index for the hour (bar + text). More details about air quality index can be read in Air quality card section.
+Each column shows the air quality index for the hour (bar + text). More details about air quality index can be read in Air quality block section.
 
 Bar color will have a different color according to air quality index:
+
 - Green: from 0 to 20
 - Yellow: from 21 to 50
 - Orange: from 51 to 100
@@ -190,10 +268,13 @@ Two lines show two alert levels (20 and 150). It can be disabled in the settings
 #### Wind trends
 
 From top to bottom:
-- Direction of the dominant wind of the hour (arrow icon)
+
+- Origin of the dominant wind of the hour (arrow icon)
 - Wind speed of the hour (text + bar)
+- *New in v6.2.3* Wind gusts if they are greater than wind speed of the hour (text in a pill + transparent bar behind the wind speed bar)
 
 Wind icons and speed bars have a different color according to Beaufort wind scale:
+
 - Green: from 0 to 3
 - Yellow: from 4 to 5
 - Orange: from 6 to 7
@@ -207,6 +288,7 @@ Wind icons and speed bars have a different color according to Beaufort wind scal
 Each column shows the UV index for the hour (bar + text).
 
 Bar color will have a different color according to UV level:
+
 - Green: from 0 to 2
 - Yellow: from 3 to 5
 - Orange: from 6 to 7
@@ -219,15 +301,15 @@ A line shows the alert level (7). It can be disabled in the settings (Appearance
 #### Precipitation trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Total of all precipitation for the hour (bar + text)
-
-If total of all precipitation for all hours is 0, precipitation trends will be hidden.
 
 
 #### Feels like trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Feels like temperature of the hour (graph)
 
@@ -235,6 +317,7 @@ From top to bottom:
 #### Humidity / Dew point trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Dew point of the hour (graph)
 - Relative humidity percentage (text)
@@ -243,6 +326,7 @@ From top to bottom:
 #### Pressure trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Pressure of the hour (graph)
 
@@ -257,84 +341,132 @@ Two lines show two levels (clear sky and partly cloudy). It can be disabled in t
 #### Visibility trends
 
 From top to bottom:
+
 - Weather condition of the hour (icon)
 - Visibility of the hour (graph)
 
 
-### Current air quality
+### Precipitation
+
+Precipitation, not to be confused with the nowcasting chart, will show the expected precipitation quantity for the current half day (daytime at daytime, nighttime at nightime).
+
+It will display the type of precipitation (rain, snow, sleet) in the text and as icon, if the information is known.
+
+
+### Wind
+
+This blocks shows the current wind, with the wind origin as a background arrow.
+
+Below is a small text:
+
+- When there are wind gusts, it will show this information
+- Otherwise, the wind origin is written there
+
+
+### Air quality
 
 Air quality uses the [2023 Plume index](https://plumelabs.files.wordpress.com/2023/06/plume_aqi_2023.pdf) as a reference, and for SO2 and CO, it uses a similar scale based on [WHO recommendations from 2021](https://apps.who.int/iris/handle/10665/345329).
 
-Here is the meaning of each category:
-
-| Range    | Title          | Harmless exposure  |
-|----------|----------------|--------------------|
-| 0-20     | Excellent      | &gt; 1 year        |
-| 20-50    | Fair           | &lt; 1 year        |
-| 50-100   | Poor           | &lt; 1 day         |
-| 100-150  | Unhealthy      | &lt; 1 hour        |
-| 150-250  | Very unhealthy | &lt; a few minutes |
-| &gt; 250 | Dangerous      | &lt; 1 minutes     |
-
-Here are the thresholds:
-
-| Pollutant | AQI 20 | AQI 50 | AQI 100 | AQI 150 | AQI 250 |
-|-----------|--------|--------|---------|---------|---------|
-| O3        | 50     | 100    | 160     | 240     | 480     |
-| NO2       | 10     | 25     | 200     | 400     | 1000    |
-| PM10      | 15     | 45     | 80      | 160     | 400     |
-| PM2.5     | 5      | 15     | 30      | 60      | 150     |
-| SO2       | 20     | 40     | 270     | 500     | 960     |
-| CO        | 2      | 4      | 35      | 100     | 230     |
+Tap on the block for more info about the thresholds.
 
 AQIs above 250 follow a linear progression.
 
 An AQI is calculated for O3, NO2, PM10 and PM2.5 pollutant, and the general AQI is the maximum value of these four.
 
-On the left, the ¾ circle shows the general AQI. On the right, you can see details of pollutants. Color bar is filled by the AQI value of the pollutant and not its measured value (to avoid having insignificant low-filled bars in non-polluted places in the world).
-
-Both the circle and bars are filled with a different color for each category, so you can easily see the pollution level. The maximum value for the circle and bars is 250. At greater value, widgets will always be fulfilled.
+The ¾ circle shows the general AQI, and it’s filled with a different color for each category, so you can easily see the pollution level. The maximum value for the circle and bars is 250. At greater value, the circle will always be fulfilled.
 
 
-### Allergens
+### Pollen
 
-*Currently show allergens for current day, will be updated in the future to show for the current hour.*
+*Currently show pollens for current day, will be updated in the future to show for the current hour.*
 
-Only show allergens with at least one day where concentration > 0. The details of supported allergens by the source can be seen by tapping on the card and accessing the pollen details page.
+Shows a maximum of two most dominant pollens (excluding mold) for that day, with at least concentration > 0. The details of supported allergens by the source can be seen by tapping on the block and accessing the pollen details page.
 
-*Will be completed later*
+For each displayed pollen:
 
-
-### Ephemeris (Sun & Moon)
-
-Arc show the progression of sun and moon during their course for the currently observed day. The starting point is the rise time (sunrise or moonrise) and the endpoint is the set time (sunset or moonset). The sun and the moon icons remain on the endpoint after they set for the rest of the day.
-
-If there are two rise time (for example, the moon rises twice that day, or the moon already rose before 00:00 that day), only the first rise time after midnight for that day will be shown. The set time is the set time for that rise time, and can end up on next day. You will not be shown a set time before a rise time, even if one exists. If that information is important to you, we recommend using dedicated astronomy tools instead, especially as some weather sources might behave differently than what we just described (which is the general and fallback case).
-
-When sun or moon is always up, it will be shown as rising at 00:00 and setting at 23:59. When sun or moon is always down, nothing will be shown.
-
-Sunrise and sunset are shown on bottom left, and moonrise and moonset on bottom right.
-
-Moon phase is shown on top right (text + icon).
+- On the left, there is an icon filled with a color representing the risk level
+- On the right, name of the pollen, and below its risk level
 
 
-### Current details
+### Humidity
 
-The following details for the current weather will be shown if they are available:
+Shows the relative humidity percentage, and the dew point.
 
-- Feels like
-- Wind
-- UV index
-- Relative humidity
-- [Atmospheric pressure](https://en.wikipedia.org/wiki/Atmospheric_pressure)
-- [Visibility](https://en.wikipedia.org/wiki/Visibility)
-- [Dew point](https://en.wikipedia.org/wiki/Dew_point)
-- [Cloud cover](https://en.wikipedia.org/wiki/Cloud_cover)
-- [Ceiling](https://en.wikipedia.org/wiki/Ceiling_(cloud))
+In the background, you can see the block being filled by a percentage close to the relative humidity percentage (there are 5 different background images, so it’s always approximate).
 
-Details already shown in the header will not be shown again.
+
+### UV index
+
+Shows the current UV index.
+
+In the bottom of the block, there are 5 dots, with one of them enabled with the color of the current UV level. You can find details about the UV scale by tapping on the block.
+
+
+### Visibility
+
+Shows the current visibility.
+
+The small text below shows the visibility level.
+
+Here are the thresholds:
+
+| Level           | From  | To       |
+|-----------------|-------|----------|
+| Very poor       | 0 km  | 1 km     |
+| Poor            | 1 km  | 4 km     |
+| Moderate        | 4 km  | 10 km    |
+| Good            | 10 km | 20 km    |
+| Clear           | 20 km | 40 km    |
+| Perfectly clear | 40 km | No limit |
+
+
+### Pressure
+
+Shows the current pressure at sea level.
+
+The circle is filled from 963 mb/hPa to 1,063 mb/hPa (converted into your selected unit, if that’s the case).
+
+This means that when the pressure is half filled (filled up to the top of the circle), the pressure is at a normal level (1,013.25 mb/hPa).
+
+
+### Sun
+
+Arc show the progression of sun during their course for the currently observed day. The starting point is the sunrise time (the first one after midnight) and the endpoint is the sunset time. The sun icon remains on the endpoint after the sun set for the rest of the day.
+
+The textual information are:
+
+- Sunrise on the left
+- Sunset on the right
+
+Special cases: when sun is always up, it will show “Polar day”, and when sun is always down, it will show “Polar night”.
+
+
+### Moon
+
+Arc show the progression of moon during their course for the currently observed day. The starting point is the moonrise time and the endpoint is the moonset time. The moon icon remains on the endpoint after the moon set for the rest of the day.
+
+The textual information are:
+
+- Moonrise on the left
+- Moonset on the right
+- Moon phase (icon + text) below
+
+Special cases:
+
+- if the moon already rose before midnight that day AND the moon is still up from yesterday AND yesterday info about the moon is available (this is always the case when a location has been added the day before and has not seen a forecast source change since the day before), then the moonrise and moonset time are those from yesterday. When that “yesterday moon” sets, the information about “today moon” will take over
+- if the moon rises twice that day after midnight, only the first rise time after midnight for that day will be shown. The set time is the set time for that rise time, and can end up on next day. That case is extremely rare, but if that information is important to you, we recommend using dedicated astronomy tools instead, especially as some weather sources might behave differently than what we just described (which is the general and fallback case).
+
+
+### Clock
+
+The clock will show the current time in this location. It automatically updates every minute.
+
+An analog clock is displayed if one of the following conditions is met:
+
+- You’re running Android 12 or later
+- The timezone of this location is the same as your device timezone
 
 
 ### Footer
 
-In the footer, you have credits and acknowledgment for the weather source used for this location.
+In the footer, you have credits and acknowledgment for the forecast source used for this location, and you can access them for all other sources by tapping the “More” link.

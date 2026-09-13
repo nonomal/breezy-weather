@@ -1,10 +1,11 @@
+import com.android.build.api.dsl.LibraryExtension
+
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id("breezy.library")
     kotlin("plugin.serialization")
 }
 
-android {
+configure<LibraryExtension> {
     namespace = "breezyweather.domain"
 
     defaultConfig {
@@ -14,6 +15,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.weatherUnit)
     implementation(libs.kotlinx.serialization.json)
 
     api(libs.sqldelight.android.paging)

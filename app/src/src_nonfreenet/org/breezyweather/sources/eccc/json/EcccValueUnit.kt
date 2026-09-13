@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -19,7 +19,7 @@ package org.breezyweather.sources.eccc.json
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EcccValueUnit (
+data class EcccValueUnit(
     val value: String?,
-    val unit: String?
+    val unit: String?,
 )

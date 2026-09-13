@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 data class EcccRiseSet(
     val set: EcccEpochTime?,
     val rise: EcccEpochTime?,
-    val sunStatus: String? // Can be "alwaysUp" // TODO: Must check if "alwaysDown" exists in winter
+    val sunStatus: String?, // Can be "alwaysUp" // TODO: Must check if "alwaysDown" exists in winter
 )

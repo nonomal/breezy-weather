@@ -15,6 +15,10 @@
 
     <color name="colorWidgetM3TextPrimary">@android:color/white</color>
 
+    <!-- Alert card -->
+    <color name="alert_background">#410002</color>
+    <color name="alert_text">#FF897D</color>
+
     <!-- material 3. -->
 
     <color name="md_theme_primary">#A8C7FF</color>
@@ -45,5 +49,8 @@
     <color name="md_theme_inversePrimary">#205DAF</color>
     <color name="md_theme_shadow">#000000</color>
     <color name="md_theme_primaryInverse">#205DAF</color>
+
+    <!-- Material You -->
+    <color name="sys_widget_background">#404659</color>
 
 </resources>

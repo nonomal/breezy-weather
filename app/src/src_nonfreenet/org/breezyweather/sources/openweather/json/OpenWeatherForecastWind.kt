@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 data class OpenWeatherForecastWind(
     val speed: Double?,
     val deg: Int?,
-    val gust: Double?
+    val gust: Double?,
 )

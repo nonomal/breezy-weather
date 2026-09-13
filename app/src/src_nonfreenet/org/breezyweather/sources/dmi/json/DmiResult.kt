@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -20,11 +20,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DmiResult(
-    val id: String?,
-    val city: String?,
-    val country: String?,
-    val timezone: String,
-    val sunrise: String?,
-    val sunset: String?,
-    val timeserie: List<DmiTimeserie>?
+    val id: String? = null,
+    val city: String? = null,
+    val country: String? = null,
+    val timezone: String? = null,
+    val sunrise: String? = null,
+    val sunset: String? = null,
+    val timeserie: List<DmiTimeserie>? = null,
 )

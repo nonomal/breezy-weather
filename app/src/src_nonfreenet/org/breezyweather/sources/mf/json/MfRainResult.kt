@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -24,5 +24,5 @@ import java.util.Date
 @Serializable
 data class MfRainResult(
     @SerialName("update_time") @Serializable(DateSerializer::class) val updateTime: Date? = null,
-    val properties: MfRainProperties? = null
+    val properties: MfRainProperties? = null,
 )

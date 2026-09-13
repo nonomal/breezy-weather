@@ -1,12 +1,19 @@
+import com.android.build.api.dsl.LibraryExtension
+
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id("breezy.library")
 }
 
-android {
+configure<LibraryExtension> {
     namespace = "com.google.maps.android"
 
     defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
+}
+
+dependencies {
+    testImplementation(libs.bundles.test)
+    testRuntimeOnly(libs.junit.platform)
 }

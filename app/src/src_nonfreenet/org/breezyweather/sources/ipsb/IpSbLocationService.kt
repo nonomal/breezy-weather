@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -20,18 +20,15 @@ import android.content.Context
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.common.exceptions.InvalidOrIncompleteDataException
 import org.breezyweather.common.rxjava.SchedulerTransformer
-import org.breezyweather.common.source.HttpSource
 import org.breezyweather.common.source.LocationPositionWrapper
-import org.breezyweather.common.source.LocationSource
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 class IpSbLocationService @Inject constructor(
-    client: Retrofit.Builder
-) : HttpSource(), LocationSource {
+    @Named("JsonClient") client: Retrofit.Builder,
+) : IpSbLocationServiceStub() {
 
-    override val id = "ipsb"
-    override val name = "IP.SB"
     override val privacyPolicyUrl = "https://ip.sb/privacy-policy/"
 
     private val mApi by lazy {
@@ -50,19 +47,10 @@ class IpSbLocationService @Inject constructor(
                 }
                 LocationPositionWrapper(
                     latitude = t.latitude,
-                    longitude = t.longitude,
-                    timeZone = t.timezone,
-                    country = t.country,
-                    countryCode = t.countryCode,
-                    province = t.region,
-                    city = t.city
+                    longitude = t.longitude
                 )
             }
     }
-
-    override fun hasPermissions(context: Context) = true
-
-    override val permissions: Array<String> = emptyArray()
 
     companion object {
         private const val IP_SB_BASE_URL = "https://api.ip.sb/"

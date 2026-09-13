@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -23,5 +23,5 @@ data class ChinaYesterday(
     val aqi: String?,
     val date: String?,
     val tempMax: String?,
-    val tempMin: String?
+    val tempMin: String?,
 )

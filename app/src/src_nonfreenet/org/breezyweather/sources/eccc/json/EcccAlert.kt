@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -22,13 +22,13 @@ import org.breezyweather.common.serializer.DateSerializer
 import java.util.Date
 
 @Serializable
-data class EcccAlert (
+data class EcccAlert(
     val alertId: String?,
     val type: String?,
     @Serializable(DateSerializer::class) val issueTime: Date?,
     @Serializable(DateSerializer::class) val expiryTime: Date?,
-    val alertBannerText: String?,
+    val bannerText: String?,
     val bannerColour: String?,
     val text: String?,
-    @SerialName("special_text") val specialText: List<EcccAlertSpecialText>?
+    @SerialName("special_text") val specialText: List<EcccAlertSpecialText>?,
 )

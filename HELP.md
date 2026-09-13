@@ -1,11 +1,26 @@
 # Help / Frequently Asked Questions
 
-## App shows “Current location” instead of the reverse geocoded address
+- [Locations](#locations)
+- [Troubleshooting errors](#troubleshooting-errors)
+- [Weather updates](#weather-updates)
+- [Launcher](#launcher)
+- [Design](#design)
 
-First of all, reverse geocoding is absolutely not required to get an accurate forecast, since it’s based on your longitude and latitude, not on your address, which is a totally different process.
+___
 
-If it’s still an important matter to you, you will need to choose as your main source [a weather source supporting reverse geocoding](https://github.com/breezy-weather/breezy-weather/blob/main/docs/SOURCES.md#location).
+## Locations
 
+### App shows “Current location” instead of the address
+
+First of all, address lookup is absolutely not required to get an accurate forecast, since it’s based on your longitude and latitude, not on your address, which is a totally different process.
+
+If it’s still an important matter to you, you can select an address lookup source in the location settings.
+
+### How can I change sources for a location?
+
+Just swipe from right to left on location list, or tap the pencil icon on top right.
+
+___
 
 ## Troubleshooting errors
 
@@ -36,29 +51,56 @@ This error happens when app was able to find your longitude and latitude, but un
 This error should be reported as soon as possible to GitHub, mentioning the source and the location on which it is happening (or for privacy reasons, a nearby location that has the same issue).
 
 
+### “Incompatible forecast source times”
+
+This error means that the hourly times of forecast data and your air quality or pollen data don’t match.
+This can happen in the following case:
+You live in India, with a timezone of UTC+05:30.
+The forecast source you selected reports hourly forecast on the :00 time, while your air quality or pollen source reports on the :30 time (or the other way around).
+
+
 ### “Source no longer available”
 
 This error may happen when a source is no longer provided by Breezy Weather. In that case, you will need to add a new location with another source, and delete this location. It can also happen when you switch from the standard flavor of Breezy Weather to `freenet` one which has less sources supported.
 
 
+### “Secure connection failed”
 
+This can mean many things.
 
-## Sources
+If this only happens with one source and not others:
+1) If you are using an Android version lower than Android 14, it is possible the server is using a Certificate Authority that was not trusted by the old Android version back then. On Android 14 and later, an updated trust store should be available to Google Play users. Note that we have our own bundled trust store in the app, where we can add missing Certificate Authorities.
+2) If you have a low Android version, the server may be communicating with a more modern protocol or cipher suites than is supported by your device
+3) The certificate may be expired. In that case, all users are affected, and the source will probably fix it very soon as this means no one can use the source (in any project, not just Breezy Weather)
 
-### How can I change sources for a location?
+If this is happening will all sources, and presumably with other apps, in the worst case, you may be a victim of a [man-in-middle attack](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
 
-Just swipe from right to left on location list, or tap the pencil icon on top right.
+If in doubt, [start a discussion to ask for help](https://github.com/breezy-weather/breezy-weather/discussions/new?category=general).
 
+___
 
-## Updates
+## Weather updates
 
 ### Background updates are not working
+
+If the app is installed in a work or private profile, turning off that profile will disable background updates, so if you are in that case and want background updates, make sure to not turn off the profile or move the app to the main profile.
 
 Certain manufacturers implement non-standard Android behaviors, which prevents the app from working properly.
 
 The first thing to try is to whitelist Breezy Weather from battery optimization. From the app, go to Settings > Background updates and tap on “Disable battery optimization” (don’t worry, our background update job is optimized to be very battery-friendly, and you can change “Refresh rate” to “Never” at any time!).
 
-If it still doesn’t work, you can find ways to circumvent aggressive manufacturer behaviors on this website: https://dontkillmyapp.com/
+If it still doesn’t work, you can find ways to circumvent aggressive manufacturer behaviors on the [Don’t kill my app! website](https://dontkillmyapp.com/).
+
+
+### Refreshing some locations takes a lot of time on hardened devices (such as GrapheneOS)
+
+Affects locations configured to use one of the following sources: EPD HK, FMI, FOSS Public Alert Server, NCDR, NLSC, WMO Severe Weather
+
+These sources need to parse XML data which are known to be slow on devices with hardened memory allocator (`hardened_malloc`) enabled.
+
+If you want to avoid the issue, you can:
+- Use any source that is not listed above instead
+- For GrapheneOS users, go to App info, and turn off Hardened memory allocator (not recommended)
 
 
 ### I used Geometric Weather before, and the “persistent notification” method worked fine for me, can you bring it back?
@@ -90,3 +132,53 @@ If you still want shorter refreshes:
 - models are refreshed at best once an hour. Although there might be some little exceptions for some particular data, it’s mostly useless to refresh at intervals less than 30 minutes. Additionally, some providers send header instructions to not contact server again before X (datetime) so you would be served the same cached data anyway.
 - we ask for fair usage of API and resources. This app and these API are provided for free and shared by all users of Breezy Weather. Due to noticed abuse, we even had to implement additional caching methods to prevent these abuses and ensure API can still be used by everyone.
 - you can still force refresh from main screen by “swiping to refresh”.
+
+___
+
+## Launcher
+
+### Why is the app not called “Breezy Weather” on my launcher?
+
+The app name is “Breezy Weather”, however in the launcher we use the translated word for “weather”.
+
+The rationale behind this is to offer a better user experience:
+- You don’t have to recall what was the app name to find it in the list. You just have to remind you want to access the weather.
+- It better adapts to other languages, as we use the translated word for “weather” and you don’t have to recall a non-native word (Breezy).
+
+This choice is aligned with Breezy Weather principles to make it easy to use as a new user. Many other apps make the same decision.
+
+For users with advanced needs not happy with this choice, we recommend using a launcher that allows customisation of app names.
+
+___
+
+## Design
+
+### I hate the new Material 3 Expressive design update
+
+As always when there is a major design change, there are early adopters who fully embrace the changes, and more conservative users, with the majority of users being in-between.
+
+If you’ve been using the new design only for a few days, we encourage to **give yourself a few more weeks**.
+
+Here is why:
+
+#### Research
+
+Material 3 Expressive is the **most studied design system** by Google, with 46 studies involving more than 18,000 participants.
+
+Top research takeaways include:
+1. Expressive designs are **preferred by people of all ages**, with a strong preference from users in the 18-34 age group.
+2. Expressive designs consistently score higher on user attributes like **playfulness**, **energy**, **creativity**, and **friendliness**, which give a positive perception of the app by users.
+3. Users are **more likely to switch to products that use M3 Expressive** components and techniques.
+4. Expressive designs are **easier to use**, with participants spotting key UI elements up to **four times faster** in expressive screens, among users with varying abilities.
+
+[Learn more about the Expressive research](https://design.google/library/expressive-material-design-google-research)
+
+Each new design made by Google is more studied, and always gradually adopted by apps (we almost never see the old Holo design in apps anymore).
+
+With clear design toolkit guidelines, Material 3 Expressive provides a **consistent developer and user experience** across the Android system and the other apps also adopting it.
+
+#### Alternative design options
+
+Regarding the ability to make an option to switch between the new and old design, it’s not possible, because there were significant technical changes during the migration to get rid of most of the technical debt, which allows for easier maintenance of the app.
+
+Maintaining more than 1 design has a high maintenance cost. We do provide some abilities to customize this design for flexibility, but for more significant changes, we provide the [ability to make 3rd party designs](https://github.com/breezy-weather/breezy-weather/discussions/2089), either by yourself or by commissioning someone. If you concretize it, we would be happy if you could share it in the [Show & Tell section](https://github.com/breezy-weather/breezy-weather/discussions/categories/show-and-tell)!

@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -21,28 +21,24 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
-import org.breezyweather.common.exceptions.ApiKeyMissingException
 import org.breezyweather.common.exceptions.ApiLimitReachedException
+import org.breezyweather.common.exceptions.ApiUnauthorizedException
 import org.breezyweather.common.exceptions.InvalidOrIncompleteDataException
 import org.breezyweather.common.exceptions.LocationException
 import org.breezyweather.common.preference.EditTextPreference
 import org.breezyweather.common.preference.Preference
 import org.breezyweather.common.rxjava.SchedulerTransformer
-import org.breezyweather.common.source.ConfigurableSource
-import org.breezyweather.common.source.HttpSource
 import org.breezyweather.common.source.LocationPositionWrapper
-import org.breezyweather.common.source.LocationSource
-import org.breezyweather.settings.SourceConfigStore
+import org.breezyweather.domain.settings.SourceConfigStore
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Named
 
 class BaiduIPLocationService @Inject constructor(
     @ApplicationContext context: Context,
-    client: Retrofit.Builder
-) : HttpSource(), LocationSource, ConfigurableSource {
+    @Named("JsonClient") client: Retrofit.Builder,
+) : BaiduIPLocationServiceStub(context) {
 
-    override val id = "baidu_ip"
-    override val name = "百度IP定位 (Baidu)"
     override val privacyPolicyUrl = "https://lbs.baidu.com/index.php?title=openprivacy"
 
     private val mApi by lazy {
@@ -53,13 +49,14 @@ class BaiduIPLocationService @Inject constructor(
     }
 
     override fun requestLocation(context: Context): Observable<LocationPositionWrapper> {
-        if (!isConfigured) {
-            return Observable.error(ApiKeyMissingException())
-        }
         return mApi.getLocation(getApiKeyOrDefault(), "gcj02")
             .compose(SchedulerTransformer.create())
             .map { t ->
                 if (t.status != 0) {
+                    if (t.status == 200) {
+                        // Key is invalid
+                        throw ApiUnauthorizedException()
+                    }
                     if (t.status == 302) {
                         throw ApiLimitReachedException()
                     }
@@ -86,10 +83,6 @@ class BaiduIPLocationService @Inject constructor(
                 }
             }
     }
-
-    override fun hasPermissions(context: Context) = true
-
-    override val permissions: Array<String> = emptyArray()
 
     // CONFIG
     private val config = SourceConfigStore(context, id)

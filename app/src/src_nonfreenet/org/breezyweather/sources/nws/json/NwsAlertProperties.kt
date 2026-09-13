@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Breezy Weather.
  *
  * Breezy Weather is free software: you can redistribute it and/or modify it
@@ -26,6 +26,7 @@ data class NwsAlertProperties(
     @Serializable(DateSerializer::class) val effective: Date?,
     @Serializable(DateSerializer::class) val onset: Date?,
     @Serializable(DateSerializer::class) val expires: Date?,
+    @Serializable(DateSerializer::class) val ends: Date?,
     val status: String?,
     val severity: String?,
     val event: String?,
@@ -33,5 +34,5 @@ data class NwsAlertProperties(
     val description: String?,
     val instruction: String?,
     val sender: String?,
-    val senderName: String?
+    val senderName: String?,
 )
